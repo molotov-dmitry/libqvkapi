@@ -16,11 +16,13 @@ INCLUDEPATH += ../include
 SOURCES += main.cpp\
         mainwindow.cpp \
     ../src/qvkapi.cpp \
-    ../src/qvkauthorizeview.cpp
+    ../src/qvkauthorizeview.cpp \
+    ../src/qvkapiusers.cpp
 
 HEADERS  += mainwindow.h \
     ../include/qvkapi_global.h \
     ../include/qvkapi.h \
-    ../include/qvkauthorizeview.h
+    ../include/qvkauthorizeview.h \
+    ../include/qvkapiusers.h
 
 FORMS    += mainwindow.ui

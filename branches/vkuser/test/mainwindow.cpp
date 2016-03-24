@@ -4,6 +4,7 @@
 #include <QMessageBox>
 
 #include "qvkapi.h"
+#include "qvkapiusers.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -39,6 +40,15 @@ void MainWindow::authSuccess(const QByteArray &token, const QDateTime &tokenExpi
     QMessageBox::information(this,
                              QString::fromUtf8("Авторизация"),
                              QString::fromUtf8("Успешная авторизация"));
+
+    QVkApiUsers *vkApiUsers = new QVkApiUsers(this);
+
+    QList<unsigned int> userIdList;
+
+    userIdList.append(1);
+    userIdList.append(345345345);
+
+    vkApiUsers->requestUserInfo(token, userIdList);
 }
 
 void MainWindow::authFailed(const QString &error)

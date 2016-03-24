@@ -1,5 +1,7 @@
 #include "qvkauthorizeview.h"
 
+#include "qvkapi.h"
+
 #include <QEventLoop>
 
 #include <QUrlQuery>
@@ -61,7 +63,7 @@ void QVkAuthorizeView::exec(const QByteArray &mAppId, const QString &login, cons
     urlQuery.addQueryItem("scope", "notify,friends,photos,status");
     urlQuery.addQueryItem("display", "popup");
     urlQuery.addQueryItem("type", "browser");
-    urlQuery.addQueryItem("v", "5.50");
+    urlQuery.addQueryItem("v", VK_API_VERSION);
     urlQuery.addQueryItem("response_type", "token");
 
     QUrl url("https://oauth.vk.com/authorize");

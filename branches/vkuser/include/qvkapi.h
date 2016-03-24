@@ -6,6 +6,8 @@
 #include <QObject>
 #include <QDateTime>
 
+#define VK_API_VERSION "5.50"
+
 /*!
  * \brief Класс для работы с API ВКонтакте
  */
