@@ -3,7 +3,7 @@
 
 #include <QMessageBox>
 
-#include "libqvkapi/qvkapi.h"
+#include "qvkapi.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
