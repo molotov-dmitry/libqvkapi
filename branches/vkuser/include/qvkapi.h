@@ -22,6 +22,13 @@ public:
     void setAppId(const QByteArray &appId);
 
     /*!
+     * \brief Установка сессии
+     * \param[in] token Идентификатор сессии
+     * \param[in] userId Идентификатор пользователя
+     */
+    void setSession(const QByteArray &token, unsigned int userId);
+
+    /*!
      * \brief Авторизация
      * \param[in] login Имя пользователя
      * \param[in] password Пароль
@@ -33,7 +40,7 @@ private:
 
     QByteArray mAppId;          ///< Идентификатор приложения
 
-    QByteArray mToken;          ///< Токен
+    QByteArray mToken;          ///< Идентификатор сессии
     QDateTime mSessionExpire;   ///< Дата окончания действия сессии
 
     unsigned int mUserId;       ///< Идентификатор текущего пользователя

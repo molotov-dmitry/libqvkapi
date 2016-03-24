@@ -43,3 +43,9 @@ void QVkApi::setAppId(const QByteArray &appId)
 {
     mAppId = appId;
 }
+
+void QVkApi::setSession(const QByteArray &token, unsigned int userId)
+{
+    mToken = token;
+    mUserId = userId;
+}
