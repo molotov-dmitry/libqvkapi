@@ -5,6 +5,8 @@
 
 #if defined(QVKAPI_LIBRARY)
 #  define QVKAPISHARED_EXPORT Q_DECL_EXPORT
+#elif defined(QVKAPI_TEST)
+#  define QVKAPISHARED_EXPORT
 #else
 #  define QVKAPISHARED_EXPORT Q_DECL_IMPORT
 #endif
