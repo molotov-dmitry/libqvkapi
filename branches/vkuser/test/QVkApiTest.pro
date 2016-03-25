@@ -26,3 +26,5 @@ HEADERS  += mainwindow.h \
     ../include/qvkapiusers.h
 
 FORMS    += mainwindow.ui
+
+DEFINES += QVKAPI_TEST
