@@ -24,3 +24,5 @@ HEADERS  += mainwindow.h \
     ../include/qvkauthorizeview.h
 
 FORMS    += mainwindow.ui
+
+DEFINES += QVKAPI_TEST
