@@ -7,13 +7,13 @@
 #include <QDateTime>
 
 /*!
- * \brief Класс для работы с API ВКонтакте
+ * \brief Класс для аутентификации ВКонтакте
  */
-class QVKAPISHARED_EXPORT QVkApi : public QObject
+class QVKAPISHARED_EXPORT QVkAuth : public QObject
 {
     Q_OBJECT
 public:
-    explicit QVkApi(QObject *parent = 0);
+    explicit QVkAuth(QObject *parent = 0);
 
     /*!
      * \brief Установка ID приложения
@@ -29,11 +29,11 @@ public:
     void setSession(const QByteArray &token, unsigned int userId);
 
     /*!
-     * \brief Авторизация
+     * \brief Аутентификация
      * \param[in] login Имя пользователя
      * \param[in] password Пароль
      */
-    void authorize(const QString &login = QString(),
+    void authenticate(const QString &login = QString(),
                    const QString &password = QString());
 
 private:
@@ -48,26 +48,26 @@ private:
 signals:
 
     /*!
-     * \brief Успешная авторизация
+     * \brief Успешная аутентификации
      * \param token Идентификатор сессии
      * \param tokenExpire ДАта/время истечения действия сессии
-     * \param userId Идентификатор авторизованного пользователя
+     * \param userId Идентификатор аутентифицированного пользователя
      */
-    void authorizationSuccess(const QByteArray &token,
+    void authSuccess(const QByteArray &token,
                               const QDateTime &tokenExpire,
                               int userId);
 
     /*!
-     * \brief Ошибка авторизации
+     * \brief Ошибка аутентификации
      * \param reason Текст ошибки
      */
-    void authorizationFailed(const QString& reason);
+    void authFailed(const QString& reason);
 
     /*!
-     * \brief Прогресс авторизации
-     * \param progress Прогресс процесса авторизации в процентах
+     * \brief Прогресс аутентификации
+     * \param progress Прогресс процесса аутентификации в процентах
      */
-    void authorizationProgress(int progress);
+    void authProgress(int progress);
 };
 
 #endif // QVKAPI_H

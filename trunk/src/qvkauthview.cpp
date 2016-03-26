@@ -1,4 +1,4 @@
-#include "qvkauthorizeview.h"
+#include "qvkauthview.h"
 
 #include <QEventLoop>
 
@@ -9,7 +9,7 @@
 
 const int AUTH_STAGE_COUNT = 3;
 
-QVkAuthorizeView::QVkAuthorizeView(QObject *parent) : QObject(parent)
+QVkAuthView::QVkAuthView(QObject *parent) : QObject(parent)
 {
     mAuthView = new QWebView(0);
 
@@ -18,13 +18,13 @@ QVkAuthorizeView::QVkAuthorizeView(QObject *parent) : QObject(parent)
     //    mAuthView->show();
 }
 
-QVkAuthorizeView::~QVkAuthorizeView()
+QVkAuthView::~QVkAuthView()
 {
     if (mAuthView)
         delete mAuthView;
 }
 
-void QVkAuthorizeView::exec(const QByteArray &mAppId, const QString &login, const QString &password)
+void QVkAuthView::exec(const QByteArray &mAppId, const QString &login, const QString &password)
 {   
     //// Reconnect signals -----------------------------------------------------
 
@@ -38,13 +38,13 @@ void QVkAuthorizeView::exec(const QByteArray &mAppId, const QString &login, cons
 
     if (login.isEmpty())
     {
-        emit authorizeFailed(QString::fromUtf8("Не введено имя пользователя"));
+        emit authFailed(QString::fromUtf8("Не введено имя пользователя"));
         return;
     }
 
     if (password.isEmpty())
     {
-        emit authorizeFailed(QString::fromUtf8("Не введён пароль"));
+        emit authFailed(QString::fromUtf8("Не введён пароль"));
         return;
     }
 
@@ -77,23 +77,23 @@ void QVkAuthorizeView::exec(const QByteArray &mAppId, const QString &login, cons
     mAuthView->load(url);
 }
 
-void QVkAuthorizeView::setProgress(int progress)
+void QVkAuthView::setProgress(int progress)
 {
     int totalProgress = (100 * mAuthStage + progress) / AUTH_STAGE_COUNT;
 
     if (totalProgress > 100)
         totalProgress = 0;
 
-    emit authorizeProgress(totalProgress);
+    emit authProgress(totalProgress);
 }
 
-void QVkAuthorizeView::stageLoaded(bool success)
+void QVkAuthView::stageLoaded(bool success)
 {
     //// Проверка успешной загрузки страницы -----------------------------------
 
     if (!success)
     {
-        emit authorizeFailed(QString::fromUtf8("Ошибка загрузки страницы"));
+        emit authFailed(QString::fromUtf8("Ошибка загрузки страницы"));
 
         return;
     }
@@ -121,7 +121,7 @@ void QVkAuthorizeView::stageLoaded(bool success)
 
             if (!btnIsOk || !emailIsOk || !passIsOk)
             {
-                emit authorizeFailed(QString::fromUtf8("Ошибка страницы авторизации"));
+                emit authFailed(QString::fromUtf8("Ошибка страницы авторизации"));
                 return;
             }
 
@@ -134,7 +134,7 @@ void QVkAuthorizeView::stageLoaded(bool success)
         }
         else
         {
-            emit authorizeFailed(QString::fromUtf8("Ошибка страницы авторизации"));
+            emit authFailed(QString::fromUtf8("Ошибка страницы авторизации"));
             return;
         }
 
@@ -154,7 +154,7 @@ void QVkAuthorizeView::stageLoaded(bool success)
             if (haveError)
             {
                 QString errorText = errorMessage.toPlainText();
-                emit authorizeFailed(errorText);
+                emit authFailed(errorText);
                 return;
             }
 
@@ -164,7 +164,7 @@ void QVkAuthorizeView::stageLoaded(bool success)
 
             if (!btnIsOk)
             {
-                emit authorizeFailed(QString::fromUtf8("Ошибка страницы авторизации"));
+                emit authFailed(QString::fromUtf8("Ошибка страницы авторизации"));
                 return;
             }
 
@@ -192,21 +192,21 @@ void QVkAuthorizeView::stageLoaded(bool success)
         int expiresIn = expiresInResponce.toInt(&expiresInOk);
 
         bool userIdOk;
-        int userId = userIdResponce.toInt(&userIdOk);
+        unsigned int userId = userIdResponce.toUInt(&userIdOk);
 
         if (tokenResponce.isEmpty() || !expiresInOk || !userIdOk)
         {
             QString error = responseUrl.queryItemValue("error_description");
 
             if (error.isEmpty())
-                emit authorizeFailed(QString::fromUtf8("Ошибка ответа сервера авторизации"));
+                emit authFailed(QString::fromUtf8("Ошибка ответа сервера авторизации"));
             else
-                emit authorizeFailed(error);
+                emit authFailed(error);
 
             return;
         }
 
-        emit authorizeSuccess(tokenResponce.toLocal8Bit(),
+        emit authSuccess(tokenResponce.toLocal8Bit(),
                               QDateTime::currentDateTime().addSecs(expiresIn),
                               userId);
 
