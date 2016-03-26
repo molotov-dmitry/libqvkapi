@@ -55,7 +55,7 @@ signals:
      */
     void authSuccess(const QByteArray &token,
                               const QDateTime &tokenExpire,
-                              int userId);
+                              unsigned int userId);
 
     /*!
      * \brief Ошибка аутентификации
