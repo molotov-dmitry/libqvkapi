@@ -13,12 +13,14 @@ INCLUDEPATH += include
 
 DEFINES += QVKAPI_LIBRARY
 
-SOURCES += src/qvkapi.cpp \
-    src/qvkauthorizeview.cpp
+SOURCES += \
+    src/qvkauthview.cpp \
+    src/qvkauth.cpp
 
-HEADERS += include/qvkapi.h\
+HEADERS +=\
         include/qvkapi_global.h \
-    include/qvkauthorizeview.h
+    include/qvkauthview.h \
+    include/qvkauth.h
 
 unix {
     target.path = /usr/lib

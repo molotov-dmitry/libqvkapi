@@ -3,7 +3,7 @@
 
 #include <QMessageBox>
 
-#include "qvkapi.h"
+#include "qvkauth.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -19,31 +19,31 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_btnLogin_clicked()
 {
-    QVkApi *vkApi = new QVkApi(this);
+    QVkAuth *vkAuth = new QVkAuth(this);
 
-    connect(vkApi, SIGNAL(authorizationSuccess(QByteArray,QDateTime,int)),
+    connect(vkAuth, SIGNAL(authSuccess(QByteArray,QDateTime,int)),
             this, SLOT(authSuccess(QByteArray,QDateTime,int)));
 
-    connect(vkApi, SIGNAL(authorizationFailed(QString)),
+    connect(vkAuth, SIGNAL(authFailed(QString)),
             this, SLOT(authFailed(QString)));
 
-    connect(vkApi, SIGNAL(authorizationProgress(int)),
+    connect(vkAuth, SIGNAL(authProgress(int)),
             this, SLOT(authProgress(int)));
 
-    vkApi->setAppId("5172032");
-    vkApi->authorize(ui->editLogin->text(), ui->editPassword->text());
+    vkAuth->setAppId("5172032");
+    vkAuth->authenticate(ui->editLogin->text(), ui->editPassword->text());
 }
 
 void MainWindow::authSuccess(const QByteArray &token, const QDateTime &tokenExpire, int userId)
 {
     QMessageBox::information(this,
-                             QString::fromUtf8("Авторизация"),
-                             QString::fromUtf8("Успешная авторизация"));
+                             QString::fromUtf8("Аутентификация"),
+                             QString::fromUtf8("Успешная аутентификация"));
 }
 
 void MainWindow::authFailed(const QString &error)
 {
-    QMessageBox::critical(this, QString::fromUtf8("Ошибка авторизации"), error);
+    QMessageBox::critical(this, QString::fromUtf8("Ошибка аутентификации"), error);
 }
 
 void MainWindow::authProgress(int progress)
