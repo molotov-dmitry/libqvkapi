@@ -27,8 +27,8 @@ void QVkAuth::authenticate(const QString &login, const QString &password)
 
     QVkAuthView *authView = new QVkAuthView(this);
 
-    connect(authView, SIGNAL(authSuccess(QByteArray,QDateTime,int)),
-            this, SIGNAL(authSuccess(QByteArray,QDateTime,int)));
+    connect(authView, SIGNAL(authSuccess(QByteArray,QDateTime,uint)),
+            this, SIGNAL(authSuccess(QByteArray,QDateTime,uint)));
 
     connect(authView, SIGNAL(authFailed(QString)),
             this, SIGNAL(authFailed(QString)));
