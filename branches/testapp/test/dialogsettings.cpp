@@ -10,8 +10,6 @@
 #include "accountinfo.h"
 #include "settings.h"
 
-#include <libfinance/rpc_client.h>
-
 enum SettingsPage
 {
     PAGE_ACCOUNTS

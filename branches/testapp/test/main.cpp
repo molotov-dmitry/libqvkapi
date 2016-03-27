@@ -78,7 +78,11 @@ int main(int argc, char *argv[])
 
     //// Open database ---------------------------------------------------------
 
+#ifdef Q_OS_WIN
+    mkdir("db");
+#else
     mkdir("db", 0744);
+#endif
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("db/vk.db");
