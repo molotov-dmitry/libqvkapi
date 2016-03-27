@@ -14,7 +14,9 @@
    <string>MainWindow</string>
   </property>
   <property name="windowIcon">
-   <iconset theme="web-vk"/>
+   <iconset theme="web-vk">
+    <normaloff/>
+   </iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -55,10 +57,10 @@
        <item>
         <widget class="QToolButton" name="buttonSwitchUser">
          <property name="statusTip">
-          <string>Завершить сеанс</string>
+          <string>Сменить позьзователя</string>
          </property>
          <property name="icon">
-          <iconset theme="system-logout">
+          <iconset theme="system-reboot">
            <normaloff/>
           </iconset>
          </property>
@@ -76,10 +78,10 @@
        <item>
         <widget class="QToolButton" name="buttonLogout">
          <property name="statusTip">
-          <string>Сменить позьзователя</string>
+          <string>Завершить сеанс</string>
          </property>
          <property name="icon">
-          <iconset theme="system-reboot">
+          <iconset theme="system-logout">
            <normaloff/>
           </iconset>
          </property>
@@ -108,7 +110,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
@@ -132,8 +134,8 @@
    <slot>switchSession()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>341</x>
-     <y>57</y>
+     <x>377</x>
+     <y>58</y>
     </hint>
     <hint type="destinationlabel">
      <x>199</x>
@@ -148,8 +150,8 @@
    <slot>logout()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>375</x>
-     <y>57</y>
+     <x>347</x>
+     <y>58</y>
     </hint>
     <hint type="destinationlabel">
      <x>199</x>
