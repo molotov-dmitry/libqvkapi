@@ -15,24 +15,27 @@ INCLUDEPATH += ../include
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    ../src/qvkapi.cpp \
-    ../src/qvkauthorizeview.cpp \
+    ../src/qvkauth.cpp \
+    ../src/qvkauthview.cpp \
     accountinfo.cpp \
     dialogautent.cpp \
     dialogauthorize.cpp \
-    settings.cpp
+    settings.cpp \
+    dialogsettings.cpp
 
 HEADERS  += mainwindow.h \
     ../include/qvkapi_global.h \
-    ../include/qvkapi.h \
-    ../include/qvkauthorizeview.h \
+    ../include/qvkauth.h \
+    ../include/qvkauthview.h \
     accountinfo.h \
     dialogautent.h \
     dialogauthorize.h \
-    settings.h
+    settings.h \
+    dialogsettings.h
 
 FORMS    += mainwindow.ui \
     dialogautent.ui \
-    dialogauthorize.ui
+    dialogauthorize.ui \
+    dialogsettings.ui
 
 DEFINES += QVKAPI_TEST

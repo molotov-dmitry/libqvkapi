@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>235</width>
+    <width>399</width>
     <height>163</height>
    </rect>
   </property>
@@ -14,7 +14,9 @@
    <string>Аутентификация</string>
   </property>
   <property name="windowIcon">
-   <iconset theme="dialog-password"/>
+   <iconset theme="dialog-password">
+    <normaloff/>
+   </iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -112,22 +114,6 @@
  </tabstops>
  <resources/>
  <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>DialogAutent</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>227</x>
-     <y>129</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>149</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>

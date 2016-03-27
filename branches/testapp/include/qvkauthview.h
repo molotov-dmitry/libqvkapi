@@ -6,13 +6,13 @@
 
 #include <QWebView>
 
-class QVkAuthorizeView : public QObject
+class QVkAuthView : public QObject
 {
     Q_OBJECT
 public:
-    explicit QVkAuthorizeView(QObject *parent = 0);
+    explicit QVkAuthView(QObject *parent = 0);
 
-    ~QVkAuthorizeView();
+    ~QVkAuthView();
 
     void exec(const QByteArray &mAppId,
               const QString &login,
@@ -31,9 +31,9 @@ signals:
 
     void continueLoading();
 
-    void authorizeSuccess(const QByteArray& token, const QDateTime &tokenExpire, int userId);
-    void authorizeFailed(const QString &error);
-    void authorizeProgress(int progress);
+    void authSuccess(const QByteArray& token, const QDateTime &tokenExpire, unsigned int userId);
+    void authFailed(const QString &error);
+    void authProgress(int progress);
 
 private slots:
 

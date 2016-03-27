@@ -2,6 +2,7 @@
 #include "ui_dialogauthorize.h"
 
 #include "accountinfo.h"
+#include "dialogsettings.h"
 
 #include <QListView>
 
@@ -22,6 +23,9 @@ DialogAuthorize::~DialogAuthorize()
 
 void DialogAuthorize::on_buttonSettings_clicked()
 {
+    DialogSettings dialogSettings;
+    dialogSettings.exec();
+
     updateAccountList();
 }
 
