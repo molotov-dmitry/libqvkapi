@@ -20,10 +20,17 @@ public:
 
     ~MainWindow();
 
-private slots:
+public slots:
+
+    void switchSession();
+    void logout();
 
 private:
     Ui::MainWindow *ui;
+
+    AccountInfo mAccInfo;
+
+    bool mActuallyClose;
 };
 
 #endif // MAINWINDOW_H
