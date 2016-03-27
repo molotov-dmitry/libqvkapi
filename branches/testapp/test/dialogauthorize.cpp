@@ -12,6 +12,12 @@ DialogAuthorize::DialogAuthorize(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    if (windowIcon().isNull())
+        setWindowIcon(QIcon(":/icons/icon-auth.svg"));
+
+    if (ui->buttonSettings->icon().isNull())
+        ui->buttonSettings->setIcon(QIcon(":/icons/configure.svg"));
+
     updateAccountList();
 
 }

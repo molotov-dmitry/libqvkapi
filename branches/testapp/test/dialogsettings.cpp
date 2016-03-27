@@ -12,28 +12,28 @@
 
 #include <libfinance/rpc_client.h>
 
-bool checkIp(const QString &ip)
+enum SettingsPage
 {
-    QStringList list = ip.split(".");
-
-    if (list.count() == 4)
-    {
-        QHostAddress host;
-
-        if (host.setAddress(ip))
-        {
-            return true;
-        }
-    }
-
-    return false;
-}
+    PAGE_ACCOUNTS
+};
 
 DialogSettings::DialogSettings(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DialogSettings)
 {
     ui->setupUi(this);
+
+    if (windowIcon().isNull())
+        setWindowIcon(QIcon(":/icons/icon-settings.svg"));
+
+    if (ui->toolBox->itemIcon(PAGE_ACCOUNTS).isNull())
+        ui->toolBox->setItemIcon(PAGE_ACCOUNTS, QIcon(":/icons/config-user.svg"));
+
+    if (ui->buttonAccountAdd->icon().isNull())
+        ui->buttonAccountAdd->setIcon(QIcon(":/icons/list-add.svg"));
+
+    if (ui->buttonAccountRemove->icon().isNull())
+        ui->buttonAccountRemove->setIcon(QIcon(":/icons/list-remove.svg"));
 
     updateAccountList();
 }

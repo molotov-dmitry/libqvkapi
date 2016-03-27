@@ -13,6 +13,9 @@ DialogAutent::DialogAutent(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    if (windowIcon().isNull())
+        setWindowIcon(QIcon(":/icons/icon-auth.svg"));
+
     okButton = ui->buttonBox->button(QDialogButtonBox::Ok);
 }
 

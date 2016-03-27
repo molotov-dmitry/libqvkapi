@@ -39,3 +39,6 @@ FORMS    += mainwindow.ui \
     dialogsettings.ui
 
 DEFINES += QVKAPI_TEST
+
+RESOURCES += \
+    res/resource.qrc

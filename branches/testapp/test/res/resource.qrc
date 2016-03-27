@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>config-user.svg</file>
+        <file>configure.svg</file>
+        <file>list-add.svg</file>
+        <file>list-remove.svg</file>
+        <file>user-logout.svg</file>
+        <file>user-switch.svg</file>
+        <file>icon.svg</file>
+        <file>icon-auth.svg</file>
+        <file>icon-settings.svg</file>
+    </qresource>
+</RCC>

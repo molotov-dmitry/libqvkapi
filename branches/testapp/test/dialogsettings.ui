@@ -13,24 +13,19 @@
   <property name="windowTitle">
    <string>Настройки</string>
   </property>
-  <property name="windowIcon">
-   <iconset theme="systemsettings">
-    <normaloff/>
-   </iconset>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QToolBox" name="toolBox">
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="page_2">
+     <widget class="QWidget" name="settingsAccounts">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
         <width>382</width>
-        <height>223</height>
+        <height>219</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -60,7 +55,9 @@
             <string>Добавить учетную запись</string>
            </property>
            <property name="icon">
-            <iconset theme="list-add"/>
+            <iconset theme="list-add">
+             <normaloff/>
+            </iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -79,7 +76,9 @@
             <string>Удалить учетную запись</string>
            </property>
            <property name="icon">
-            <iconset theme="list-remove"/>
+            <iconset theme="list-remove">
+             <normaloff/>
+            </iconset>
            </property>
            <property name="iconSize">
             <size>
