@@ -51,8 +51,19 @@
        </item>
        <item>
         <widget class="QToolButton" name="buttonSwitchUser">
+         <property name="statusTip">
+          <string>Завершить сеанс</string>
+         </property>
          <property name="icon">
-          <iconset theme="system-logout"/>
+          <iconset theme="system-logout">
+           <normaloff/>
+          </iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>16</width>
+           <height>16</height>
+          </size>
          </property>
          <property name="autoRaise">
           <bool>true</bool>
@@ -61,8 +72,19 @@
        </item>
        <item>
         <widget class="QToolButton" name="buttonLogout">
+         <property name="statusTip">
+          <string>Сменить позьзователя</string>
+         </property>
          <property name="icon">
-          <iconset theme="system-reboot"/>
+          <iconset theme="system-reboot">
+           <normaloff/>
+          </iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>16</width>
+           <height>16</height>
+          </size>
          </property>
          <property name="autoRaise">
           <bool>true</bool>
@@ -83,7 +105,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>20</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
