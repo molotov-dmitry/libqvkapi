@@ -1,3 +1,8 @@
+/*!
+  \file
+  \brief Файл с описанием структур информации о пользователе
+*/
+
 #ifndef QVKUSERINFO_H
 #define QVKUSERINFO_H
 
@@ -96,6 +101,16 @@ struct VkUserInfoContacts
 
     QString             mobilePhone;    ///< Номер мобильного телефона
     QString             homePhone;      ///< Дополнительный номер телефона
+};
+
+/*!
+ * \brief Полная информация о пользователе
+ */
+struct VkUserInfoFull
+{
+    VkUserInfoBasic     basic;          ///< Базовая информация о пользователе
+    VkUserInfoStatus    status;         ///< Информация о статусе пользователя
+    VkUserInfoContacts  contacts;       ///< Информация о контактах пользователя
 };
 
 #endif // QVKUSERINFO_H
