@@ -1,15 +1,33 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QMessageBox>
+#include "settings.h"
 
-#include "qvkauth.h"
-
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(const AccountInfo &accInfo, QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    mAccInfo(accInfo),
+    mActuallyClose(true)
 {
     ui->setupUi(this);
+
+    if (windowIcon().isNull())
+        setWindowIcon(QIcon(":/icons/icon.svg"));
+
+    if (ui->buttonLogout->icon().isNull())
+        ui->buttonLogout->setIcon(QIcon(":/icons/user-logout.svg"));
+
+    if (ui->buttonSwitchUser->icon().isNull())
+        ui->buttonSwitchUser->setIcon(QIcon(":/icons/user-switch.svg"));
+
+    ui->labelName->setText(accInfo.visibleName());
+
+    Settings::setSetting("current_id", QString::number(accInfo.id()));
+}
+
+bool MainWindow::actuallyClose() const
+{
+    return mActuallyClose;
 }
 
 MainWindow::~MainWindow()
@@ -17,36 +35,15 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_btnLogin_clicked()
+void MainWindow::switchSession()
 {
-    QVkAuth *vkAuth = new QVkAuth(this);
-
-    connect(vkAuth, SIGNAL(authSuccess(QByteArray,QDateTime,int)),
-            this, SLOT(authSuccess(QByteArray,QDateTime,int)));
-
-    connect(vkAuth, SIGNAL(authFailed(QString)),
-            this, SLOT(authFailed(QString)));
-
-    connect(vkAuth, SIGNAL(authProgress(int)),
-            this, SLOT(authProgress(int)));
-
-    vkAuth->setAppId("5172032");
-    vkAuth->authenticate(ui->editLogin->text(), ui->editPassword->text());
+    mActuallyClose = false;
+    close();
 }
 
-void MainWindow::authSuccess(const QByteArray &token, const QDateTime &tokenExpire, int userId)
+void MainWindow::logout()
 {
-    QMessageBox::information(this,
-                             QString::fromUtf8("Аутентификация"),
-                             QString::fromUtf8("Успешная аутентификация"));
-}
-
-void MainWindow::authFailed(const QString &error)
-{
-    QMessageBox::critical(this, QString::fromUtf8("Ошибка аутентификации"), error);
-}
-
-void MainWindow::authProgress(int progress)
-{
-    ui->authProgressBar->setValue(progress);
+    mAccInfo.dbDelete();
+    mActuallyClose = false;
+    close();
 }
