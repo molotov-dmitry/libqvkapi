@@ -1,3 +1,7 @@
+/*!
+  \file
+  \brief Файл с описанием класса запросов информации о пользователях
+*/
 #ifndef QVKREQUESTUSERS_H
 #define QVKREQUESTUSERS_H
 
