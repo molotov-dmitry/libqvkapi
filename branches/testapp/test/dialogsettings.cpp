@@ -79,8 +79,6 @@ void DialogSettings::on_buttonAccountRemove_clicked()
         if (QMessageBox::question(this, "Подтверждение", text) == QMessageBox::No)
             return;
 
-        //TODO: logout
-
         accInfo.dbDelete();
 
         updateAccountList();

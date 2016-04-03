@@ -43,6 +43,7 @@ void MainWindow::switchSession()
 
 void MainWindow::logout()
 {
+    mAccInfo.dbDelete();
     mActuallyClose = false;
     close();
 }
