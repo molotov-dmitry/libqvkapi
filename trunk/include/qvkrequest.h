@@ -30,10 +30,10 @@ public:
 
     /*!
      * \brief Отправить запрос API Вконтакте
-     * \param[in] requestName Название запроса
+     * \param[in] methodName Название запроса
      * \param[in] userParams Дополнительные параметры запроса
      */
-    void sendRequest(const QString &requestName,
+    void sendRequest(const QString &methodName,
                      const QParam &userParams = QParam());
 
 protected:
@@ -46,11 +46,11 @@ private:
 
     /*!
      * \brief Подготовка URL запроса
-     * \param[in] requestName Название запроса
+     * \param[in] methodName Название запроса
      * \param[in] userParams Дополнительные параметры запроса
      * \return URL запроса
      */
-    QUrl prepareRequestUrl(const QString &requestName,
+    QUrl prepareRequestUrl(const QString &methodName,
                            const QParam &userParams);
 
 private slots:
