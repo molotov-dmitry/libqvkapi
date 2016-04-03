@@ -97,6 +97,40 @@ void AccountInfo::setTokenExpire(const QDateTime &tokenExpire)
     mTokenExpire = tokenExpire;
 }
 
+bool AccountInfo::setFirstName(const QString &firstName)
+{
+    bool res = updateValue("first_name", firstName);
+
+    if (res)
+        mFirstName = firstName;
+
+    return res;
+}
+
+bool AccountInfo::setLastName(const QString &lastName)
+{
+    bool res = updateValue("last_name", lastName);
+
+    if (res)
+        mLastName = lastName;
+
+    return res;
+}
+
+bool AccountInfo::updateValue(const QString &name, const QString &value)
+{
+    QSqlQuery query;
+    query.prepare(QString("UPDATE users ") +
+                  QString("SET ") + name + QString(" = :value ") +
+                  QString("WHERE id = :id"));
+
+    query.bindValue(":name", name);
+    query.bindValue(":value", value);
+    query.bindValue(":id", mId);
+
+    return query.exec();
+}
+
 QString AccountInfo::login() const
 {
     return mLogin;
