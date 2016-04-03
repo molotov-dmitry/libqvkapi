@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "accountinfo.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -12,22 +14,23 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(const AccountInfo &accInfo, QWidget *parent = 0);
+
+    bool actuallyClose() const;
+
     ~MainWindow();
 
-private slots:
-    void on_btnLogin_clicked();
+public slots:
 
-    void authSuccess(const QByteArray &token,
-                     const QDateTime &tokenExpire,
-                     int userId);
-
-    void authFailed(const QString &error);
-
-    void authProgress(int progress);
+    void switchSession();
+    void logout();
 
 private:
     Ui::MainWindow *ui;
+
+    AccountInfo mAccInfo;
+
+    bool mActuallyClose;
 };
 
 #endif // MAINWINDOW_H
