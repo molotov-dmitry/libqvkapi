@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 #include "accountinfo.h"
+#include "qvkuserinfo.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,17 +21,23 @@ public:
 
     ~MainWindow();
 
-public slots:
-
-    void switchSession();
-    void logout();
-
 private:
     Ui::MainWindow *ui;
 
     AccountInfo mAccInfo;
 
     bool mActuallyClose;
+
+public slots:
+
+    void switchSession();
+    void logout();
+
+private slots:
+
+    void updateBasicUserInfo(QList<VkUserInfoBasic> userInfoList);
+
+    void showError(QString errorText);
 };
 
 #endif // MAINWINDOW_H

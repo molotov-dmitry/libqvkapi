@@ -21,7 +21,9 @@ SOURCES += main.cpp\
     dialogautent.cpp \
     dialogauthorize.cpp \
     settings.cpp \
-    dialogsettings.cpp
+    dialogsettings.cpp \
+    ../src/qvkrequestusers.cpp \
+    ../src/qvkrequest.cpp
 
 HEADERS  += mainwindow.h \
     ../include/qvkapi_global.h \
@@ -31,7 +33,10 @@ HEADERS  += mainwindow.h \
     dialogautent.h \
     dialogauthorize.h \
     settings.h \
-    dialogsettings.h
+    dialogsettings.h \
+    ../include/qvkrequestusers.h \
+    ../include/qvkuserinfo.h \
+    ../include/qvkrequest.h
 
 FORMS    += mainwindow.ui \
     dialogautent.ui \

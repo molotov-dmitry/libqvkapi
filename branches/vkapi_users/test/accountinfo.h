@@ -32,6 +32,10 @@ public:
     QDateTime tokenExpire() const;
     void setTokenExpire(const QDateTime &tokenExpire);
 
+    bool setFirstName(const QString &firstName);
+
+    bool setLastName(const QString &lastName);
+
 private:
 
     bool mValid;
@@ -47,6 +51,8 @@ private:
     QDateTime   mTokenExpire;
 
     QIcon   mProfileImage;
+
+    bool updateValue(const QString &name, const QString &value);
 
 };
 
