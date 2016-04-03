@@ -3,6 +3,9 @@
 #include <QUrl>
 #include <QUrlQuery>
 
+#include <QJsonObject>
+#include <QJsonParseError>
+
 const QString VK_API_URL = QString("https://api.vk.com");
 
 QVkRequest::QVkRequest(const QByteArray &token,
@@ -15,10 +18,10 @@ QVkRequest::QVkRequest(const QByteArray &token,
     connect(mManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(getReply(QNetworkReply*)));
 }
 
-void QVkRequest::sendRequest(const QString &requestName,
+void QVkRequest::sendRequest(const QString &methodName,
                              const QParam &userParams)
 {
-    QUrl requestUrl = prepareRequestUrl(requestName, userParams);
+    QUrl requestUrl = prepareRequestUrl(methodName, userParams);
 
     mManager->get(QNetworkRequest(requestUrl));
 }
@@ -30,7 +33,10 @@ QUrl QVkRequest::prepareRequestUrl(const QString &methodName,
                                                            QString(methodName));
 
     QUrlQuery requestParam;
-    requestParam.addQueryItem("access_token", mToken);
+
+    if (!mToken.isEmpty())
+        requestParam.addQueryItem("access_token", mToken);
+
     requestParam.addQueryItem("v", mApiVersion);
 
     foreach (QString key, userParams.keys())
@@ -52,7 +58,22 @@ void QVkRequest::getReply(QNetworkReply *reply)
         return;
     }
 
-    QJsonDocument document = QJsonDocument::fromBinaryData(reply->readAll());
+    QByteArray replyData = reply->readAll();
+    QJsonParseError jsonParseError;
+    QJsonDocument document = QJsonDocument::fromJson(replyData, &jsonParseError);
+
+    if (jsonParseError.error != QJsonParseError::NoError)
+    {
+        emit replyFailed(jsonParseError.errorString());
+        return;
+    }
+
+    if (document.object().contains("error"))
+    {
+        QString errorMsg = document.object()["error"].toObject()["error_msg"].toString();
+
+        emit replyFailed(errorMsg);
+    }
 
     emit replySuccess(document);
 }
