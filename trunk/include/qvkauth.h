@@ -1,3 +1,8 @@
+/*!
+  \file
+  \brief Файл с описанием класса для аутентификации Вконтакте
+*/
+
 #ifndef QVKAPI_H
 #define QVKAPI_H
 
@@ -13,6 +18,10 @@ class QVKAPISHARED_EXPORT QVkAuth : public QObject
 {
     Q_OBJECT
 public:
+    /*!
+     * \brief Конструктор класса
+     * \param[in] parent Родительский объект
+     */
     explicit QVkAuth(QObject *parent = 0);
 
     /*!
