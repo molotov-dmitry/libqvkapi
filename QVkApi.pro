@@ -16,13 +16,16 @@ DEFINES += QVKAPI_LIBRARY
 SOURCES += \
     src/qvkauthview.cpp \
     src/qvkauth.cpp \
-    src/qvkrequest.cpp
+    src/qvkrequest.cpp \
+    src/qvkrequestusers.cpp
 
 HEADERS +=\
         include/qvkapi_global.h \
     include/qvkauthview.h \
     include/qvkauth.h \
-    include/qvkrequest.h
+    include/qvkrequest.h \
+    include/qvkuserinfo.h \
+    include/qvkrequestusers.h
 
 unix {
     target.path = /usr/lib
