@@ -23,11 +23,11 @@ void QVkRequest::sendRequest(const QString &requestName,
     mManager->get(QNetworkRequest(requestUrl));
 }
 
-QUrl QVkRequest::prepareRequestUrl(const QString &requestName,
+QUrl QVkRequest::prepareRequestUrl(const QString &methodName,
                                    const QParam &userParams)
 {
-    QString requestUrlString = QString("%1/method/%2.get").arg(VK_API_URL,
-                                                               QString(requestName));
+    QString requestUrlString = QString("%1/method/%2").arg(VK_API_URL,
+                                                           QString(methodName));
 
     QUrlQuery requestParam;
     requestParam.addQueryItem("access_token", mToken);
