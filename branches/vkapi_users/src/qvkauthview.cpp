@@ -70,7 +70,7 @@ void QVkAuthView::exec(const QByteArray &mAppId, const QString &login, const QSt
 
     //// Set stage -------------------------------------------------------------
 
-    mAuthStage = 0;
+    mAuthStage = AUTH_INPUT_LOGIN_PASS;
 
     //// Start loading ---------------------------------------------------------
 
@@ -79,7 +79,7 @@ void QVkAuthView::exec(const QByteArray &mAppId, const QString &login, const QSt
 
 void QVkAuthView::setProgress(int progress)
 {
-    int totalProgress = (100 * mAuthStage + progress) / AUTH_STAGE_COUNT;
+    int totalProgress = (100 * (int)mAuthStage + progress) / AUTH_STAGE_COUNT;
 
     if (totalProgress > 100)
         totalProgress = 0;
@@ -105,7 +105,7 @@ void QVkAuthView::stageLoaded(bool success)
 
     //// Страница для ввода логина и пароля ------------------------------------
 
-    case 0:
+    case AUTH_INPUT_LOGIN_PASS:
     {
         QWebFrame *authFrame = mAuthView->page()->currentFrame();
 
@@ -125,7 +125,7 @@ void QVkAuthView::stageLoaded(bool success)
                 return;
             }
 
-            mAuthStage++;
+            mAuthStage = AUTH_INSTALL_ALLOW;
 
             editEmail.setAttribute("value", mLogin);
             editPass.setAttribute("value", mPassword);
@@ -141,7 +141,7 @@ void QVkAuthView::stageLoaded(bool success)
         return;
     }
 
-    case 1:
+    case AUTH_INSTALL_ALLOW:
     {
         QWebFrame *authFrame = mAuthView->page()->currentFrame();
 
@@ -168,7 +168,7 @@ void QVkAuthView::stageLoaded(bool success)
                 return;
             }
 
-            mAuthStage++;
+            mAuthStage = AUTH_RESPONSE;
 
             btnSubmit.evaluateJavaScript("this.click();");
         }
@@ -178,7 +178,7 @@ void QVkAuthView::stageLoaded(bool success)
 
         //// Проверка ответа сервера авторизации -------------------------------
 
-    case 2:
+    case AUTH_RESPONSE:
     {
         QString urlString = mAuthView->url().toString().replace("#", "?");
 
@@ -207,8 +207,8 @@ void QVkAuthView::stageLoaded(bool success)
         }
 
         emit authSuccess(tokenResponce.toLocal8Bit(),
-                              QDateTime::currentDateTime().addSecs(expiresIn),
-                              userId);
+                         QDateTime::currentDateTime().addSecs(expiresIn),
+                         userId);
 
         return;
     }
