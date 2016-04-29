@@ -20,12 +20,19 @@ public:
 
 private:
 
-    int     mAuthStage;
+    enum AuthStage
+    {
+        AUTH_INPUT_LOGIN_PASS,
+        AUTH_INSTALL_ALLOW,
+        AUTH_RESPONSE
+    };
 
-    QWebView *mAuthView;
+    AuthStage   mAuthStage;
 
-    QString mLogin;
-    QString mPassword;
+    QWebView    *mAuthView;
+
+    QString     mLogin;
+    QString     mPassword;
 
 signals:
 
