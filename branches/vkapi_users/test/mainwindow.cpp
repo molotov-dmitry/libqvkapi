@@ -57,9 +57,19 @@ void MainWindow::switchSession()
 
 void MainWindow::logout()
 {
-    mAccInfo.dbDelete();
-    mActuallyClose = false;
-    close();
+    QMessageBox::StandardButton result;
+
+    result = QMessageBox::question(this,
+                                   trUtf8("Завершение сессии"),
+                                   trUtf8("Вы действительно хотите завершить сессию?"));
+
+    if (result == QMessageBox::Yes)
+    {
+        mAccInfo.dbDelete();
+        mActuallyClose = false;
+        close();
+    }
+
 }
 
 void MainWindow::updateBasicUserInfo(QList<VkUserInfoBasic> userInfoList)
