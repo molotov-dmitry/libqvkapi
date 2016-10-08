@@ -15,8 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset theme="web-vk">
-    <normaloff/>
-   </iconset>
+    <normaloff>.</normaloff>.</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -63,14 +62,12 @@
           <string>1</string>
          </property>
          <property name="icon">
-          <iconset theme="mail-mark-unread">
-           <normaloff/>
-          </iconset>
+          <iconset theme="mail-mark-unread"/>
          </property>
          <property name="iconSize">
           <size>
-           <width>16</width>
-           <height>16</height>
+           <width>20</width>
+           <height>20</height>
           </size>
          </property>
          <property name="toolButtonStyle">
@@ -97,14 +94,12 @@
           <string>Сменить позьзователя</string>
          </property>
          <property name="icon">
-          <iconset theme="system-reboot">
-           <normaloff/>
-          </iconset>
+          <iconset theme="system-reboot"/>
          </property>
          <property name="iconSize">
           <size>
-           <width>16</width>
-           <height>16</height>
+           <width>20</width>
+           <height>20</height>
           </size>
          </property>
          <property name="autoRaise">
@@ -118,14 +113,12 @@
           <string>Завершить сеанс</string>
          </property>
          <property name="icon">
-          <iconset theme="system-logout">
-           <normaloff/>
-          </iconset>
+          <iconset theme="system-logout"/>
          </property>
          <property name="iconSize">
           <size>
-           <width>16</width>
-           <height>16</height>
+           <width>20</width>
+           <height>20</height>
           </size>
          </property>
          <property name="autoRaise">
@@ -147,7 +140,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
@@ -155,7 +148,40 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>buttonLogout</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>logout()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>376</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonSwitchUser</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>switchSession()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>343</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <slots>
   <slot>switchSession()</slot>
   <slot>logout()</slot>
