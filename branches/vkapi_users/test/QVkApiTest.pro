@@ -23,7 +23,9 @@ SOURCES += main.cpp\
     settings.cpp \
     dialogsettings.cpp \
     ../src/qvkrequestusers.cpp \
-    ../src/qvkrequest.cpp
+    ../src/qvkrequest.cpp \
+    vkpagewidget.cpp \
+    vkpageuser.cpp
 
 HEADERS  += mainwindow.h \
     ../include/qvkapi_global.h \
@@ -36,12 +38,15 @@ HEADERS  += mainwindow.h \
     dialogsettings.h \
     ../include/qvkrequestusers.h \
     ../include/qvkuserinfo.h \
-    ../include/qvkrequest.h
+    ../include/qvkrequest.h \
+    vkpagewidget.h \
+    vkpageuser.h
 
 FORMS    += mainwindow.ui \
     dialogautent.ui \
     dialogauthorize.ui \
-    dialogsettings.ui
+    dialogsettings.ui \
+    vkpageuser.ui
 
 DEFINES += QVKAPI_TEST
 

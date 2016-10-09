@@ -6,6 +6,8 @@
 #include "accountinfo.h"
 #include "qvkuserinfo.h"
 
+#include "vkpagewidget.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -28,6 +30,9 @@ private:
 
     bool mActuallyClose;
 
+    QList<VkPageWidget*> mPages;
+    VkPageWidget* mCurrentPage;
+
 public slots:
 
     void switchSession();
@@ -38,6 +43,10 @@ private slots:
     void updateBasicUserInfo(QList<VkUserInfoBasic> userInfoList);
 
     void showError(QString errorText);
+    void on_buttonUpdate_clicked();
+    void on_tabWidget_tabCloseRequested(int index);
+    void on_tabWidget_currentChanged(int index);
+    void on_buttonUser_clicked();
 };
 
 #endif // MAINWINDOW_H
