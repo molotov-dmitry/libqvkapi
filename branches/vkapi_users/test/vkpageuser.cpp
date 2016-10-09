@@ -44,7 +44,13 @@ void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
     mPageId = QByteArray("id") + QByteArray::number(mId);
 
     ui->valueUsername->setText(userInfo.basic.firstName + " " + userInfo.basic.lastName);
+
+    //// Статус ================================================================
+
+    ui->valueStatus->setHidden(userInfo.status.statusText.isEmpty());
     ui->valueStatus->setText(userInfo.status.statusText);
+
+    //// Онлайн ================================================================
 
     if (userInfo.status.userOnline == VkUser::USER_OFFLINE)
     {
@@ -61,6 +67,11 @@ void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
     else
         ui->valueOnline->setText("---");
 
+    //// День рождения =========================================================
+
+    ui->groupInfo->setHidden(userInfo.status.birthDay == 0
+                             || userInfo.status.birthMonth == 0);
+
     if (userInfo.status.birthDay != 0 && userInfo.status.birthMonth != 0)
     {
         ui->valueBirthDate->show();
@@ -76,11 +87,6 @@ void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
             ui->valueBirthDate->setText(QString::number(userInfo.status.birthDay) + " " +
                                         QDate::longMonthName(userInfo.status.birthMonth));
         }
-    }
-    else
-    {
-        ui->valueBirthDate->hide();
-        ui->labelBirthDate->hide();
     }
 
     //// Местоположения ========================================================
@@ -113,7 +119,7 @@ void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
     //// Телефоны ==============================================================
 
     ui->groupPhones->setHidden(userInfo.contacts.mobilePhone.isEmpty()
-                             && userInfo.contacts.homePhone.isEmpty());
+                               && userInfo.contacts.homePhone.isEmpty());
 
     //// Мобильный -------------------------------------------------------------
 
@@ -136,6 +142,11 @@ void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
     ui->valueCountVideos->setText(QString::number(userInfo.counters.videos));
     ui->valueCountAudios->setText(QString::number(userInfo.counters.audios));
     ui->valueCountFriends->setText(QString::number(userInfo.counters.friends));
+
+    //// Фотография ============================================================
+
+    if (!userInfo.photo.photo_50.isEmpty())
+        ui->imageProfile->setImage(userInfo.photo.photo_50);
 
 }
 
