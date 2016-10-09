@@ -38,6 +38,9 @@
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QListWidget" name="listAccounts">
+         <property name="spacing">
+          <number>5</number>
+         </property>
          <property name="uniformItemSizes">
           <bool>true</bool>
          </property>
