@@ -16,6 +16,9 @@
 
 typedef QMap<QString, QString> QParam;
 
+/*!
+ * \brief Класс запроса API ВКонтакте
+ */
 class QVkRequest : public QObject
 {
     Q_OBJECT
@@ -29,7 +32,7 @@ public:
                         QObject *parent = 0);
 
     /*!
-     * \brief Отправить запрос API Вконтакте
+     * \brief Отправка запроса API Вконтакте
      * \param[in] methodName Название запроса
      * \param[in] userParams Дополнительные параметры запроса
      */

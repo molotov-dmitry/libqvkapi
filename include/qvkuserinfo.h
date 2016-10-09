@@ -19,9 +19,9 @@ struct VkUser
      */
     enum Status
     {
-        USER_ACTIVE,                ///< Пользователь активен
-        USER_DELETED,               ///< Пользователь удалён
-        USER_BANNED                 ///< Пользователь заблокирован
+        USER_ACTIVE,                    ///< Пользователь активен
+        USER_DELETED,                   ///< Пользователь удалён
+        USER_BANNED                     ///< Пользователь заблокирован
     };
 
     /*!
@@ -33,8 +33,8 @@ struct VkUser
      */
     enum Visibility
     {
-        USER_VISIBLE,               ///< Страница видна всем
-        USER_HIDDEN,                ///< Страница видна только зарегистрированным пользователям
+        USER_VISIBLE,                   ///< Страница видна всем
+        USER_HIDDEN,                    ///< Страница видна только зарегистрированным пользователям
     };
 
     /*!
@@ -42,9 +42,9 @@ struct VkUser
      */
     enum Sex
     {
-        USER_SEX_NOT_SPECIFIED,     ///< Пол не указан
-        USER_FEMALE,                ///< Женский
-        USER_MALE                   ///< Мужской
+        USER_SEX_NOT_SPECIFIED,         ///< Пол не указан
+        USER_FEMALE,                    ///< Женский
+        USER_MALE                       ///< Мужской
     };
 
     /*!
@@ -52,9 +52,9 @@ struct VkUser
      */
     enum Online
     {
-        USER_OFFLINE,               ///< Пользователь оффлайн
-        USER_ONLINE,                ///< Пользователь онлайн
-        USER_ONLINE_MOBILE          ///< Пользователь онлайн и использует мобильное приложение
+        USER_OFFLINE,                   ///< Пользователь оффлайн
+        USER_ONLINE,                    ///< Пользователь онлайн
+        USER_ONLINE_MOBILE              ///< Пользователь онлайн и использует мобильное приложение
     };
 };
 
@@ -104,6 +104,28 @@ struct VkUserInfoContacts
 };
 
 /*!
+ * \brief Информаци о счётчиках пользователя
+ */
+struct VkUserInfoCounters
+{
+    unsigned int        albums;         ///< Количество альбомов
+    unsigned int        videos;         ///< Количество видеозаписей
+    unsigned int        audios;         ///< Количество аудиозаписей
+    unsigned int        notes;          ///< Количество заметок
+    unsigned int        photos;         ///< Количество фотографий
+    unsigned int        groups;         ///< Количество групп
+    unsigned int        gifts;          ///< Количество подарков
+    unsigned int        friends;        ///< Количество друзей
+    unsigned int        online_friends; ///< Количество друзей онлайн
+    unsigned int        mutual_friends; ///< Количество общих друзей
+    unsigned int        user_photos;    ///< Количество отметок на фотографиях
+    unsigned int        user_videos;    ///< Количество отметок на видеозаписях
+    unsigned int        followers;      ///< Количество подписчиков
+    unsigned int        subscriptions;  ///< Количество подписок
+    unsigned int        pages;          ///< Количество интересных страниц
+};
+
+/*!
  * \brief Полная информация о пользователе
  */
 struct VkUserInfoFull
@@ -111,6 +133,7 @@ struct VkUserInfoFull
     VkUserInfoBasic     basic;          ///< Базовая информация о пользователе
     VkUserInfoStatus    status;         ///< Информация о статусе пользователя
     VkUserInfoContacts  contacts;       ///< Информация о контактах пользователя
+    VkUserInfoCounters  counters;       ///< Информаци о счётчиках пользователя
 };
 
 #endif // QVKUSERINFO_H
