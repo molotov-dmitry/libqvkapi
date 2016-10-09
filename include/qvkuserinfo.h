@@ -125,6 +125,22 @@ struct VkUserInfoCounters
     unsigned int        pages;          ///< Количество интересных страниц
 };
 
+
+/*!
+ * \brief Информация о фотографиях пользователя
+ */
+struct VkUserInfoPhoto
+{
+    QString             photo_50;
+    QString             photo_100;
+    QString             photo_200_orig;
+    QString             photo_200;
+    QString             photo_400_orig;
+    QString             photo_max;
+    QString             photo_max_orig;
+
+};
+
 /*!
  * \brief Полная информация о пользователе
  */
@@ -134,6 +150,7 @@ struct VkUserInfoFull
     VkUserInfoStatus    status;         ///< Информация о статусе пользователя
     VkUserInfoContacts  contacts;       ///< Информация о контактах пользователя
     VkUserInfoCounters  counters;       ///< Информаци о счётчиках пользователя
+    VkUserInfoPhoto     photo;          ///< Информация о фотографиях пользователя
 };
 
 #endif // QVKUSERINFO_H

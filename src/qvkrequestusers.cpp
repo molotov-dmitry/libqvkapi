@@ -144,7 +144,10 @@ void QVkRequestUsers::requestFullUserInfo(QStringList userIds)
     //// Список полей ----------------------------------------------------------
 
     QStringList fields;
-    fields << "bdate" << "sex" << "online" << "status" << "last_seen" << "verified" << "city" << "country" << "home_town" << "contacts" << "counters";
+    fields << "bdate" << "sex" << "online" << "status" << "last_seen" << "verified";
+    fields << "city" << "country" << "home_town" << "contacts";
+    fields << "counters";
+    fields << "photo_50" << "photo_100" << "photo_200_orig" << "photo_200" << "photo_400_orig" << "photo_max" << "photo_max_orig";
 
     QString fieldsList = fields.join(',');
 
@@ -328,6 +331,16 @@ void QVkRequestUsers::receiveFullUserInfo(QJsonDocument document)
         {
             memset(&userInfo.counters, 0x00, sizeof(userInfo.counters));
         }
+
+        //// Фотографии профиля ================================================
+
+        userInfo.photo.photo_50 = object["photo_50"].toString();
+        userInfo.photo.photo_100 = object["photo_100"].toString();
+        userInfo.photo.photo_200_orig = object["photo_200_orig"].toString();
+        userInfo.photo.photo_200 = object["photo_200"].toString();
+        userInfo.photo.photo_400_orig = object["photo_400_orig"].toString();
+        userInfo.photo.photo_max = object["photo_max"].toString();
+        userInfo.photo.photo_max_orig = object["photo_max_orig"].toString();
 
         //// Add user info to list =============================================
 

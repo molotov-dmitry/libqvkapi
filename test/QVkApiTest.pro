@@ -25,7 +25,9 @@ SOURCES += main.cpp\
     ../src/qvkrequestusers.cpp \
     ../src/qvkrequest.cpp \
     vkpagewidget.cpp \
-    vkpageuser.cpp
+    vkpageuser.cpp \
+    vkimagewidget.cpp \
+    imagecache.cpp
 
 HEADERS  += mainwindow.h \
     ../include/qvkapi_global.h \
@@ -40,7 +42,9 @@ HEADERS  += mainwindow.h \
     ../include/qvkuserinfo.h \
     ../include/qvkrequest.h \
     vkpagewidget.h \
-    vkpageuser.h
+    vkpageuser.h \
+    vkimagewidget.h \
+    imagecache.h
 
 FORMS    += mainwindow.ui \
     dialogautent.ui \
