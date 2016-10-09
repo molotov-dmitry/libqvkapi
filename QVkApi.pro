@@ -9,6 +9,8 @@ QT       += network webkitwidgets
 TARGET = QVkApi
 TEMPLATE = lib
 
+unix: QMAKE_POST_LINK += bash $$shell_path($$_PRO_FILE_PWD_)/make_lib.sh
+
 INCLUDEPATH += include
 
 DEFINES += QVKAPI_LIBRARY
