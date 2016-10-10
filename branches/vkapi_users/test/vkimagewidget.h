@@ -9,12 +9,25 @@
 class VkImageWidget : public QWidget
 {
     Q_OBJECT
+
+public:
+
+    enum ImageType
+    {
+        IMAGE_RECT,
+        IMAGE_ROUNDED_RECT,
+        IMAGE_ELLIPSE
+    };
+
 public:
     explicit VkImageWidget(QWidget *parent = 0);
 
     void setImage(const QString &imageUrl);
 
-    void setCircleImage(bool circleImage);
+    QSize imageSize();
+
+    ImageType imageType() const;
+    void setImageType(const ImageType &imageType);
 
 private:
 
@@ -31,7 +44,7 @@ private:
     QImage mImage;
     ImageState mImageState;
 
-    bool mCircleImage;
+    ImageType mImageType;
 
 private slots:
 

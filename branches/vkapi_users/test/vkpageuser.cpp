@@ -24,6 +24,8 @@ VkPageUser::VkPageUser(QWidget *parent) :
     ui->labelHomeTown->setPalette(labelPalette);
     ui->labelMobilePhone->setPalette(labelPalette);
     ui->labelOtherPhone->setPalette(labelPalette);
+
+    ui->imageProfile->setImageType(VkImageWidget::IMAGE_ROUNDED_RECT);
 }
 
 VkPageUser::~VkPageUser()
