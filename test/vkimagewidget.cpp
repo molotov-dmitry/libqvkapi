@@ -8,7 +8,7 @@ VkImageWidget::VkImageWidget(QWidget *parent) : QWidget(parent)
 {
     mImageState = IMAGE_EMPTY;
 
-    mCircleImage = true;
+    mImageType = IMAGE_RECT;
 }
 
 void VkImageWidget::setImage(const QString &imageUrl)
@@ -23,11 +23,9 @@ void VkImageWidget::setImage(const QString &imageUrl)
     imageCache->loadImage(imageUrl);
 }
 
-void VkImageWidget::setCircleImage(bool circleImage)
+QSize VkImageWidget::imageSize()
 {
-    mCircleImage = circleImage;
-
-    repaint();
+    return mImage.size();
 }
 
 void VkImageWidget::paintEvent(QPaintEvent *e)
@@ -39,15 +37,47 @@ void VkImageWidget::paintEvent(QPaintEvent *e)
         p.setRenderHint(QPainter::Antialiasing);
 
         QBrush brush;
-        brush.setTextureImage(mImage);
+        brush.setTextureImage(mImage.scaled(this->size()));
 
         p.setBrush(brush);
         p.setPen(Qt::NoPen);
 
-        p.drawEllipse(this->rect());
+        switch (mImageType)
+        {
+        case IMAGE_RECT:
+        {
+            p.drawRect(this->rect());
+            break;
+        }
+
+        case IMAGE_ROUNDED_RECT:
+        {
+            p.drawRoundedRect(this->rect(), 15, 15, Qt::RelativeSize);
+            break;
+        }
+
+        case IMAGE_ELLIPSE:
+        {
+            p.drawEllipse(this->rect());
+            break;
+        }
+
+        }
 
         p.end();
     }
+}
+
+VkImageWidget::ImageType VkImageWidget::imageType() const
+{
+    return mImageType;
+}
+
+void VkImageWidget::setImageType(const ImageType &imageType)
+{
+    mImageType = imageType;
+
+    repaint();
 }
 
 void VkImageWidget::imageLoaded(const QImage &image)
