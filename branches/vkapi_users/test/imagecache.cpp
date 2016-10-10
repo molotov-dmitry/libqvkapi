@@ -145,7 +145,7 @@ void ImageDownloader::networkReply(QNetworkReply *pReply)
     else
     {
         QDir dir;
-        dir.mkdir(ImageCache::imageCacheDir());
+        dir.mkpath(ImageCache::imageCacheDir());
 
         QFile file(ImageCache::imageCachePath(currentDownload));
 
