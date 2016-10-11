@@ -44,7 +44,8 @@ HEADERS  += mainwindow.h \
     vkpagewidget.h \
     vkpageuser.h \
     vkimagewidget.h \
-    imagecache.h
+    imagecache.h \
+    resicons.h
 
 FORMS    += mainwindow.ui \
     dialogautent.ui \

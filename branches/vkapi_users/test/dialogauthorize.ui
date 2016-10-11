@@ -56,8 +56,8 @@
        </property>
        <property name="iconSize">
         <size>
-         <width>24</width>
-         <height>24</height>
+         <width>32</width>
+         <height>32</height>
         </size>
        </property>
        <item>
@@ -65,8 +65,8 @@
          <string>Дмитрий Сорокин</string>
         </property>
         <property name="icon">
-         <iconset theme="preferences-desktop-user">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset resource="res/resource.qrc">
+          <normaloff>:/icons/icon.svg</normaloff>:/icons/icon.svg</iconset>
         </property>
        </item>
       </widget>
@@ -100,8 +100,7 @@
         <string>Параметры</string>
        </property>
        <property name="icon">
-        <iconset theme="configure">
-         <normaloff>.</normaloff>.</iconset>
+        <iconset theme="configure"/>
        </property>
        <property name="iconSize">
         <size>
@@ -160,7 +159,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="res/resource.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonExit</sender>

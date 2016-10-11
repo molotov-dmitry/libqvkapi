@@ -4,6 +4,8 @@
 #include "accountinfo.h"
 #include "dialogsettings.h"
 
+#include "resicons.h"
+
 #include <QListView>
 
 DialogAuthorize::DialogAuthorize(QWidget *parent) :
@@ -15,8 +17,7 @@ DialogAuthorize::DialogAuthorize(QWidget *parent) :
     if (windowIcon().isNull())
         setWindowIcon(QIcon(":/icons/icon-auth.svg"));
 
-    if (ui->buttonSettings->icon().isNull())
-        ui->buttonSettings->setIcon(QIcon(":/icons/configure.svg"));
+    setIcon(ui->buttonSettings, "configure.svg");
 
     updateAccountList();
 
