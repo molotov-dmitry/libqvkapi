@@ -9,5 +9,6 @@
         <file>icon.svg</file>
         <file>icon-auth.svg</file>
         <file>icon-settings.svg</file>
+        <file>refresh.svg</file>
     </qresource>
 </RCC>

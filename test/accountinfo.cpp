@@ -26,7 +26,7 @@ AccountInfo::AccountInfo(int id) : mId(0), mValid(false)
         mToken = query.value(3).toByteArray();
         mTokenExpire = QDateTime::fromTime_t(query.value(4).toUInt());
 
-        mProfileImage = QIcon();
+        mProfileImage = QIcon(":/icons/icon.svg");
     }
 }
 

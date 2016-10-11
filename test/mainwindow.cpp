@@ -10,6 +10,8 @@
 #include "vkpagewidget.h"
 #include "vkpageuser.h"
 
+#include "resicons.h"
+
 MainWindow::MainWindow(const AccountInfo &accInfo, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -21,11 +23,9 @@ MainWindow::MainWindow(const AccountInfo &accInfo, QWidget *parent) :
     if (windowIcon().isNull())
         setWindowIcon(QIcon(":/icons/icon.svg"));
 
-    if (ui->buttonLogout->icon().isNull())
-        ui->buttonLogout->setIcon(QIcon(":/icons/user-logout.svg"));
-
-    if (ui->buttonSwitchUser->icon().isNull())
-        ui->buttonSwitchUser->setIcon(QIcon(":/icons/user-switch.svg"));
+    setIcon(ui->buttonLogout, "user-logout.svg");
+    setIcon(ui->buttonSwitchUser, "user-switch.svg");
+    setIcon(ui->buttonUpdate, "refresh.svg");
 
     ui->buttonUser->setText(accInfo.visibleName());
 
