@@ -19,10 +19,10 @@ public:
     static QString imageCacheDir();
     static QString imageCachePath(const QString &imageUrl);
 
-private:
+    static bool imageCached(const QString &imageUrl);
+    static QImage loadImageFromCache(const QString &imageUrl);
 
-    bool imageCached(const QString &imageUrl);
-    QImage loadImageFromCache(const QString &imageUrl);
+private:
 
     QString mImageUrl;
 

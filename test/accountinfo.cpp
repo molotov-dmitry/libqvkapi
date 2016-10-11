@@ -5,6 +5,10 @@
 #include <QDebug>
 #include <QVariant>
 
+#include <QPainter>
+
+#include "imagecache.h"
+
 AccountInfo::AccountInfo(int id) : mId(0), mValid(false)
 {
     QSqlQuery query;
@@ -26,7 +30,35 @@ AccountInfo::AccountInfo(int id) : mId(0), mValid(false)
         mToken = query.value(3).toByteArray();
         mTokenExpire = QDateTime::fromTime_t(query.value(4).toUInt());
 
-        mProfileImage = QIcon(":/icons/icon.svg");
+        QString mImageName = query.value(5).toString();
+
+        if (!mImageName.isEmpty() && ImageCache::imageCached(mImageName))
+        {
+            QImage cacheImage = ImageCache::loadImageFromCache(mImageName);
+
+            QPixmap userPixmap(32, 32);
+            userPixmap.fill(Qt::transparent);
+
+            QPainter p(&userPixmap);
+
+            p.setRenderHint(QPainter::Antialiasing);
+
+            QBrush brush;
+            brush.setTextureImage(cacheImage.scaled(p.window().size()));
+
+            p.setBrush(brush);
+            p.setPen(Qt::NoPen);
+
+            p.drawEllipse(p.window());
+
+            p.end();
+
+            mProfileImage = QIcon(userPixmap);
+        }
+        else
+        {
+            mProfileImage = QIcon(":/icons/icon.svg");
+        }
     }
 }
 
