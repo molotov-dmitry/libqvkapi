@@ -3,12 +3,16 @@
 
 #include <QMessageBox>
 
+#include <QPainter>
+
 #include "settings.h"
 
 #include "qvkrequestusers.h"
 
 #include "vkpagewidget.h"
 #include "vkpageuser.h"
+
+#include "imagecache.h"
 
 #include "resicons.h"
 
@@ -43,16 +47,11 @@ MainWindow::MainWindow(const AccountInfo &accInfo, QWidget *parent) :
 
     requestUserInfo->requestFullUserInfo(accInfo.id());
 
-    //// Create user info page =================================================
+    //// Open page edit ========================================================
 
-//    VkPageUser *page = new VkPageUser(0);
-//    page->setToken(accInfo.token());
-//    page->setUserInfo(accInfo.id());
+    ui->editUserName->hide();
+    ui->buttonOpenUserPageGo->hide();
 
-//    mPages.append(page);
-//    mCurrentPage = page;
-
-//    ui->tabWidget->addTab(page, QIcon::fromTheme("folder-home"), "Моя Страница");
 }
 
 bool MainWindow::actuallyClose() const
@@ -63,6 +62,34 @@ bool MainWindow::actuallyClose() const
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::openUserPage(unsigned int id)
+{
+    for (int i = 0; i < mPages.count(); ++i)
+    {
+        VkPageWidget *page = mPages.at(i);
+
+        if (page->getPageId() == QByteArray("id") + QByteArray::number(id))
+        {
+            ui->tabWidget->setCurrentIndex(i);
+            return;
+        }
+    }
+
+    VkPageUser *page = new VkPageUser(0);
+    page->setToken(mAccInfo.token());
+    page->setUserInfo(id);
+
+    connect(page, SIGNAL(pageLoaded(QString,VkUserInfoFull)), this, SLOT(updatePageInfo(QString,VkUserInfoFull)));
+
+    mPages.append(page);
+    mCurrentPage = page;
+
+    int newTabIndex = ui->tabWidget->addTab(page, QIcon::fromTheme("user-identity"), QString("id") + QString::number(id));
+
+    if (newTabIndex >= 0)
+        ui->tabWidget->setCurrentIndex(newTabIndex);
 }
 
 void MainWindow::switchSession()
@@ -102,6 +129,7 @@ void MainWindow::updateUserInfo(QList<VkUserInfoFull> userInfoList)
     //// Create user info page =================================================
 
     VkPageUser *page = new VkPageUser(0);
+
     page->setToken(mAccInfo.token());
     page->setUserInfo(currUserInfo);
 
@@ -109,6 +137,50 @@ void MainWindow::updateUserInfo(QList<VkUserInfoFull> userInfoList)
     mCurrentPage = page;
 
     ui->tabWidget->addTab(page, QIcon::fromTheme("folder-home"), "Моя Страница");
+
+    //// Request user profile image ============================================
+
+    ImageCache *imageCache = new ImageCache(this);
+
+    connect(imageCache, SIGNAL(imageLoaded(QImage)), this, SLOT(updateUserIcon(QImage)));
+
+    imageCache->loadImage(currUserInfo.photo.photo_50);
+
+}
+
+void MainWindow::updateUserIcon(const QImage &userProfileImage)
+{
+    QPixmap userPixmap(ui->buttonUser->iconSize());
+    userPixmap.fill(Qt::transparent);
+
+    QPainter p(&userPixmap);
+
+    p.setRenderHint(QPainter::Antialiasing);
+
+    QBrush brush;
+    brush.setTextureImage(userProfileImage.scaled(p.window().size()));
+
+    p.setBrush(brush);
+    p.setPen(Qt::NoPen);
+
+    p.drawEllipse(p.window());
+
+    p.end();
+
+    ui->buttonUser->setIcon(QIcon(userPixmap));
+}
+
+void MainWindow::updatePageInfo(const QString &pageId, const VkUserInfoFull &info)
+{
+    for (int i = 0; i < mPages.count(); ++i)
+    {
+        VkPageWidget *page = mPages.at(i);
+
+        if (page->getPageId() == pageId)
+        {
+            ui->tabWidget->setTabText(i, info.basic.firstName + " " + info.basic.lastName);
+        }
+    }
 }
 
 void MainWindow::showError(QString errorText)
@@ -146,26 +218,25 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
 void MainWindow::on_buttonUser_clicked()
 {
-    for (int i = 0; i < mPages.count(); ++i)
-    {
-        VkPageWidget *page = mPages.at(i);
+    openUserPage(mAccInfo.id());
+}
 
-        if (page->getPageId() == QByteArray("id") + QByteArray::number(mAccInfo.id()))
-        {
-            ui->tabWidget->setCurrentIndex(i);
-            return;
-        }
-    }
+void MainWindow::on_buttonOpenUserPage_clicked()
+{
+    ui->buttonOpenUserPageGo->show();
 
-    VkPageUser *page = new VkPageUser(0);
-    page->setToken(mAccInfo.token());
-    page->setUserInfo(mAccInfo.id());
+    ui->editUserName->show();
+    ui->editUserName->setFocus();
+}
 
-    mPages.append(page);
-    mCurrentPage = page;
+void MainWindow::on_buttonOpenUserPageGo_clicked()
+{
+    int userId = ui->editUserName->text().toInt();
 
-    int newTabIndex = ui->tabWidget->addTab(page, QIcon::fromTheme("folder-home"), "Моя Страница");
+    ui->buttonOpenUserPageGo->hide();
 
-    if (newTabIndex >= 0)
-        ui->tabWidget->setCurrentIndex(newTabIndex);
+    ui->editUserName->clear();
+    ui->editUserName->hide();
+
+    openUserPage(userId);
 }

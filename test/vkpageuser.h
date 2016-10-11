@@ -34,6 +34,10 @@ private slots:
 public slots:
 
     virtual void updatePage();
+
+signals:
+
+    void pageLoaded(const QString &pageId, const VkUserInfoFull &userInfo);
 };
 
 #endif // WIDGETUSERINFO_H
