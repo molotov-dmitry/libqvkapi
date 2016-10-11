@@ -33,6 +33,8 @@ private:
     QList<VkPageWidget*> mPages;
     VkPageWidget* mCurrentPage;
 
+    void openUserPage(unsigned int id);
+
 public slots:
 
     void switchSession();
@@ -42,11 +44,17 @@ private slots:
 
     void updateUserInfo(QList<VkUserInfoFull> userInfoList);
 
+    void updateUserIcon(const QImage &userProfileImage);
+
+    void updatePageInfo(const QString &pageId, const VkUserInfoFull &info);
+
     void showError(QString errorText);
     void on_buttonUpdate_clicked();
     void on_tabWidget_tabCloseRequested(int index);
     void on_tabWidget_currentChanged(int index);
     void on_buttonUser_clicked();
+    void on_buttonOpenUserPage_clicked();
+    void on_buttonOpenUserPageGo_clicked();
 };
 
 #endif // MAINWINDOW_H

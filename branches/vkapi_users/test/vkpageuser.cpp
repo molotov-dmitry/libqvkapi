@@ -36,6 +36,7 @@ VkPageUser::~VkPageUser()
 void VkPageUser::setUserInfo(unsigned int userId)
 {
     mId = userId;
+    mPageId = QByteArray("id") + QByteArray::number(mId);
 
     updatePage();
 }
@@ -157,6 +158,8 @@ void VkPageUser::userInfoReceived(QList<VkUserInfoFull> userInfoList)
     VkUserInfoFull currUserInfo = userInfoList.first();
 
     setUserInfo(currUserInfo);
+
+    emit pageLoaded(mPageId, currUserInfo);
 }
 
 void VkPageUser::showError(const QString &errorText)
