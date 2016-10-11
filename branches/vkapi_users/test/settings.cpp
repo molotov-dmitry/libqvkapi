@@ -41,7 +41,7 @@ bool Settings::migrateDb(QSqlDatabase &db, int versionFrom, int versionTo)
                               "last_name TEXT,"
                               "token TEXT NOT NULL,"
                               "token_expire INTEGER NOT NULL,"
-                              "image BLOB);");
+                              "image TEXT);");
 
             to = Settings::DB_VER_INIT;
 

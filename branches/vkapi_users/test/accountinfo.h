@@ -26,6 +26,7 @@ public:
     QByteArray token() const;
 
     QIcon profileImage() const;
+    bool setProfileImageName(const QString &imageName);
 
     void dbDelete();
 
@@ -53,6 +54,8 @@ private:
     QIcon   mProfileImage;
 
     bool updateValue(const QString &name, const QString &value);
+
+    void updateProfileImage(const QString &imageName);
 
 };
 

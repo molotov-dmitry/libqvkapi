@@ -35,24 +35,24 @@ MainWindow::MainWindow(const AccountInfo &accInfo, QWidget *parent) :
 
     QVkRequestUsers *requestUserInfo = new QVkRequestUsers(accInfo.token(), this);
 
-    connect(requestUserInfo, SIGNAL(basicUserInfoReceived(QList<VkUserInfoBasic>)),
-            this, SLOT(updateBasicUserInfo(QList<VkUserInfoBasic>)));
+    connect(requestUserInfo, SIGNAL(fullUserInfoReceived(QList<VkUserInfoFull>)),
+            this, SLOT(updateUserInfo(QList<VkUserInfoFull>)));
 
     connect(requestUserInfo, SIGNAL(replyFailed(QString)),
             this, SLOT(showError(QString)));
 
-    requestUserInfo->requestBasicUserInfo(accInfo.id());
+    requestUserInfo->requestFullUserInfo(accInfo.id());
 
     //// Create user info page =================================================
 
-    VkPageUser *page = new VkPageUser(0);
-    page->setToken(accInfo.token());
-    page->setUserInfo(accInfo.id());
+//    VkPageUser *page = new VkPageUser(0);
+//    page->setToken(accInfo.token());
+//    page->setUserInfo(accInfo.id());
 
-    mPages.append(page);
-    mCurrentPage = page;
+//    mPages.append(page);
+//    mCurrentPage = page;
 
-    ui->tabWidget->addTab(page, QIcon::fromTheme("folder-home"), "Моя Страница");
+//    ui->tabWidget->addTab(page, QIcon::fromTheme("folder-home"), "Моя Страница");
 }
 
 bool MainWindow::actuallyClose() const
@@ -87,14 +87,28 @@ void MainWindow::logout()
     }
 }
 
-void MainWindow::updateBasicUserInfo(QList<VkUserInfoBasic> userInfoList)
+void MainWindow::updateUserInfo(QList<VkUserInfoFull> userInfoList)
 {
-    VkUserInfoBasic currUserInfo = userInfoList.first();
+    VkUserInfoFull currUserInfo = userInfoList.first();
 
-    mAccInfo.setFirstName(currUserInfo.firstName);
-    mAccInfo.setLastName(currUserInfo.lastName);
+    mAccInfo.setFirstName(currUserInfo.basic.firstName);
+    mAccInfo.setLastName(currUserInfo.basic.lastName);
 
+    mAccInfo.setProfileImageName(currUserInfo.photo.photo_50);
+
+    ui->buttonUser->setEnabled(true);
     ui->buttonUser->setText(mAccInfo.firstName());
+
+    //// Create user info page =================================================
+
+    VkPageUser *page = new VkPageUser(0);
+    page->setToken(mAccInfo.token());
+    page->setUserInfo(currUserInfo);
+
+    mPages.append(page);
+    mCurrentPage = page;
+
+    ui->tabWidget->addTab(page, QIcon::fromTheme("folder-home"), "Моя Страница");
 }
 
 void MainWindow::showError(QString errorText)

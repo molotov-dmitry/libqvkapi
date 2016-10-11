@@ -40,7 +40,7 @@ public slots:
 
 private slots:
 
-    void updateBasicUserInfo(QList<VkUserInfoBasic> userInfoList);
+    void updateUserInfo(QList<VkUserInfoFull> userInfoList);
 
     void showError(QString errorText);
     void on_buttonUpdate_clicked();
