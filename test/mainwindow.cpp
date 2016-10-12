@@ -64,13 +64,18 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::openUserPage(unsigned int id)
+void MainWindow::openUserPage(unsigned int pageId)
+{
+    openUserPage(QString::number(pageId));
+}
+
+void MainWindow::openUserPage(const QString &userId)
 {
     for (int i = 0; i < mPages.count(); ++i)
     {
         VkPageWidget *page = mPages.at(i);
 
-        if (page->getPageId() == QByteArray("id") + QByteArray::number(id))
+        if (page->isThisPage(userId))
         {
             ui->tabWidget->setCurrentIndex(i);
             return;
@@ -79,14 +84,14 @@ void MainWindow::openUserPage(unsigned int id)
 
     VkPageUser *page = new VkPageUser(0);
     page->setToken(mAccInfo.token());
-    page->setUserInfo(id);
+    page->setUserInfo(userId);
 
     connect(page, SIGNAL(pageLoaded(QString,VkUserInfoFull)), this, SLOT(updatePageInfo(QString,VkUserInfoFull)));
 
     mPages.append(page);
     mCurrentPage = page;
 
-    int newTabIndex = ui->tabWidget->addTab(page, QIcon::fromTheme("user-identity"), QString("id") + QString::number(id));
+    int newTabIndex = ui->tabWidget->addTab(page, QIcon::fromTheme("user-identity"), userId);
 
     if (newTabIndex >= 0)
         ui->tabWidget->setCurrentIndex(newTabIndex);
@@ -231,7 +236,7 @@ void MainWindow::on_buttonOpenUserPage_clicked()
 
 void MainWindow::on_buttonOpenUserPageGo_clicked()
 {
-    int userId = ui->editUserName->text().toInt();
+    QString userId = ui->editUserName->text();
 
     ui->buttonOpenUserPageGo->hide();
 

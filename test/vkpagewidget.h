@@ -12,7 +12,10 @@ public:
 
     void setToken(QByteArray token);
 
+    bool isThisPage(const QString &pageName);
+
     QByteArray getPageId() const;
+    QByteArray getPageName() const;
 
 public slots:
 
@@ -22,6 +25,7 @@ protected:
 
     QByteArray mToken;
     QByteArray mPageId;
+    QByteArray mPageName;
 };
 
 #endif // QVKPAGEWIDGET_H
