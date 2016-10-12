@@ -33,7 +33,8 @@ private:
     QList<VkPageWidget*> mPages;
     VkPageWidget* mCurrentPage;
 
-    void openUserPage(unsigned int id);
+    void openUserPage(unsigned int pageId);
+    void openUserPage(const QString &pageId);
 
 public slots:
 

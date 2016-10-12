@@ -18,12 +18,11 @@ public:
     ~VkPageUser();
 
     void setUserInfo(unsigned int userId);
+    void setUserInfo(const QString &userName);
     void setUserInfo(const VkUserInfoFull &userInfo);
 
 private:
     Ui::VkPageUser *ui;
-
-    unsigned int mId;
 
 private slots:
 

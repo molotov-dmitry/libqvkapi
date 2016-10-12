@@ -35,16 +35,39 @@ VkPageUser::~VkPageUser()
 
 void VkPageUser::setUserInfo(unsigned int userId)
 {
-    mId = userId;
-    mPageId = QByteArray("id") + QByteArray::number(mId);
+    mPageId = QByteArray("id") + QByteArray::number(userId);
+    mPageName.clear();
+
+    updatePage();
+}
+
+void VkPageUser::setUserInfo(const QString &userName)
+{
+    bool isNumber;
+    userName.toUInt(&isNumber);
+
+    if (isNumber)
+    {
+        mPageId = QByteArray("id") + userName.toLocal8Bit();
+        mPageName.clear();
+    }
+    else
+    {
+        mPageId.clear();
+        mPageName = userName.toLocal8Bit();
+    }
 
     updatePage();
 }
 
 void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
 {
-    mId = userInfo.basic.id;
-    mPageId = QByteArray("id") + QByteArray::number(mId);
+    mPageId = QByteArray("id") + QByteArray::number(userInfo.basic.id);
+
+    if (!userInfo.status.screenName.isEmpty() && userInfo.status.screenName != mPageId)
+        mPageName = userInfo.status.screenName.toLocal8Bit();
+    else
+        mPageName.clear();
 
     ui->valueUsername->setText(userInfo.basic.firstName + " " + userInfo.basic.lastName);
 
@@ -177,5 +200,12 @@ void VkPageUser::updatePage()
     connect(requestUserInfo, SIGNAL(replyFailed(QString)),
             this, SLOT(showError(QString)));
 
-    requestUserInfo->requestFullUserInfo(mId);
+    QStringList userIds;
+
+    if (!mPageId.isEmpty())
+        userIds << mPageId;
+    else
+        userIds << mPageName;
+
+    requestUserInfo->requestFullUserInfo(userIds);
 }
