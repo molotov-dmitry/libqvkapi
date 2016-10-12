@@ -76,6 +76,8 @@ struct VkUserInfoBasic
  */
 struct VkUserInfoStatus
 {
+    QString             screenName;     ///< Короткое имя пользователя
+
     unsigned char       birthDay;       ///< День рождения
     unsigned char       birthMonth;     ///< Месяц рожения
     unsigned int        birthYear;      ///< Год рождения
