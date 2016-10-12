@@ -144,6 +144,7 @@ void QVkRequestUsers::requestFullUserInfo(QStringList userIds)
     //// Список полей ----------------------------------------------------------
 
     QStringList fields;
+    fields << "screen_name";
     fields << "bdate" << "sex" << "online" << "status" << "last_seen" << "verified";
     fields << "city" << "country" << "home_town" << "contacts";
     fields << "counters";
@@ -221,6 +222,11 @@ void QVkRequestUsers::receiveFullUserInfo(QJsonDocument document)
         }
 
         //// Информаци о статусе пользователя ==================================
+
+        //// Короткое имя страницы ---------------------------------------------
+
+        if (object.contains("screen_name"))
+            userInfo.status.screenName = object["screen_name"].toString();
 
         //// Дата рождения -----------------------------------------------------
 
