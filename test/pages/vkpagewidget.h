@@ -27,6 +27,8 @@ private:
 
     QWidget *mPageContent;
     QWidget *mPageLoading;
+    QWidget *mPageError;
+
     QLabel  *mPageErrorText;
 
     QLabel *mLoadingAnimation;

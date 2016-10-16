@@ -22,7 +22,7 @@
        <height>100</height>
       </size>
      </property>
-     <layout class="QGridLayout" name="gridLayout_6">
+     <layout class="QGridLayout" name="gridLayout_6" columnstretch="0,0,1,1">
       <item row="2" column="2">
        <widget class="QWidget" name="widget_2" native="true">
         <property name="minimumSize">
