@@ -32,6 +32,7 @@ MainWindow::MainWindow(const AccountInfo &accInfo, QWidget *parent) :
     setIcon(ui->buttonUpdate, "refresh.svg");
 
     setIcon(ui->buttonOpenUserPage, "user.svg");
+    setIcon(ui->buttonOpenUserPageGo, "go-next.svg");
 
     ui->buttonUser->setText(accInfo.visibleName());
 
@@ -96,7 +97,10 @@ void MainWindow::openUserPage(const QString &userId)
     int newTabIndex = ui->tabWidget->addTab(page, QIcon::fromTheme("user-identity"), userId);
 
     if (newTabIndex >= 0)
+    {
+        setIcon(ui->tabWidget, newTabIndex, "user.svg");
         ui->tabWidget->setCurrentIndex(newTabIndex);
+    }
 }
 
 void MainWindow::switchSession()
@@ -144,6 +148,7 @@ void MainWindow::updateUserInfo(QList<VkUserInfoFull> userInfoList)
     mCurrentPage = page;
 
     ui->tabWidget->addTab(page, QIcon::fromTheme("user-home"), "Моя Страница");
+    setIcon(ui->tabWidget, 0, "home.svg");
 
     //// Request user profile image ============================================
 
