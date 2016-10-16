@@ -16,11 +16,11 @@ VkPageUser::VkPageUser(QWidget *parent) :
     ui->setupUi(this);
     setPageContent(ui->widgetStateLoaded, ui->mainLayout);
 
-    setIcon(ui->buttonAlbums, "cat_albums.svg");
-    setIcon(ui->buttonPhotos, "cat_photos.svg");
-    setIcon(ui->buttonVideos, "cat_videos.svg");
-    setIcon(ui->buttonAudios, "cat_audios.svg");
-    setIcon(ui->buttonFriends, "cat_friends.svg");
+    setIcon(ui->buttonAlbums, "cat_albums.png");
+    setIcon(ui->buttonPhotos, "cat_photos.png");
+    setIcon(ui->buttonVideos, "cat_videos.png");
+    setIcon(ui->buttonAudios, "cat_audios.png");
+    setIcon(ui->buttonFriends, "cat_friends.png");
 
     QPalette labelPalette;
     QColor labelColor = labelPalette.color(QPalette::WindowText);
