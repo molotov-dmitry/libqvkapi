@@ -1,5 +1,6 @@
 #include "vkpagewidget.h"
 
+#include <QIcon>
 #include <QHBoxLayout>
 
 VkPageWidget::VkPageWidget(QWidget *parent) :
@@ -12,30 +13,30 @@ VkPageWidget::VkPageWidget(QWidget *parent) :
     //// Loading widget ========================================================
 
     mPageLoading = new QWidget(this);
-    QHBoxLayout *layout = new QHBoxLayout(mPageLoading);
+    QHBoxLayout *layoutLoading = new QHBoxLayout(mPageLoading);
 
     //// Left spacer -----------------------------------------------------------
 
     QWidget *widgetLeft = new QWidget(mPageLoading);
     widgetLeft->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
-    layout->addWidget(widgetLeft);
+    layoutLoading->addWidget(widgetLeft);
 
     //// Animation widget ------------------------------------------------------
 
     mLoadingAnimation = new QLabel(mPageLoading);
-    layout->addWidget(mLoadingAnimation);
+    layoutLoading->addWidget(mLoadingAnimation);
 
     //// Loading text widget ---------------------------------------------------
 
-    layout->addWidget(new QLabel("Загрузка страницы...", mPageLoading));
+    layoutLoading->addWidget(new QLabel("Загрузка страницы...", mPageLoading));
 
     //// Right spacer ----------------------------------------------------------
 
     QWidget *widgetRight = new QWidget(mPageLoading);
     widgetRight->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
-    layout->addWidget(widgetRight);
+    layoutLoading->addWidget(widgetRight);
 
     //// Animation -------------------------------------------------------------
 
@@ -67,13 +68,47 @@ VkPageWidget::VkPageWidget(QWidget *parent) :
 
     //// Error text widget =====================================================
 
-    mPageErrorText = new QLabel(this);
+    mPageError = new QWidget(this);
+    QHBoxLayout *layoutError = new QHBoxLayout(mPageError);
+
+    //// Left spacer -----------------------------------------------------------
+
+    QWidget *widgetErrorLeft = new QWidget(mPageLoading);
+    widgetErrorLeft->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    layoutError->addWidget(widgetErrorLeft);
+
+    //// Error icon ------------------------------------------------------------
+
+    QLabel *labelErrorIcon = new QLabel(mPageError);
+    QIcon errorIcon = QIcon::fromTheme("dialog-error");
+
+    QPixmap errorPixmap = errorIcon.pixmap(QSize(32, 32));
+    if (errorPixmap.isNull())
+        errorPixmap = QPixmap(":/icons/dialog-error.png");
+
+    labelErrorIcon->setPixmap(errorPixmap);
+
+    layoutError->addWidget(labelErrorIcon);
+
+    //// Error text ------------------------------------------------------------
+
+    mPageErrorText = new QLabel(mPageError);
 
     QPalette errorPalette;
     errorPalette.setColor(QPalette::WindowText, QColor(200, 0, 0));
     mPageErrorText->setPalette(errorPalette);
 
     mPageErrorText->setAlignment(Qt::AlignCenter);
+
+    layoutError->addWidget(mPageErrorText);
+
+    //// Right spacer ----------------------------------------------------------
+
+    QWidget *widgetErrorRight = new QWidget(mPageLoading);
+    widgetErrorRight->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    layoutError->addWidget(widgetErrorRight);
 
     //// Set page status =======================================================
 
@@ -139,7 +174,7 @@ void VkPageWidget::setPageContent(QWidget *pageContent, QBoxLayout *mainLayout)
 {
     mPageContent = pageContent;
     mainLayout->addWidget(mPageLoading);
-    mainLayout->addWidget(mPageErrorText);
+    mainLayout->addWidget(mPageError);
 
     setPageStatus(mPageStatus);
 }
@@ -155,7 +190,7 @@ void VkPageWidget::setPageStatus(const PageStatus &pageStatus)
         if (mPageContent)
             mPageContent->hide();
         mPageLoading->show();
-        mPageErrorText->hide();
+        mPageError->hide();
 
         mLoadingAnimationTimer.start();
 
@@ -168,7 +203,7 @@ void VkPageWidget::setPageStatus(const PageStatus &pageStatus)
             mPageContent->show();
 
         mPageLoading->hide();
-        mPageErrorText->hide();
+        mPageError->hide();
 
         mLoadingAnimationTimer.stop();
 
@@ -179,7 +214,7 @@ void VkPageWidget::setPageStatus(const PageStatus &pageStatus)
         if (mPageContent)
             mPageContent->hide();
         mPageLoading->hide();
-        mPageErrorText->show();
+        mPageError->show();
 
         mLoadingAnimationTimer.stop();
 

@@ -74,7 +74,14 @@ void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
 {
     mPageId = QByteArray("id") + QByteArray::number(userInfo.basic.id);
 
-    setPageStatus(PAGE_LOADED);
+    if (userInfo.basic.pageStatus == VkUser::USER_ACTIVE)
+        setPageStatus(PAGE_LOADED);
+    else if (userInfo.basic.pageStatus == VkUser::USER_BANNED)
+        setError("Пользователь заблокирован");
+    else if (userInfo.basic.pageStatus == VkUser::USER_DELETED)
+        setError("Страница удалена");
+    else
+        setError("Некорректные данные");
 
     if (!userInfo.status.screenName.isEmpty() && userInfo.status.screenName != mPageId)
         mPageName = userInfo.status.screenName.toLocal8Bit();
