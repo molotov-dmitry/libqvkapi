@@ -11,11 +11,6 @@
         <file>icon-settings.svg</file>
         <file>refresh.svg</file>
         <file>user.svg</file>
-        <file>cat_albums.svg</file>
-        <file>cat_audios.svg</file>
-        <file>cat_friends.svg</file>
-        <file>cat_photos.svg</file>
-        <file>cat_videos.svg</file>
         <file>go-next.svg</file>
         <file>process-working.png</file>
         <file>process-working.svg</file>
@@ -24,6 +19,11 @@
         <file>user-offline.svg</file>
         <file>user-available.svg</file>
         <file>home.svg</file>
+        <file>cat_albums.png</file>
+        <file>cat_audios.png</file>
+        <file>cat_friends.png</file>
+        <file>cat_photos.png</file>
+        <file>cat_videos.png</file>
     </qresource>
     <qresource prefix="/anim">
         <file>process-working.svg</file>
