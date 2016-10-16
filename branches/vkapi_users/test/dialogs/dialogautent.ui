@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>399</width>
-    <height>163</height>
+    <height>178</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -51,8 +51,8 @@
       <widget class="QLineEdit" name="editLogin">
        <property name="minimumSize">
         <size>
-         <width>0</width>
-         <height>28</height>
+         <width>32</width>
+         <height>32</height>
         </size>
        </property>
        <property name="maxLength">
@@ -67,8 +67,8 @@
       <widget class="QLineEdit" name="editPassword">
        <property name="minimumSize">
         <size>
-         <width>0</width>
-         <height>28</height>
+         <width>32</width>
+         <height>32</height>
         </size>
        </property>
        <property name="maxLength">
@@ -86,8 +86,8 @@
       <widget class="QCheckBox" name="buttonPasswordVisible">
        <property name="minimumSize">
         <size>
-         <width>0</width>
-         <height>28</height>
+         <width>32</width>
+         <height>32</height>
         </size>
        </property>
        <property name="text">
@@ -117,8 +117,8 @@
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="minimumSize">
       <size>
-       <width>28</width>
-       <height>28</height>
+       <width>32</width>
+       <height>32</height>
       </size>
      </property>
      <property name="orientation">

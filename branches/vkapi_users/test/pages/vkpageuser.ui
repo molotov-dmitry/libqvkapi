@@ -242,6 +242,12 @@ border-radius: 4px;</string>
          </item>
          <item row="2" column="1">
           <widget class="QCommandLinkButton" name="buttonVideos">
+           <property name="minimumSize">
+            <size>
+             <width>32</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
             <string>Видеозаписи</string>
            </property>
@@ -253,6 +259,12 @@ border-radius: 4px;</string>
          </item>
          <item row="0" column="1">
           <widget class="QCommandLinkButton" name="buttonAlbums">
+           <property name="minimumSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
            <property name="text">
             <string>Альбомы</string>
            </property>
@@ -290,6 +302,12 @@ border-radius: 4px;</string>
          </item>
          <item row="3" column="1">
           <widget class="QCommandLinkButton" name="buttonAudios">
+           <property name="minimumSize">
+            <size>
+             <width>32</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
             <string>Аудиозаписи</string>
            </property>
@@ -327,6 +345,12 @@ border-radius: 4px;</string>
          </item>
          <item row="1" column="1">
           <widget class="QCommandLinkButton" name="buttonPhotos">
+           <property name="minimumSize">
+            <size>
+             <width>32</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
             <string>Фотографии</string>
            </property>
@@ -338,6 +362,12 @@ border-radius: 4px;</string>
          </item>
          <item row="4" column="1">
           <widget class="QCommandLinkButton" name="buttonFriends">
+           <property name="minimumSize">
+            <size>
+             <width>32</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
             <string>Друзья</string>
            </property>
@@ -481,6 +511,12 @@ border-radius: 4px;</string>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
             <widget class="QToolButton" name="valueOnline">
+             <property name="minimumSize">
+              <size>
+               <width>32</width>
+               <height>32</height>
+              </size>
+             </property>
              <property name="statusTip">
               <string>Написать сообщение</string>
              </property>
@@ -490,8 +526,8 @@ border-radius: 4px;</string>
              </property>
              <property name="iconSize">
               <size>
-               <width>24</width>
-               <height>24</height>
+               <width>16</width>
+               <height>16</height>
               </size>
              </property>
              <property name="toolButtonStyle">
