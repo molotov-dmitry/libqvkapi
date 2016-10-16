@@ -54,8 +54,8 @@ private slots:
     void on_tabWidget_tabCloseRequested(int index);
     void on_tabWidget_currentChanged(int index);
     void on_buttonUser_clicked();
-    void on_buttonOpenUserPage_clicked();
     void on_buttonOpenUserPageGo_clicked();
+    void on_buttonOpenUserPage_toggled(bool checked);
 };
 
 #endif // MAINWINDOW_H

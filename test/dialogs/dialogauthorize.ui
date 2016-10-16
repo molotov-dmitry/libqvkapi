@@ -100,7 +100,8 @@
         <string>Параметры</string>
        </property>
        <property name="icon">
-        <iconset theme="configure"/>
+        <iconset theme="configure">
+         <normaloff>.</normaloff>.</iconset>
        </property>
        <property name="iconSize">
         <size>

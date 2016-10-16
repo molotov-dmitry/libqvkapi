@@ -6,11 +6,14 @@
 
 #include <qvkrequestusers.h>
 
+#include "metadata.h"
+
 VkPageUser::VkPageUser(QWidget *parent) :
     VkPageWidget(parent),
     ui(new Ui::VkPageUser)
 {
     ui->setupUi(this);
+    setPageContent(ui->widgetStateLoaded, ui->mainLayout);
 
     QPalette labelPalette;
     QColor labelColor = labelPalette.color(QPalette::WindowText);
@@ -64,6 +67,8 @@ void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
 {
     mPageId = QByteArray("id") + QByteArray::number(userInfo.basic.id);
 
+    setPageStatus(PAGE_LOADED);
+
     if (!userInfo.status.screenName.isEmpty() && userInfo.status.screenName != mPageId)
         mPageName = userInfo.status.screenName.toLocal8Bit();
     else
@@ -80,18 +85,53 @@ void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
 
     if (userInfo.status.userOnline == VkUser::USER_OFFLINE)
     {
-        ui->valueOnline->setText("Был в сети " + userInfo.status.lastSeen.toString());
+        QString wasStr;
+
+        if (userInfo.status.userSex == VkUser::USER_FEMALE)
+            wasStr = "Была";
+        else
+            wasStr = "Был";
+
+        qint64 secondsDiff = userInfo.status.lastSeen.secsTo(QDateTime::currentDateTime());
+
+        if (secondsDiff < 60 * 15)
+        {
+            ui->valueOnline->setIcon(QIcon::fromTheme("user-away"));
+
+            ui->valueOnline->setText(wasStr + " в сети "
+                                     + Metadata::timeDiffStr(userInfo.status.lastSeen));
+
+        }
+        else if (secondsDiff < 60 * 60 * 3)
+        {
+            ui->valueOnline->setIcon(QIcon::fromTheme("user-offline"));
+
+            ui->valueOnline->setText(wasStr + " в сети "
+                                     + Metadata::timeDiffStr(userInfo.status.lastSeen));
+        }
+        else
+        {
+            ui->valueOnline->setIcon(QIcon::fromTheme("user-offline"));
+
+            ui->valueOnline->setText(wasStr + " в сети "
+                                     + Metadata::dateDiffStr(userInfo.status.lastSeen));
+        }
     }
     else if (userInfo.status.userOnline == VkUser::USER_ONLINE)
     {
-        ui->valueOnline->setText("online");
+        ui->valueOnline->setIcon(QIcon::fromTheme("user-available"));
+        ui->valueOnline->setText("В сети");
     }
     else if (userInfo.status.userOnline == VkUser::USER_ONLINE_MOBILE)
     {
-        ui->valueOnline->setText("online");
+        ui->valueOnline->setIcon(QIcon::fromTheme("user-available"));
+        ui->valueOnline->setText("В сети");
     }
     else
+    {
+        ui->valueOnline->setIcon(QIcon::fromTheme("user-busy"));
         ui->valueOnline->setText("---");
+    }
 
     //// День рождения =========================================================
 
@@ -185,11 +225,6 @@ void VkPageUser::userInfoReceived(QList<VkUserInfoFull> userInfoList)
     emit pageLoaded(mPageId, currUserInfo);
 }
 
-void VkPageUser::showError(const QString &errorText)
-{
-
-}
-
 void VkPageUser::updatePage()
 {
     QVkRequestUsers *requestUserInfo = new QVkRequestUsers(mToken, this);
@@ -198,7 +233,7 @@ void VkPageUser::updatePage()
             this, SLOT(userInfoReceived(QList<VkUserInfoFull>)));
 
     connect(requestUserInfo, SIGNAL(replyFailed(QString)),
-            this, SLOT(showError(QString)));
+            this, SLOT(setError(QString)));
 
     QStringList userIds;
 

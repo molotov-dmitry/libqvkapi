@@ -36,11 +36,6 @@ void DialogAuthorize::on_buttonSettings_clicked()
     updateAccountList();
 }
 
-void DialogAuthorize::on_buttonExit_clicked()
-{
-
-}
-
 void DialogAuthorize::on_buttonLogin_clicked()
 {
     if (ui->listAccounts->currentIndex() >= 0)

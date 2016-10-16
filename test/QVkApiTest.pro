@@ -11,47 +11,49 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = QVkApiTest
 TEMPLATE = app
 
-INCLUDEPATH += ../include
+INCLUDEPATH += ../include data dialogs pages widgets
 
 SOURCES += main.cpp\
         mainwindow.cpp \
     ../src/qvkauth.cpp \
     ../src/qvkauthview.cpp \
-    accountinfo.cpp \
-    dialogautent.cpp \
-    dialogauthorize.cpp \
-    settings.cpp \
-    dialogsettings.cpp \
     ../src/qvkrequestusers.cpp \
     ../src/qvkrequest.cpp \
-    vkpagewidget.cpp \
-    vkpageuser.cpp \
-    vkimagewidget.cpp \
-    imagecache.cpp
+    dialogs/dialogautent.cpp \
+    dialogs/dialogauthorize.cpp \
+    dialogs/dialogsettings.cpp \
+    pages/vkpagewidget.cpp \
+    pages/vkpageuser.cpp \
+    data/accountinfo.cpp \
+    data/imagecache.cpp \
+    data/settings.cpp \
+    widgets/vkimagewidget.cpp \
+    data/metadata.cpp
 
 HEADERS  += mainwindow.h \
     ../include/qvkapi_global.h \
     ../include/qvkauth.h \
     ../include/qvkauthview.h \
-    accountinfo.h \
-    dialogautent.h \
-    dialogauthorize.h \
-    settings.h \
-    dialogsettings.h \
     ../include/qvkrequestusers.h \
     ../include/qvkuserinfo.h \
     ../include/qvkrequest.h \
-    vkpagewidget.h \
-    vkpageuser.h \
-    vkimagewidget.h \
-    imagecache.h \
-    resicons.h
+    dialogs/dialogautent.h \
+    dialogs/dialogauthorize.h \
+    dialogs/dialogsettings.h \
+    pages/vkpageuser.h \
+    pages/vkpagewidget.h \
+    data/accountinfo.h \
+    data/imagecache.h \
+    data/settings.h \
+    data/resicons.h \
+    widgets/vkimagewidget.h \
+    data/metadata.h
 
 FORMS    += mainwindow.ui \
-    dialogautent.ui \
-    dialogauthorize.ui \
-    dialogsettings.ui \
-    vkpageuser.ui
+    dialogs/dialogautent.ui \
+    dialogs/dialogauthorize.ui \
+    dialogs/dialogsettings.ui \
+    pages/vkpageuser.ui
 
 DEFINES += QVKAPI_TEST
 

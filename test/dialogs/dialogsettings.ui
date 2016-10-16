@@ -29,7 +29,7 @@
        </rect>
       </property>
       <attribute name="icon">
-       <iconset theme="resource-group">
+       <iconset theme="system-users">
         <normaloff>.</normaloff>.</iconset>
       </attribute>
       <attribute name="label">

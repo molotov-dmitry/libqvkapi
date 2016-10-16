@@ -28,8 +28,6 @@ private slots:
 
     void userInfoReceived(QList<VkUserInfoFull> userInfoList);
 
-    void showError(const QString &errorText);
-
 public slots:
 
     virtual void updatePage();

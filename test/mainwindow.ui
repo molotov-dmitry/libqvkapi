@@ -54,11 +54,11 @@
            <height>28</height>
           </size>
          </property>
-         <property name="toolTip">
+         <property name="statusTip">
           <string>Открыть страницу</string>
          </property>
          <property name="icon">
-          <iconset theme="user">
+          <iconset theme="cs-user">
            <normaloff>.</normaloff>.</iconset>
          </property>
          <property name="iconSize">
@@ -66,6 +66,9 @@
            <width>16</width>
            <height>16</height>
           </size>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -215,7 +218,7 @@
           <string>Выход</string>
          </property>
          <property name="icon">
-          <iconset theme="system-logout">
+          <iconset theme="system-log-out">
            <normaloff>.</normaloff>.</iconset>
          </property>
          <property name="iconSize">
