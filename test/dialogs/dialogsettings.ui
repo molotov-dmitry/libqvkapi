@@ -25,7 +25,7 @@
         <x>0</x>
         <y>0</y>
         <width>382</width>
-        <height>218</height>
+        <height>214</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -58,8 +58,8 @@
           <widget class="QToolButton" name="buttonAccountAdd">
            <property name="minimumSize">
             <size>
-             <width>28</width>
-             <height>28</height>
+             <width>32</width>
+             <height>32</height>
             </size>
            </property>
            <property name="toolTip">
@@ -84,8 +84,8 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>28</width>
-             <height>28</height>
+             <width>32</width>
+             <height>32</height>
             </size>
            </property>
            <property name="toolTip">
@@ -126,8 +126,8 @@
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="minimumSize">
       <size>
-       <width>28</width>
-       <height>28</height>
+       <width>32</width>
+       <height>32</height>
       </size>
      </property>
      <property name="orientation">

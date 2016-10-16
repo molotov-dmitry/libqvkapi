@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>402</width>
-    <height>146</height>
+    <width>400</width>
+    <height>150</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -50,8 +50,8 @@
       <widget class="QComboBox" name="listAccounts">
        <property name="minimumSize">
         <size>
-         <width>0</width>
-         <height>34</height>
+         <width>32</width>
+         <height>40</height>
         </size>
        </property>
        <property name="iconSize">
@@ -65,7 +65,7 @@
          <string>Дмитрий Сорокин</string>
         </property>
         <property name="icon">
-         <iconset resource="res/resource.qrc">
+         <iconset resource="../res/resource.qrc">
           <normaloff>:/icons/icon.svg</normaloff>:/icons/icon.svg</iconset>
         </property>
        </item>
@@ -92,8 +92,8 @@
       <widget class="QToolButton" name="buttonSettings">
        <property name="minimumSize">
         <size>
-         <width>28</width>
-         <height>28</height>
+         <width>32</width>
+         <height>32</height>
         </size>
        </property>
        <property name="text">
@@ -131,8 +131,8 @@
       <widget class="QPushButton" name="buttonExit">
        <property name="minimumSize">
         <size>
-         <width>28</width>
-         <height>28</height>
+         <width>32</width>
+         <height>32</height>
         </size>
        </property>
        <property name="text">
@@ -144,8 +144,8 @@
       <widget class="QPushButton" name="buttonLogin">
        <property name="minimumSize">
         <size>
-         <width>28</width>
-         <height>28</height>
+         <width>32</width>
+         <height>32</height>
         </size>
        </property>
        <property name="text">
@@ -161,7 +161,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="res/resource.qrc"/>
+  <include location="../res/resource.qrc"/>
  </resources>
  <connections>
   <connection>
