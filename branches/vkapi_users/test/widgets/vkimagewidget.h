@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QPaintEvent>
+#include <QTimer>
 
 #include <QImage>
 
@@ -45,6 +46,13 @@ private:
     ImageState mImageState;
 
     ImageType mImageType;
+
+    QTimer mLoadingAnimationTimer;
+
+    QList<QPixmap> mLoadingAnimationImageList;
+    unsigned int mLoadingAnimationCount;
+
+    unsigned int mLoadingAnimationIndex;
 
 private slots:
 

@@ -31,6 +31,8 @@ MainWindow::MainWindow(const AccountInfo &accInfo, QWidget *parent) :
     setIcon(ui->buttonSwitchUser, "user-switch.svg");
     setIcon(ui->buttonUpdate, "refresh.svg");
 
+    setIcon(ui->buttonOpenUserPage, "user.svg");
+
     ui->buttonUser->setText(accInfo.visibleName());
 
     Settings::setSetting("current_id", QString::number(accInfo.id()));
@@ -141,7 +143,7 @@ void MainWindow::updateUserInfo(QList<VkUserInfoFull> userInfoList)
     mPages.append(page);
     mCurrentPage = page;
 
-    ui->tabWidget->addTab(page, QIcon::fromTheme("folder-home"), "Моя Страница");
+    ui->tabWidget->addTab(page, QIcon::fromTheme("user-home"), "Моя Страница");
 
     //// Request user profile image ============================================
 
@@ -191,6 +193,8 @@ void MainWindow::updatePageInfo(const QString &pageId, const VkUserInfoFull &inf
 void MainWindow::showError(QString errorText)
 {
     QMessageBox::critical(this, "Error", errorText);
+
+    switchSession();
 }
 
 void MainWindow::on_buttonUpdate_clicked()
@@ -226,22 +230,30 @@ void MainWindow::on_buttonUser_clicked()
     openUserPage(mAccInfo.id());
 }
 
-void MainWindow::on_buttonOpenUserPage_clicked()
-{
-    ui->buttonOpenUserPageGo->show();
-
-    ui->editUserName->show();
-    ui->editUserName->setFocus();
-}
-
 void MainWindow::on_buttonOpenUserPageGo_clicked()
 {
     QString userId = ui->editUserName->text();
-
-    ui->buttonOpenUserPageGo->hide();
-
     ui->editUserName->clear();
-    ui->editUserName->hide();
 
-    openUserPage(userId);
+    ui->buttonOpenUserPage->setChecked(false);
+
+    if (!userId.isEmpty())
+        openUserPage(userId);
+}
+
+void MainWindow::on_buttonOpenUserPage_toggled(bool checked)
+{
+    if (checked)
+    {
+        ui->buttonOpenUserPageGo->show();
+
+        ui->editUserName->show();
+        ui->editUserName->setFocus();
+    }
+    else
+    {
+        ui->buttonOpenUserPageGo->hide();
+
+        ui->editUserName->hide();
+    }
 }

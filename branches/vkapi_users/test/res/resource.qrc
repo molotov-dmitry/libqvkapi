@@ -10,5 +10,10 @@
         <file>icon-auth.svg</file>
         <file>icon-settings.svg</file>
         <file>refresh.svg</file>
+        <file>user.svg</file>
+    </qresource>
+    <qresource prefix="/anim">
+        <file>process-working.svg</file>
+        <file>process-working.png</file>
     </qresource>
 </RCC>
