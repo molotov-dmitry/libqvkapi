@@ -63,6 +63,14 @@ struct VkUser
  */
 struct VkUserInfoBasic
 {
+    /*!
+     * \brief Конструктор для заполнения полей пустыми значениями
+     */
+    VkUserInfoBasic() :
+        id(0),
+        pageStatus(VkUser::USER_ACTIVE),
+        userVisibility(VkUser::USER_VISIBLE) {}
+
     unsigned int        id;             ///< Идентификатор пользователя
     QString             firstName;      ///< Имя пользователя
     QString             lastName;       ///< Фамилия пользователя
@@ -76,6 +84,17 @@ struct VkUserInfoBasic
  */
 struct VkUserInfoStatus
 {
+    /*!
+     * \brief Конструктор для заполнения полей пустыми значениями
+     */
+    VkUserInfoStatus() :
+        birthDay(0),
+        birthMonth(0),
+        birthYear(0),
+        userSex(VkUser::USER_SEX_NOT_SPECIFIED),
+        userOnline(VkUser::USER_OFFLINE),
+        verified(false) {}
+
     QString             screenName;     ///< Короткое имя пользователя
 
     unsigned char       birthDay;       ///< День рождения
@@ -110,6 +129,11 @@ struct VkUserInfoContacts
  */
 struct VkUserInfoCounters
 {
+    /*!
+     * \brief Конструктор для заполнения полей пустыми значениями
+     */
+    VkUserInfoCounters() {memset(this, 0x00, sizeof(VkUserInfoCounters));}
+
     unsigned int        albums;         ///< Количество альбомов
     unsigned int        videos;         ///< Количество видеозаписей
     unsigned int        audios;         ///< Количество аудиозаписей
