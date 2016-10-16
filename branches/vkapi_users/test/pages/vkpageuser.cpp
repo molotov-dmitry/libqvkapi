@@ -6,6 +6,7 @@
 
 #include <qvkrequestusers.h>
 
+#include "resicons.h"
 #include "metadata.h"
 
 VkPageUser::VkPageUser(QWidget *parent) :
@@ -14,6 +15,12 @@ VkPageUser::VkPageUser(QWidget *parent) :
 {
     ui->setupUi(this);
     setPageContent(ui->widgetStateLoaded, ui->mainLayout);
+
+    setIcon(ui->buttonAlbums, "cat_albums.svg");
+    setIcon(ui->buttonPhotos, "cat_photos.svg");
+    setIcon(ui->buttonVideos, "cat_videos.svg");
+    setIcon(ui->buttonAudios, "cat_audios.svg");
+    setIcon(ui->buttonFriends, "cat_friends.svg");
 
     QPalette labelPalette;
     QColor labelColor = labelPalette.color(QPalette::WindowText);
@@ -97,6 +104,7 @@ void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
         if (secondsDiff < 60 * 15)
         {
             ui->valueOnline->setIcon(QIcon::fromTheme("user-away"));
+            setIcon(ui->valueOnline, "user-away.svg");
 
             ui->valueOnline->setText(wasStr + " в сети "
                                      + Metadata::timeDiffStr(userInfo.status.lastSeen));
@@ -105,6 +113,7 @@ void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
         else if (secondsDiff < 60 * 60 * 3)
         {
             ui->valueOnline->setIcon(QIcon::fromTheme("user-offline"));
+            setIcon(ui->valueOnline, "user-offline.svg");
 
             ui->valueOnline->setText(wasStr + " в сети "
                                      + Metadata::timeDiffStr(userInfo.status.lastSeen));
@@ -112,6 +121,7 @@ void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
         else
         {
             ui->valueOnline->setIcon(QIcon::fromTheme("user-offline"));
+            setIcon(ui->valueOnline, "user-offline.svg");
 
             ui->valueOnline->setText(wasStr + " в сети "
                                      + Metadata::dateDiffStr(userInfo.status.lastSeen));
@@ -120,16 +130,22 @@ void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
     else if (userInfo.status.userOnline == VkUser::USER_ONLINE)
     {
         ui->valueOnline->setIcon(QIcon::fromTheme("user-available"));
+        setIcon(ui->valueOnline, "user-available.svg");
+
         ui->valueOnline->setText("В сети");
     }
     else if (userInfo.status.userOnline == VkUser::USER_ONLINE_MOBILE)
     {
         ui->valueOnline->setIcon(QIcon::fromTheme("user-available"));
+        setIcon(ui->valueOnline, "user-available.svg");
+
         ui->valueOnline->setText("В сети");
     }
     else
     {
         ui->valueOnline->setIcon(QIcon::fromTheme("user-busy"));
+        setIcon(ui->valueOnline, "user-busy.svg");
+
         ui->valueOnline->setText("---");
     }
 
@@ -146,7 +162,7 @@ void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
         if (userInfo.status.birthYear != 0)
         {
             QDate bDate(userInfo.status.birthYear, userInfo.status.birthMonth, userInfo.status.birthDay);
-            ui->valueBirthDate->setText(bDate.toString("d MMMM yyyy"));
+            ui->valueBirthDate->setText(bDate.toString("d MMMM yyyy") + " г.");
         }
         else
         {
