@@ -44,27 +44,10 @@ VkPageUser::VkPageUser(QWidget *parent) :
 #ifdef Q_OS_WIN
     QFont labelFont;
     labelFont.setPixelSize(14);
-//    labelFont.setBold(true);
 
     ui->groupInfo->setFont(labelFont);
     ui->groupLocations->setFont(labelFont);
     ui->groupPhones->setFont(labelFont);
-
-//    labelFont.setBold(false);
-
-//    ui->labelBirthDate->setFont(labelFont);
-//    ui->labelCountry->setFont(labelFont);
-//    ui->labelCity->setFont(labelFont);
-//    ui->labelHomeTown->setFont(labelFont);
-//    ui->labelMobilePhone->setFont(labelFont);
-//    ui->labelOtherPhone->setFont(labelFont);
-
-//    ui->valueBirthDate->setFont(labelFont);
-//    ui->valueCountry->setFont(labelFont);
-//    ui->valueCity->setFont(labelFont);
-//    ui->valueHomeTown->setFont(labelFont);
-//    ui->valueMobilePhone->setFont(labelFont);
-//    ui->valueOtherPhone->setFont(labelFont);
 #endif
 
     //// Set profile image settings ============================================
