@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QByteArray>
+#include <QUrl>
 #include <QLabel>
 #include <QTimer>
 #include <QList>
@@ -20,6 +21,8 @@ public:
 
     QByteArray getPageId() const;
     QByteArray getPageName() const;
+
+    virtual QUrl getPageUrl() const = 0;
 
     void setPageContent(QWidget *pageContent, QBoxLayout *mainlayout);
 

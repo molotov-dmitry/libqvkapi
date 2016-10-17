@@ -25,6 +25,7 @@
         <file>cat_photos.png</file>
         <file>cat_videos.png</file>
         <file>dialog-error.png</file>
+        <file>open-link.svg</file>
     </qresource>
     <qresource prefix="/anim">
         <file>process-working.svg</file>

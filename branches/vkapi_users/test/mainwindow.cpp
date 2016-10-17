@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QMessageBox>
+#include <QDesktopServices>
 
 #include <QPainter>
 
@@ -30,6 +31,7 @@ MainWindow::MainWindow(const AccountInfo &accInfo, QWidget *parent) :
     setIcon(ui->buttonLogout, "user-logout.svg");
     setIcon(ui->buttonSwitchUser, "user-switch.svg");
     setIcon(ui->buttonUpdate, "refresh.svg");
+    setIcon(ui->buttonOpenLink, "open-link.svg");
 
     setIcon(ui->buttonOpenUserPage, "user.svg");
     setIcon(ui->buttonOpenUserPageGo, "go-next.svg");
@@ -260,5 +262,13 @@ void MainWindow::on_buttonOpenUserPage_toggled(bool checked)
         ui->buttonOpenUserPageGo->hide();
 
         ui->editUserName->hide();
+    }
+}
+
+void MainWindow::on_buttonOpenLink_clicked()
+{
+    if (mCurrentPage)
+    {
+        QDesktopServices::openUrl(mCurrentPage->getPageUrl());
     }
 }

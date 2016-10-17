@@ -21,6 +21,8 @@ public:
     void setUserInfo(const QString &userName);
     void setUserInfo(const VkUserInfoFull &userInfo);
 
+    virtual QUrl getPageUrl() const;
+
 private:
     Ui::VkPageUser *ui;
 

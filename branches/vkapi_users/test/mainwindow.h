@@ -56,6 +56,7 @@ private slots:
     void on_buttonUser_clicked();
     void on_buttonOpenUserPageGo_clicked();
     void on_buttonOpenUserPage_toggled(bool checked);
+    void on_buttonOpenLink_clicked();
 };
 
 #endif // MAINWINDOW_H

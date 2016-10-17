@@ -170,6 +170,11 @@ QByteArray VkPageWidget::getPageName() const
     return mPageName;
 }
 
+QUrl VkPageWidget::getPageUrl() const
+{
+    return QUrl("https://vk.com/");
+}
+
 void VkPageWidget::setPageContent(QWidget *pageContent, QBoxLayout *mainLayout)
 {
     mPageContent = pageContent;
