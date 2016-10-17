@@ -1,5 +1,7 @@
 #include "metadata.h"
 
+#include <QRegExp>
+
 QString Metadata::getSuffix(qint64 value, TimeUnit timeUnit)
 {
     if (((value % 100) >= 10 && (value % 100) < 20) || (value % 10) == 0)
@@ -79,5 +81,29 @@ QString Metadata::dateDiffStr(const QDateTime &dateTime)
         date = dateTime.toString("d MMMM yyyy г.");
 
     return date + " в " + dateTime.toString("HH:MM");
+}
+
+QString Metadata::phoneNumberToString(const QString &phoneNumber)
+{
+    QString result = phoneNumber;
+
+    QRegExp regExp("[^+.0-9]");
+    result.remove(regExp);
+
+    int phoneLength = result.length();
+
+    if (phoneLength >= 7)
+    {
+        result.insert(phoneLength - 2, '-');
+        result.insert(phoneLength - 4, '-');
+    }
+
+    if (phoneLength >= 10)
+    {
+        result.insert(phoneLength - 7, ' ');
+        result.insert(phoneLength - 10, ' ');
+    }
+
+    return result;
 }
 

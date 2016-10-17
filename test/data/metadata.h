@@ -47,6 +47,13 @@ public:
      * \return Разница между подаваемой и текущей датой в читаемом человеком формате
      */
     static QString dateDiffStr(const QDateTime &dateTime);
+
+    /*!
+     * \brief преобразование телефонного номера в более читаемый вид
+     * \param[in] phoneNumber Номер телефона
+     * \return Номер телефона в читаемом виде
+     */
+    static QString phoneNumberToString(const QString &phoneNumber);
 };
 
 #endif // METADATA_H
