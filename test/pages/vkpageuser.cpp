@@ -16,11 +16,15 @@ VkPageUser::VkPageUser(QWidget *parent) :
     ui->setupUi(this);
     setPageContent(ui->widgetStateLoaded, ui->mainLayout);
 
+    //// Set fallback button icons =============================================
+
     setIcon(ui->buttonAlbums, "cat_albums.png");
     setIcon(ui->buttonPhotos, "cat_photos.png");
     setIcon(ui->buttonVideos, "cat_videos.png");
     setIcon(ui->buttonAudios, "cat_audios.png");
     setIcon(ui->buttonFriends, "cat_friends.png");
+
+    //// Set information text palette ==========================================
 
     QPalette labelPalette;
     QColor labelColor = labelPalette.color(QPalette::WindowText);
@@ -34,6 +38,36 @@ VkPageUser::VkPageUser(QWidget *parent) :
     ui->labelHomeTown->setPalette(labelPalette);
     ui->labelMobilePhone->setPalette(labelPalette);
     ui->labelOtherPhone->setPalette(labelPalette);
+
+    //// Set information text font size ========================================
+
+#ifdef Q_OS_WIN
+    QFont labelFont;
+    labelFont.setPixelSize(14);
+//    labelFont.setBold(true);
+
+    ui->groupInfo->setFont(labelFont);
+    ui->groupLocations->setFont(labelFont);
+    ui->groupPhones->setFont(labelFont);
+
+//    labelFont.setBold(false);
+
+//    ui->labelBirthDate->setFont(labelFont);
+//    ui->labelCountry->setFont(labelFont);
+//    ui->labelCity->setFont(labelFont);
+//    ui->labelHomeTown->setFont(labelFont);
+//    ui->labelMobilePhone->setFont(labelFont);
+//    ui->labelOtherPhone->setFont(labelFont);
+
+//    ui->valueBirthDate->setFont(labelFont);
+//    ui->valueCountry->setFont(labelFont);
+//    ui->valueCity->setFont(labelFont);
+//    ui->valueHomeTown->setFont(labelFont);
+//    ui->valueMobilePhone->setFont(labelFont);
+//    ui->valueOtherPhone->setFont(labelFont);
+#endif
+
+    //// Set profile image settings ============================================
 
     ui->imageProfile->setImageType(VkImageWidget::IMAGE_ROUNDED_RECT);
 }
