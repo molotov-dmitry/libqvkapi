@@ -122,6 +122,13 @@ struct VkUserInfoContacts
 
     QString             mobilePhone;    ///< Номер мобильного телефона
     QString             homePhone;      ///< Дополнительный номер телефона
+
+    QString             skype;          ///< Имя Skype
+    QString             facebookId;     ///< Идентификатор учётной записи Facebook
+    QString             facebookName;   ///< Имя пользователя в Facebook
+    QString             siteUrl;        ///< Личный сайт
+    QString             twitter;        ///< Учётная запись Twitter
+    QString             instagram;      ///< Учётная запись Instagram
 };
 
 /*!
