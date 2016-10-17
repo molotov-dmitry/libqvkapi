@@ -107,3 +107,52 @@ QString Metadata::phoneNumberToString(const QString &phoneNumber)
     return result;
 }
 
+QString Metadata::getLink(const QString &linkUrl, const QString &linkName)
+{
+    return "<a href=\"" + linkUrl + "\">" + linkName + "</a>";
+}
+
+QString Metadata::urlToLink(const QString &siteUrl)
+{
+    QString url = siteUrl;
+
+    if (url.startsWith("vk.com"))
+        url.prepend("https://");
+
+    QRegExp regExp("^[a-z]*://");
+
+    if (!url.contains(regExp))
+        url.prepend("http://");
+
+    return getLink(url, siteUrl);
+
+}
+
+QString Metadata::skypeToLink(const QString &skypeName)
+{
+    QString url = "skype:" + skypeName + "?call";
+
+    return getLink(url, skypeName);
+}
+
+QString Metadata::facebookToLink(const QString &facebookId, const QString &facebookName)
+{
+    QString url = "https://facebook.com/profile.php?id=" + facebookId;
+
+    return getLink(url, facebookName);
+}
+
+QString Metadata::twitterToLink(const QString &twitterName)
+{
+    QString url = "https://twitter.com/" + twitterName;
+
+    return getLink(url, twitterName);
+}
+
+QString Metadata::instagramToLink(const QString &instagramName)
+{
+    QString url = "https://www.instagram.com/" + instagramName;
+
+    return getLink(url, instagramName);
+}
+

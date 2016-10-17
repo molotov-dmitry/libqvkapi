@@ -54,6 +54,50 @@ public:
      * \return Номер телефона в читаемом виде
      */
     static QString phoneNumberToString(const QString &phoneNumber);
+
+    /*!
+     * \brief Получение HTML тега ссылки
+     * \param[in] linkUrl Адресс ссылки
+     * \param[in] linkName Название ссылки
+     * \return HTML тег ссылки
+     */
+    static QString getLink(const QString &linkUrl, const QString &linkName);
+
+    /*!
+     * \brief Преобразование URL в HTML-ссылку
+     * \param[in] siteUrl URL
+     * \return HTML-ссылка
+     */
+    static QString urlToLink(const QString &siteUrl);
+
+    /*!
+     * \brief Преобразование имени Skype в ссылку
+     * \param[in] skypeName Имя пользователя Skype
+     * \return Ссылка
+     */
+    static QString skypeToLink(const QString &skypeName);
+
+    /*!
+     * \brief Преобразование идентификатора и имени пользователя Facebook в ссылку на страницу
+     * \param[in] facebookId Идентификатор пользователя
+     * \param[in] facebookName Имя пользователя
+     * \return Ссылка на страницу пользователя
+     */
+    static QString facebookToLink(const QString &facebookId, const QString &facebookName);
+
+    /*!
+     * \brief Преобразование имени пользователя Twitter в ссылку на страницу
+     * \param[in] twitterId Имя пользователя
+     * \return Ссылка на страницу пользователя
+     */
+    static QString twitterToLink(const QString &twitterName);
+
+    /*!
+     * \brief Преобразование имени пользователя Instagram в ссылку на страницу
+     * \param[in] instagramName Имя пользователя
+     * \return Ссылка на страницу пользователя
+     */
+    static QString instagramToLink(const QString &instagramName);
 };
 
 #endif // METADATA_H
