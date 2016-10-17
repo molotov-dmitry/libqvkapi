@@ -256,6 +256,18 @@ void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
 
 }
 
+QUrl VkPageUser::getPageUrl() const
+{
+    QString pageId;
+
+    if (mPageId.isEmpty())
+        pageId = mPageName;
+    else
+        pageId = mPageId;
+
+    return QUrl(VkPageWidget::getPageUrl().toString() + pageId);
+}
+
 void VkPageUser::userInfoReceived(QList<VkUserInfoFull> userInfoList)
 {
     VkUserInfoFull currUserInfo = userInfoList.first();
