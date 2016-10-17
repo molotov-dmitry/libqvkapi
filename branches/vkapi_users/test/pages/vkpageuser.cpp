@@ -232,14 +232,14 @@ void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
     ui->valueMobilePhone->setHidden(userInfo.contacts.mobilePhone.isEmpty());
     ui->labelMobilePhone->setHidden(userInfo.contacts.mobilePhone.isEmpty());
 
-    ui->valueMobilePhone->setText(userInfo.contacts.mobilePhone);
+    ui->valueMobilePhone->setText(Metadata::phoneNumberToString(userInfo.contacts.mobilePhone));
 
     //// Другой ----------------------------------------------------------------
 
     ui->valueOtherPhone->setHidden(userInfo.contacts.homePhone.isEmpty());
     ui->labelOtherPhone->setHidden(userInfo.contacts.homePhone.isEmpty());
 
-    ui->valueOtherPhone->setText(userInfo.contacts.homePhone);
+    ui->valueOtherPhone->setText(Metadata::phoneNumberToString(userInfo.contacts.homePhone));
 
     //// Счётчики ==============================================================
 
