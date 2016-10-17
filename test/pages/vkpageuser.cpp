@@ -38,6 +38,11 @@ VkPageUser::VkPageUser(QWidget *parent) :
     ui->labelHomeTown->setPalette(labelPalette);
     ui->labelMobilePhone->setPalette(labelPalette);
     ui->labelOtherPhone->setPalette(labelPalette);
+    ui->labelWebsite->setPalette(labelPalette);
+    ui->labelSkype->setPalette(labelPalette);
+    ui->labelFacebook->setPalette(labelPalette);
+    ui->labelTwitter->setPalette(labelPalette);
+    ui->labelInstagram->setPalette(labelPalette);
 
     //// Set information text font size ========================================
 
@@ -225,7 +230,12 @@ void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
     //// Телефоны ==============================================================
 
     ui->groupPhones->setHidden(userInfo.contacts.mobilePhone.isEmpty()
-                               && userInfo.contacts.homePhone.isEmpty());
+                               && userInfo.contacts.homePhone.isEmpty()
+                               && userInfo.contacts.siteUrl.isEmpty()
+                               && userInfo.contacts.skype.isEmpty()
+                               && userInfo.contacts.facebookId.isEmpty()
+                               && userInfo.contacts.twitter.isEmpty()
+                               && userInfo.contacts.instagram.isEmpty());
 
     //// Мобильный -------------------------------------------------------------
 
@@ -240,6 +250,42 @@ void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
     ui->labelOtherPhone->setHidden(userInfo.contacts.homePhone.isEmpty());
 
     ui->valueOtherPhone->setText(Metadata::phoneNumberToString(userInfo.contacts.homePhone));
+
+    //// Веб-сайт --------------------------------------------------------------
+
+    ui->valueWebsite->setHidden(userInfo.contacts.siteUrl.isEmpty());
+    ui->labelWebsite->setHidden(userInfo.contacts.siteUrl.isEmpty());
+
+    ui->valueWebsite->setText(Metadata::urlToLink(userInfo.contacts.siteUrl));
+
+    //// Skype -----------------------------------------------------------------
+
+    ui->valueSkype->setHidden(userInfo.contacts.skype.isEmpty());
+    ui->labelSkype->setHidden(userInfo.contacts.skype.isEmpty());
+
+    ui->valueSkype->setText(Metadata::skypeToLink(userInfo.contacts.skype));
+
+    //// Facebook --------------------------------------------------------------
+
+    ui->valueFacebook->setHidden(userInfo.contacts.facebookId.isEmpty());
+    ui->labelFacebook->setHidden(userInfo.contacts.facebookId.isEmpty());
+
+    ui->valueFacebook->setText(Metadata::facebookToLink(userInfo.contacts.facebookId,
+                                                        userInfo.contacts.facebookName));
+
+    //// Twitter ---------------------------------------------------------------
+
+    ui->valueTwitter->setHidden(userInfo.contacts.twitter.isEmpty());
+    ui->labelTwitter->setHidden(userInfo.contacts.twitter.isEmpty());
+
+    ui->valueTwitter->setText(Metadata::twitterToLink(userInfo.contacts.twitter));
+
+    //// instagram -------------------------------------------------------------
+
+    ui->valueInstagram->setHidden(userInfo.contacts.instagram.isEmpty());
+    ui->labelInstagram->setHidden(userInfo.contacts.instagram.isEmpty());
+
+    ui->valueInstagram->setText(Metadata::instagramToLink(userInfo.contacts.instagram));
 
     //// Счётчики ==============================================================
 
