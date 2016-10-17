@@ -146,7 +146,7 @@ void QVkRequestUsers::requestFullUserInfo(QStringList userIds)
     QStringList fields;
     fields << "screen_name";
     fields << "bdate" << "sex" << "online" << "status" << "last_seen" << "verified";
-    fields << "city" << "country" << "home_town" << "contacts";
+    fields << "city" << "country" << "home_town" << "contacts" << "connections" << "site";
     fields << "counters";
     fields << "photo_50" << "photo_100" << "photo_200_orig" << "photo_200" << "photo_400_orig" << "photo_max" << "photo_max_orig";
 
@@ -310,6 +310,35 @@ void QVkRequestUsers::receiveFullUserInfo(QJsonDocument document)
 
         if (object.contains("home_phone"))
             userInfo.contacts.homePhone = object["home_phone"].toString();
+
+        //// Сайт --------------------------------------------------------------
+
+        if (object.contains("site"))
+            userInfo.contacts.siteUrl = object["site"].toString();
+
+        //// Skype -------------------------------------------------------------
+
+        if (object.contains("skype"))
+            userInfo.contacts.skype = object["skype"].toString();
+
+        //// Facebook ----------------------------------------------------------
+
+        if (object.contains("facebook"))
+            userInfo.contacts.facebookId = object["facebook"].toString();
+
+        if (object.contains("facebook_name"))
+            userInfo.contacts.facebookName = object["facebook_name"].toString();
+
+        //// Twitter -----------------------------------------------------------
+
+        if (object.contains("twitter"))
+            userInfo.contacts.twitter = object["twitter"].toString();
+
+        //// Instagram ---------------------------------------------------------
+
+        if (object.contains("instagram"))
+            userInfo.contacts.instagram = object["instagram"].toString();
+
 
         //// Счётчики ==========================================================
 
