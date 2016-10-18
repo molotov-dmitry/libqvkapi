@@ -87,7 +87,7 @@ bool Metadata::checkPhoneNumber(const QString &phoneNumber)
 {
     QString result = phoneNumber;
 
-    QRegExp regExp("[^0-9]");
+    QRegExp regExp("[^.0-9]");
     result.remove(regExp);
 
     return result.length() >= 5;
