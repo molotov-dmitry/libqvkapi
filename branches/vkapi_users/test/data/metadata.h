@@ -49,7 +49,14 @@ public:
     static QString dateDiffStr(const QDateTime &dateTime);
 
     /*!
-     * \brief преобразование телефонного номера в более читаемый вид
+     * \brief Проверка корректности номера телефона
+     * \param[in] phoneNumber Номер телефона
+     * \return Корректность номера телефона
+     */
+    static bool checkPhoneNumber(const QString &phoneNumber);
+
+    /*!
+     * \brief Преобразование телефонного номера в более читаемый вид
      * \param[in] phoneNumber Номер телефона
      * \return Номер телефона в читаемом виде
      */
