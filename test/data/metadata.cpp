@@ -83,6 +83,16 @@ QString Metadata::dateDiffStr(const QDateTime &dateTime)
     return date + " в " + dateTime.toString("HH:MM");
 }
 
+bool Metadata::checkPhoneNumber(const QString &phoneNumber)
+{
+    QString result = phoneNumber;
+
+    QRegExp regExp("[^0-9]");
+    result.remove(regExp);
+
+    return result.length() >= 5;
+}
+
 QString Metadata::phoneNumberToString(const QString &phoneNumber)
 {
     QString result = phoneNumber;

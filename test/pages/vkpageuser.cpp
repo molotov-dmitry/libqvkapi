@@ -229,8 +229,8 @@ void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
 
     //// Телефоны ==============================================================
 
-    ui->groupPhones->setHidden(userInfo.contacts.mobilePhone.isEmpty()
-                               && userInfo.contacts.homePhone.isEmpty()
+    ui->groupPhones->setHidden(!Metadata::checkPhoneNumber(userInfo.contacts.mobilePhone)
+                               && !Metadata::checkPhoneNumber(userInfo.contacts.homePhone)
                                && userInfo.contacts.siteUrl.isEmpty()
                                && userInfo.contacts.skype.isEmpty()
                                && userInfo.contacts.facebookId.isEmpty()
@@ -239,15 +239,15 @@ void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
 
     //// Мобильный -------------------------------------------------------------
 
-    ui->valueMobilePhone->setHidden(userInfo.contacts.mobilePhone.isEmpty());
-    ui->labelMobilePhone->setHidden(userInfo.contacts.mobilePhone.isEmpty());
+    ui->valueMobilePhone->setVisible(Metadata::checkPhoneNumber(userInfo.contacts.mobilePhone));
+    ui->labelMobilePhone->setVisible(Metadata::checkPhoneNumber(userInfo.contacts.mobilePhone));
 
     ui->valueMobilePhone->setText(Metadata::phoneNumberToString(userInfo.contacts.mobilePhone));
 
     //// Другой ----------------------------------------------------------------
 
-    ui->valueOtherPhone->setHidden(userInfo.contacts.homePhone.isEmpty());
-    ui->labelOtherPhone->setHidden(userInfo.contacts.homePhone.isEmpty());
+    ui->valueOtherPhone->setVisible(Metadata::checkPhoneNumber(userInfo.contacts.homePhone));
+    ui->labelOtherPhone->setVisible(Metadata::checkPhoneNumber(userInfo.contacts.homePhone));
 
     ui->valueOtherPhone->setText(Metadata::phoneNumberToString(userInfo.contacts.homePhone));
 
