@@ -26,11 +26,16 @@ public:
     QByteArray token() const;
 
     QIcon profileImage() const;
+    bool setProfileImageName(const QString &imageName);
 
     void dbDelete();
 
     QDateTime tokenExpire() const;
     void setTokenExpire(const QDateTime &tokenExpire);
+
+    bool setFirstName(const QString &firstName);
+
+    bool setLastName(const QString &lastName);
 
 private:
 
@@ -47,6 +52,10 @@ private:
     QDateTime   mTokenExpire;
 
     QIcon   mProfileImage;
+
+    bool updateValue(const QString &name, const QString &value);
+
+    void updateProfileImage(const QString &imageName);
 
 };
 

@@ -10,6 +10,8 @@
 #include "accountinfo.h"
 #include "settings.h"
 
+#include "resicons.h"
+
 enum SettingsPage
 {
     PAGE_ACCOUNTS
@@ -24,14 +26,10 @@ DialogSettings::DialogSettings(QWidget *parent) :
     if (windowIcon().isNull())
         setWindowIcon(QIcon(":/icons/icon-settings.svg"));
 
-    if (ui->toolBox->itemIcon(PAGE_ACCOUNTS).isNull())
-        ui->toolBox->setItemIcon(PAGE_ACCOUNTS, QIcon(":/icons/config-user.svg"));
+    setIcon(ui->toolBox, PAGE_ACCOUNTS, "config-user.svg");
 
-    if (ui->buttonAccountAdd->icon().isNull())
-        ui->buttonAccountAdd->setIcon(QIcon(":/icons/list-add.svg"));
-
-    if (ui->buttonAccountRemove->icon().isNull())
-        ui->buttonAccountRemove->setIcon(QIcon(":/icons/list-remove.svg"));
+    setIcon(ui->buttonAccountAdd, "list-add.svg");
+    setIcon(ui->buttonAccountRemove, "list-remove.svg");
 
     updateAccountList();
 }

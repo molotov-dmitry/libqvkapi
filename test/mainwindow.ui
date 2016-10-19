@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>600</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,8 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset theme="web-vk">
-    <normaloff/>
-   </iconset>
+    <normaloff>.</normaloff>.</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -33,66 +32,222 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QFrame" name="frame">
+     <widget class="QFrame" name="headerBar">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QLabel" name="labelName">
+        <widget class="QToolButton" name="buttonOpenUserPage">
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="statusTip">
+          <string>Открыть страницу</string>
+         </property>
+         <property name="icon">
+          <iconset theme="cs-user">
+           <normaloff>.</normaloff>.</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>16</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="editUserName">
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="buttonOpenUserPageGo">
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="icon">
+          <iconset theme="go-next">
+           <normaloff>.</normaloff>.</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>16</width>
+           <height>16</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QToolButton" name="buttonOpenLink">
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="statusTip">
+          <string>Открыть в браузере</string>
+         </property>
+         <property name="icon">
+          <iconset theme="applications-internet"/>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>16</width>
+           <height>16</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="buttonUpdate">
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="statusTip">
+          <string>Обновить</string>
+         </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string>Обновить</string>
+         </property>
+         <property name="icon">
+          <iconset theme="view-refresh">
+           <normaloff>.</normaloff>.</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>16</width>
+           <height>16</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line">
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="buttonUser">
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Имя</string>
+         </property>
+         <property name="icon">
+          <iconset resource="res/resource.qrc">
+           <normaloff>:/icons/icon.svg</normaloff>:/icons/icon.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>16</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextBesideIcon</enum>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QToolButton" name="buttonSwitchUser">
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
          <property name="statusTip">
           <string>Сменить позьзователя</string>
          </property>
+         <property name="text">
+          <string>Смена пользователя</string>
+         </property>
          <property name="icon">
           <iconset theme="system-reboot">
-           <normaloff/>
-          </iconset>
+           <normaloff>.</normaloff>.</iconset>
          </property>
          <property name="iconSize">
           <size>
            <width>16</width>
            <height>16</height>
           </size>
-         </property>
-         <property name="autoRaise">
-          <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QToolButton" name="buttonLogout">
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
          <property name="statusTip">
           <string>Завершить сеанс</string>
          </property>
+         <property name="text">
+          <string>Выход</string>
+         </property>
          <property name="icon">
-          <iconset theme="system-logout">
-           <normaloff/>
-          </iconset>
+          <iconset theme="system-log-out">
+           <normaloff>.</normaloff>.</iconset>
          </property>
          <property name="iconSize">
           <size>
            <width>16</width>
            <height>16</height>
           </size>
-         </property>
-         <property name="autoRaise">
-          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -100,7 +255,17 @@
      </widget>
     </item>
     <item>
-     <widget class="QWidget" name="widget" native="true"/>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="iconSize">
+       <size>
+        <width>24</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="tabsClosable">
+       <bool>true</bool>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -109,33 +274,27 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
-     <height>20</height>
+     <width>600</width>
+     <height>21</height>
     </rect>
    </property>
-  </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="res/resource.qrc"/>
+ </resources>
  <connections>
   <connection>
-   <sender>buttonSwitchUser</sender>
+   <sender>buttonLogout</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>switchSession()</slot>
+   <slot>logout()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>377</x>
-     <y>58</y>
+     <x>376</x>
+     <y>43</y>
     </hint>
     <hint type="destinationlabel">
      <x>199</x>
@@ -144,18 +303,34 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonLogout</sender>
+   <sender>buttonSwitchUser</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>logout()</slot>
+   <slot>switchSession()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>347</x>
-     <y>58</y>
+     <x>343</x>
+     <y>43</y>
     </hint>
     <hint type="destinationlabel">
      <x>199</x>
      <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>editUserName</sender>
+   <signal>returnPressed()</signal>
+   <receiver>buttonOpenUserPageGo</receiver>
+   <slot>animateClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>101</x>
+     <y>45</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>179</x>
+     <y>45</y>
     </hint>
    </hints>
   </connection>

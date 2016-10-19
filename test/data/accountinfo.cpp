@@ -5,6 +5,10 @@
 #include <QDebug>
 #include <QVariant>
 
+#include <QPainter>
+
+#include "imagecache.h"
+
 AccountInfo::AccountInfo(int id) : mId(0), mValid(false)
 {
     QSqlQuery query;
@@ -26,7 +30,9 @@ AccountInfo::AccountInfo(int id) : mId(0), mValid(false)
         mToken = query.value(3).toByteArray();
         mTokenExpire = QDateTime::fromTime_t(query.value(4).toUInt());
 
-        mProfileImage = QIcon();
+        QString imageName = query.value(5).toString();
+
+        updateProfileImage(imageName);
     }
 }
 
@@ -73,6 +79,16 @@ QIcon AccountInfo::profileImage() const
     return mProfileImage;
 }
 
+bool AccountInfo::setProfileImageName(const QString &imageName)
+{
+    bool res = updateValue("image", imageName);
+
+    if (res)
+        updateProfileImage(imageName);
+
+    return res;
+}
+
 void AccountInfo::dbDelete()
 {
     if (!mValid)
@@ -95,6 +111,71 @@ QDateTime AccountInfo::tokenExpire() const
 void AccountInfo::setTokenExpire(const QDateTime &tokenExpire)
 {
     mTokenExpire = tokenExpire;
+}
+
+bool AccountInfo::setFirstName(const QString &firstName)
+{
+    bool res = updateValue("first_name", firstName);
+
+    if (res)
+        mFirstName = firstName;
+
+    return res;
+}
+
+bool AccountInfo::setLastName(const QString &lastName)
+{
+    bool res = updateValue("last_name", lastName);
+
+    if (res)
+        mLastName = lastName;
+
+    return res;
+}
+
+bool AccountInfo::updateValue(const QString &name, const QString &value)
+{
+    QSqlQuery query;
+    query.prepare(QString("UPDATE users ") +
+                  QString("SET ") + name + QString(" = :value ") +
+                  QString("WHERE id = :id"));
+
+    query.bindValue(":name", name);
+    query.bindValue(":value", value);
+    query.bindValue(":id", mId);
+
+    return query.exec();
+}
+
+void AccountInfo::updateProfileImage(const QString &imageName)
+{
+    if (!imageName.isEmpty() && ImageCache::imageCached(imageName))
+    {
+        QImage cacheImage = ImageCache::loadImageFromCache(imageName);
+
+        QPixmap userPixmap(32, 32);
+        userPixmap.fill(Qt::transparent);
+
+        QPainter p(&userPixmap);
+
+        p.setRenderHint(QPainter::Antialiasing);
+
+        QBrush brush;
+        brush.setTextureImage(cacheImage.scaled(p.window().size()));
+
+        p.setBrush(brush);
+        p.setPen(Qt::NoPen);
+
+        p.drawEllipse(p.window());
+
+        p.end();
+
+        mProfileImage = QIcon(userPixmap);
+    }
+    else
+    {
+        mProfileImage = QIcon(":/icons/icon.svg");
+    }
 }
 
 QString AccountInfo::login() const
