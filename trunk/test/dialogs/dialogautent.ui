@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>399</width>
-    <height>163</height>
+    <height>178</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,8 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset theme="dialog-password">
-    <normaloff/>
-   </iconset>
+    <normaloff>.</normaloff>.</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -50,6 +49,12 @@
      </item>
      <item row="0" column="1">
       <widget class="QLineEdit" name="editLogin">
+       <property name="minimumSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
        <property name="maxLength">
         <number>64</number>
        </property>
@@ -60,6 +65,12 @@
      </item>
      <item row="1" column="1">
       <widget class="QLineEdit" name="editPassword">
+       <property name="minimumSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
        <property name="maxLength">
         <number>64</number>
        </property>
@@ -73,6 +84,12 @@
      </item>
      <item row="2" column="1">
       <widget class="QCheckBox" name="buttonPasswordVisible">
+       <property name="minimumSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
        <property name="text">
         <string>Показать пароль</string>
        </property>
@@ -98,6 +115,12 @@
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="minimumSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>

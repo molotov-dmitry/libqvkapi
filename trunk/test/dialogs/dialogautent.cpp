@@ -54,6 +54,8 @@ void DialogAutent::on_buttonBox_accepted()
     ui->editPassword->setEnabled(false);
     ui->buttonPasswordVisible->setEnabled(false);
 
+    ui->editPassword->setEchoMode(QLineEdit::Password);
+
     vkApi = new QVkAuth(this);
     vkApi->setAppId("5172032");
 
@@ -71,6 +73,8 @@ void DialogAutent::authFailed(const QString &error)
     ui->editLogin->setEnabled(true);
     ui->editPassword->setEnabled(true);
     ui->buttonPasswordVisible->setEnabled(true);
+
+    on_buttonPasswordVisible_toggled(ui->buttonPasswordVisible->isChecked());
 
     ui->editLogin->setFocus();
 }

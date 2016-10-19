@@ -73,6 +73,8 @@ void QVkRequest::getReply(QNetworkReply *reply)
         QString errorMsg = document.object()["error"].toObject()["error_msg"].toString();
 
         emit replyFailed(errorMsg);
+
+        return;
     }
 
     emit replySuccess(document);

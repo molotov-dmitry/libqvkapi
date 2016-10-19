@@ -22,8 +22,6 @@ public:
 private slots:
     void on_buttonSettings_clicked();
 
-    void on_buttonExit_clicked();
-
     void on_buttonLogin_clicked();
 
 private:
