@@ -180,6 +180,16 @@ Metadata::PageType Metadata::getPageType(const QString &pageUri)
             return PAGE_USER;
     }
 
+    if (uri.startsWith("albums"))
+    {
+        bool ok;
+
+        uri.mid(6).toUInt(&ok);
+
+        if (ok)
+            return PAGE_ALBUM_LIST;
+    }
+
     return PAGE_UNKNOWN;
 }
 

@@ -30,7 +30,8 @@ public:
     {
         PAGE_UNKNOWN,
 
-        PAGE_USER
+        PAGE_USER,
+        PAGE_ALBUM_LIST
     };
 
     /*!

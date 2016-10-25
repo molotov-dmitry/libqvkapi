@@ -13,6 +13,7 @@
 
 #include "vkpagewidget.h"
 #include "vkpageuser.h"
+#include "vkpagealbums.h"
 
 #include "imagecache.h"
 
@@ -99,6 +100,38 @@ void MainWindow::openUserPage(const QString &userId)
     mCurrentPage = page;
 
     int newTabIndex = ui->tabWidget->addTab(page, QIcon::fromTheme("user-identity"), userId);
+
+    if (newTabIndex >= 0)
+    {
+        setIcon(ui->tabWidget, newTabIndex, "user.svg");
+        ui->tabWidget->setCurrentIndex(newTabIndex);
+    }
+}
+
+void MainWindow::openAlbumsPage(unsigned int userId)
+{
+    for (int i = 0; i < mPages.count(); ++i)
+    {
+        VkPageWidget *page = mPages.at(i);
+
+        if (page->isThisPage("albums" + QString::number(userId)))
+        {
+            ui->tabWidget->setCurrentIndex(i);
+            return;
+        }
+    }
+
+    VkPageAlbums *page = new VkPageAlbums(0);
+    page->setToken(mAccInfo.token());
+    page->setUserId(userId);
+
+    connect(page, SIGNAL(pageLoaded(QString,QString)), this, SLOT(updatePageName(QString,QString)));
+    connect(page, SIGNAL(linkOpened(QString)), this, SLOT(openPage(QString)));
+
+    mPages.append(page);
+    mCurrentPage = page;
+
+    int newTabIndex = ui->tabWidget->addTab(page, QIcon::fromTheme("user-identity"), QString(userId) + " albums");
 
     if (newTabIndex >= 0)
     {
@@ -201,6 +234,19 @@ void MainWindow::updatePageInfo(const QString &pageId, const VkUserInfoFull &inf
     }
 }
 
+void MainWindow::updatePageName(const QString &pageId, const QString &pageName)
+{
+    for (int i = 0; i < mPages.count(); ++i)
+    {
+        VkPageWidget *page = mPages.at(i);
+
+        if (page->getPageId() == pageId)
+        {
+            ui->tabWidget->setTabText(i, pageName);
+        }
+    }
+}
+
 void MainWindow::showError(QString errorText)
 {
     QMessageBox::critical(this, "Error", errorText);
@@ -284,6 +330,11 @@ void MainWindow::openPage(const QString &pageUri)
     case Metadata::PAGE_USER:
 
         openUserPage(pageUri);
+        break;
+
+    case Metadata::PAGE_ALBUM_LIST:
+
+        openAlbumsPage(pageUri.mid(6).toUInt());
         break;
 
     default:
