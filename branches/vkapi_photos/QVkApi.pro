@@ -19,7 +19,8 @@ SOURCES += \
     src/qvkauthview.cpp \
     src/qvkauth.cpp \
     src/qvkrequest.cpp \
-    src/qvkrequestusers.cpp
+    src/qvkrequestusers.cpp \
+    src/qvkrequestalbums.cpp
 
 HEADERS +=\
         include/qvkapi_global.h \
@@ -27,7 +28,9 @@ HEADERS +=\
     include/qvkauth.h \
     include/qvkrequest.h \
     include/qvkuserinfo.h \
-    include/qvkrequestusers.h
+    include/qvkrequestusers.h \
+    include/qvkrequestalbums.h \
+    include/qvkalbuminfo.h
 
 unix {
     target.path = /usr/lib

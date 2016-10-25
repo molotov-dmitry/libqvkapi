@@ -68,7 +68,7 @@ void QVkRequestUsers::receiveBasicUserInfo(QJsonDocument document)
 
         //// Get user id and name ----------------------------------------------
 
-        userInfo.id = object["id"].toInt();
+        userInfo.id = object["id"].toVariant().toUInt();
         userInfo.firstName = object["first_name"].toString();
         userInfo.lastName = object["last_name"].toString();
 

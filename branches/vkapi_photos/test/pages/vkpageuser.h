@@ -30,6 +30,8 @@ private slots:
 
     void userInfoReceived(QList<VkUserInfoFull> userInfoList);
 
+    void on_buttonAlbums_clicked();
+
 public slots:
 
     virtual void updatePage();
