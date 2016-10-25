@@ -57,6 +57,8 @@ private slots:
     void on_buttonOpenUserPageGo_clicked();
     void on_buttonOpenUserPage_toggled(bool checked);
     void on_buttonOpenLink_clicked();
+
+    void openPage(const QString &pageUri);
 };
 
 #endif // MAINWINDOW_H

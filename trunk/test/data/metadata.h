@@ -26,6 +26,13 @@ public:
         TU_HOURS
     };
 
+    enum PageType
+    {
+        PAGE_UNKNOWN,
+
+        PAGE_USER
+    };
+
     /*!
      * \brief Получение окончания единицы измерения времени
      * \param[in] value Количество времени
@@ -105,6 +112,13 @@ public:
      * \return Ссылка на страницу пользователя
      */
     static QString instagramToLink(const QString &instagramName);
+
+    /*!
+     * \brief Определение типа страницы по адрусу страницы
+     * \param[in] pageUri Адрес страницы
+     * \return Тип страницы
+     */
+    static PageType getPageType(const QString &pageUri);
 };
 
 #endif // METADATA_H
