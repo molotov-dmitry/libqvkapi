@@ -2,6 +2,7 @@
 #define VKPAGEALBUMS_H
 
 #include <QAbstractButton>
+#include <QTimer>
 
 #include "vkpagewidget.h"
 
@@ -21,7 +22,16 @@ private:
 
     QAbstractButton *mButton;
 
+    QTimer mLoadingAnimationTimer;
+
+    QList<QPixmap> mLoadingAnimationImageList;
+    unsigned int mLoadingAnimationCount;
+
+    unsigned int mLoadingAnimationIndex;
+
 private slots:
+
+    void updateLoadingAnimation();
 
     void imageLoaded(const QImage &image);
     void imageLoadFailed(const QString &errorText);

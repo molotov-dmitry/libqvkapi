@@ -129,6 +129,46 @@ VkAlbumThumb::VkAlbumThumb(QAbstractButton *button, const QString &thumbUrl, QOb
 {
     mButton = button;
 
+    //// Animation -------------------------------------------------------------
+
+//    mLoadingAnimationTimer.setInterval(50);
+    connect(&mLoadingAnimationTimer, SIGNAL(timeout()), this, SLOT(updateLoadingAnimation()));
+    mLoadingAnimationTimer.start(50);
+
+    QImage anim = QImage(":/anim/process-working.png");
+
+    int animCols = 8;
+    int animSize = anim.width() / animCols;
+    int animRows = anim.height() / animSize;
+
+    for (int y = 0; y < animRows; ++y)
+    {
+        for (int x = 0; x < animCols; ++x)
+        {
+            if (y == 0 && x == 0)
+                continue;
+
+            QPixmap pixmap(128, 128);
+            pixmap.fill(Qt::transparent);
+
+            QImage drawImage = anim.copy(x * animSize, y * animSize, animSize, animSize);
+            int offset = (128 - animSize) / 2;
+
+            QPainter p(&pixmap);
+
+            p.drawImage(offset, offset, drawImage);
+
+            p.end();
+
+            mLoadingAnimationImageList.append(pixmap);
+        }
+    }
+
+    mLoadingAnimationCount = animRows * animCols - 1;
+    mLoadingAnimationIndex = 0;
+
+    //// Request image from cache ==============================================
+
     ImageCache *cache = new ImageCache(this);
 
     connect(cache, SIGNAL(imageLoaded(QImage)), this, SLOT(imageLoaded(QImage)));
@@ -142,8 +182,24 @@ QAbstractButton *VkAlbumThumb::button() const
     return mButton;
 }
 
+void VkAlbumThumb::updateLoadingAnimation()
+{
+    if (!mLoadingAnimationImageList.isEmpty())
+    {
+        QPixmap pixmap = mLoadingAnimationImageList.at(mLoadingAnimationIndex);
+
+        mButton->setIcon(QIcon(pixmap));
+
+        mLoadingAnimationIndex = (mLoadingAnimationIndex + 1) % mLoadingAnimationCount;
+    }
+}
+
 void VkAlbumThumb::imageLoaded(const QImage &image)
 {
+    mLoadingAnimationTimer.stop();
+    mLoadingAnimationImageList.clear();
+    mLoadingAnimationCount = 0;
+
     QPixmap pixmap(128, 128);
     pixmap.fill(Qt::transparent);
 
