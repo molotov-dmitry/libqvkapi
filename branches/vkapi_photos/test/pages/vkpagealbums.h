@@ -29,6 +29,8 @@ private:
 
     unsigned int mLoadingAnimationIndex;
 
+    QIcon mErrorIcon;
+
 private slots:
 
     void updateLoadingAnimation();
