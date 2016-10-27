@@ -54,6 +54,8 @@ private:
 
     unsigned int mLoadingAnimationIndex;
 
+    QPixmap mErrorPixmap;
+
 private slots:
 
     void imageLoaded(const QImage &image);

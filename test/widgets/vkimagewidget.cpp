@@ -36,6 +36,10 @@ VkImageWidget::VkImageWidget(QWidget *parent) : QWidget(parent)
 
     mLoadingAnimationCount = animRows * animCols - 1;
     mLoadingAnimationIndex = 0;
+
+    //// Error pixmap ----------------------------------------------------------
+
+    mErrorPixmap = QPixmap(":/icons/dialog-error.png");
 }
 
 void VkImageWidget::setImage(const QString &imageUrl)
@@ -108,6 +112,13 @@ void VkImageWidget::paintEvent(QPaintEvent *e)
             mLoadingAnimationIndex = (mLoadingAnimationIndex + 1) % mLoadingAnimationCount;
         }
     }
+    else if (mImageState == IMAGE_ERROR)
+    {
+        int xoffset = (p.window().width() - mErrorPixmap.width()) / 2;
+        int yoffset = (p.window().height() - mErrorPixmap.height()) / 2;
+
+        p.drawPixmap(xoffset, yoffset, mErrorPixmap);
+    }
 
     p.end();
 }
@@ -136,6 +147,8 @@ void VkImageWidget::imageLoaded(const QImage &image)
 
 void VkImageWidget::imageLoadFailed(const QString &errorText)
 {
+    Q_UNUSED(errorText);
+
     mImageState = IMAGE_ERROR;
     mLoadingAnimationTimer.stop();
 

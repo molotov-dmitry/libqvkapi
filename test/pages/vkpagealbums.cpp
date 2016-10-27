@@ -131,7 +131,7 @@ VkAlbumThumb::VkAlbumThumb(QAbstractButton *button, const QString &thumbUrl, QOb
 
     //// Animation -------------------------------------------------------------
 
-//    mLoadingAnimationTimer.setInterval(50);
+    //    mLoadingAnimationTimer.setInterval(50);
     connect(&mLoadingAnimationTimer, SIGNAL(timeout()), this, SLOT(updateLoadingAnimation()));
     mLoadingAnimationTimer.start(50);
 
@@ -167,6 +167,24 @@ VkAlbumThumb::VkAlbumThumb(QAbstractButton *button, const QString &thumbUrl, QOb
     mLoadingAnimationCount = animRows * animCols - 1;
     mLoadingAnimationIndex = 0;
 
+    //// Error pixmap ==========================================================
+    {
+        QPixmap errorPixmap(128, 128);
+        errorPixmap.fill(Qt::transparent);
+
+        QImage errorImage = QImage(":/icons/dialog-error.png");
+
+        int offset = (128 - errorImage.width()) / 2;
+
+        QPainter p(&errorPixmap);
+
+        p.drawImage(offset, offset, errorImage);
+
+        p.end();
+
+        mErrorIcon = QIcon(errorPixmap);
+    }
+
     //// Request image from cache ==============================================
 
     ImageCache *cache = new ImageCache(this);
@@ -200,6 +218,8 @@ void VkAlbumThumb::imageLoaded(const QImage &image)
     mLoadingAnimationImageList.clear();
     mLoadingAnimationCount = 0;
 
+    mErrorIcon = QIcon();
+
     QPixmap pixmap(128, 128);
     pixmap.fill(Qt::transparent);
 
@@ -213,12 +233,6 @@ void VkAlbumThumb::imageLoaded(const QImage &image)
     QPainter p(&pixmap);
     p.setRenderHint(QPainter::Antialiasing);
 
-//    QBrush brush;
-//    brush.setTextureImage(drawImage);
-
-//    p.setBrush(brush);
-//    p.setPen(Qt::NoPen);
-
     int xOffset = 0;
     int yOffset = 0;
 
@@ -228,20 +242,27 @@ void VkAlbumThumb::imageLoaded(const QImage &image)
     if (drawImage.height() < 128)
         yOffset = (128 - drawImage.height()) / 2;
 
-//    p.drawRoundedRect(0, 0, drawImage.width(), drawImage.height(), 15, 15, Qt::RelativeSize);
     p.drawImage(xOffset, yOffset, drawImage);
 
-
     p.end();
-
 
     QIcon icon = QIcon(pixmap);
 
     if (mButton)
         mButton->setIcon(icon);
+
 }
 
 void VkAlbumThumb::imageLoadFailed(const QString &errorText)
 {
     Q_UNUSED(errorText);
+
+    mLoadingAnimationTimer.stop();
+    mLoadingAnimationImageList.clear();
+    mLoadingAnimationCount = 0;
+
+    if (mButton)
+        mButton->setIcon(mErrorIcon);
+
+    mErrorIcon = QIcon();
 }
