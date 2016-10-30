@@ -26,12 +26,10 @@
         <file>cat_videos.png</file>
         <file>dialog-error.png</file>
         <file>open-link.svg</file>
+        <file>cache.svg</file>
     </qresource>
     <qresource prefix="/anim">
         <file>process-working.svg</file>
         <file>process-working.png</file>
-    </qresource>
-    <qresource prefix="/">
-        <file>cache.svg</file>
     </qresource>
 </RCC>
