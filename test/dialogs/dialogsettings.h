@@ -22,6 +22,8 @@ private slots:
 
     void on_listAccounts_currentRowChanged(int currentRow);
 
+    void on_buttonCacheImageClear_clicked();
+
 private:
     Ui::DialogSettings *ui;
 
