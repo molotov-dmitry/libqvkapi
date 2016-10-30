@@ -22,6 +22,8 @@ public:
     static bool imageCached(const QString &imageUrl);
     static QImage loadImageFromCache(const QString &imageUrl);
 
+    static void clearCache();
+
 private:
 
     QString mImageUrl;
