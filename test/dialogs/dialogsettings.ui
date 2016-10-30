@@ -25,7 +25,7 @@
         <x>0</x>
         <y>0</y>
         <width>382</width>
-        <height>214</height>
+        <height>184</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -117,6 +117,38 @@
           </spacer>
          </item>
         </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="settingsCache">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>382</width>
+        <height>184</height>
+       </rect>
+      </property>
+      <attribute name="icon">
+       <iconset theme="application-x-archive">
+        <normaloff>.</normaloff>.</iconset>
+      </attribute>
+      <attribute name="label">
+       <string>Кэш</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>
