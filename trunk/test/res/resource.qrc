@@ -31,4 +31,7 @@
         <file>process-working.svg</file>
         <file>process-working.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>cache.svg</file>
+    </qresource>
 </RCC>
