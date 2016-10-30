@@ -14,7 +14,8 @@
 
 enum SettingsPage
 {
-    PAGE_ACCOUNTS
+    PAGE_ACCOUNTS,
+    PAGE_CACHE
 };
 
 DialogSettings::DialogSettings(QWidget *parent) :
@@ -27,6 +28,7 @@ DialogSettings::DialogSettings(QWidget *parent) :
         setWindowIcon(QIcon(":/icons/icon-settings.svg"));
 
     setIcon(ui->toolBox, PAGE_ACCOUNTS, "config-user.svg");
+    setIcon(ui->toolBox, PAGE_CACHE, "cache.svg");
 
     setIcon(ui->buttonAccountAdd, "list-add.svg");
     setIcon(ui->buttonAccountRemove, "list-remove.svg");
