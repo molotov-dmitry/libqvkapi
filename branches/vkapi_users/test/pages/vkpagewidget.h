@@ -69,6 +69,11 @@ private slots:
 
     void updateAnimation();
 
+signals:
+
+    void pageLoaded(const QString &pageName);
+    void linkOpened(const QString &linkUrl);
+
 };
 
 #endif // QVKPAGEWIDGET_H
