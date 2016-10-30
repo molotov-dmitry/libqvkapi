@@ -7,6 +7,7 @@
 #include <QPainter>
 
 #include "settings.h"
+#include "metadata.h"
 
 #include "qvkrequestusers.h"
 
@@ -92,6 +93,7 @@ void MainWindow::openUserPage(const QString &userId)
     page->setUserInfo(userId);
 
     connect(page, SIGNAL(pageLoaded(QString,VkUserInfoFull)), this, SLOT(updatePageInfo(QString,VkUserInfoFull)));
+    connect(page, SIGNAL(linkOpened(QString)), this, SLOT(openPage(QString)));
 
     mPages.append(page);
     mCurrentPage = page;
@@ -145,6 +147,8 @@ void MainWindow::updateUserInfo(QList<VkUserInfoFull> userInfoList)
 
     page->setToken(mAccInfo.token());
     page->setUserInfo(currUserInfo);
+
+    connect(page, SIGNAL(linkOpened(QString)), this, SLOT(openPage(QString)));
 
     mPages.append(page);
     mCurrentPage = page;
@@ -270,5 +274,21 @@ void MainWindow::on_buttonOpenLink_clicked()
     if (mCurrentPage)
     {
         QDesktopServices::openUrl(mCurrentPage->getPageUrl());
+    }
+}
+
+void MainWindow::openPage(const QString &pageUri)
+{
+    switch (Metadata::getPageType(pageUri))
+    {
+    case Metadata::PAGE_USER:
+
+        openUserPage(pageUri);
+        break;
+
+    default:
+
+        showError("Unknown page uri: " + pageUri);
+        break;
     }
 }

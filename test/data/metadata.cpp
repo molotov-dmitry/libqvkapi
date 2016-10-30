@@ -166,3 +166,20 @@ QString Metadata::instagramToLink(const QString &instagramName)
     return getLink(url, instagramName);
 }
 
+Metadata::PageType Metadata::getPageType(const QString &pageUri)
+{
+    QString uri = pageUri;
+
+    if (pageUri.startsWith("id"))
+    {
+        bool ok;
+
+        uri.mid(2).toUInt(&ok);
+
+        if (ok)
+            return PAGE_USER;
+    }
+
+    return PAGE_UNKNOWN;
+}
+
