@@ -101,7 +101,23 @@ void DialogSettings::on_buttonAccountAdd_clicked()
 
 void DialogSettings::on_listAccounts_currentRowChanged(int currentRow)
 {
-    ui->buttonAccountRemove->setEnabled(currentRow >= 0);
+    if (currentRow < 0)
+    {
+        ui->buttonAccountRemove->setEnabled(false);
+    }
+    else
+    {
+        QListWidgetItem *item = ui->listAccounts->item(currentRow);
+
+        AccountInfo accInfo = item->data(Qt::UserRole).value<AccountInfo>();
+
+        unsigned int currentId = Settings::getSetting("current_id", "0").toUInt();
+
+        if (currentId > 0 && accInfo.id() == currentId)
+            ui->buttonAccountRemove->setEnabled(false);
+        else
+            ui->buttonAccountRemove->setEnabled(true);
+    }
 }
 
 void DialogSettings::on_buttonCacheImageClear_clicked()
