@@ -6,6 +6,8 @@
 
 #include <QPainter>
 
+#include "dialogsettings.h"
+
 #include "settings.h"
 #include "metadata.h"
 
@@ -31,6 +33,7 @@ MainWindow::MainWindow(const AccountInfo &accInfo, QWidget *parent) :
 
     setIcon(ui->buttonLogout, "user-logout.svg");
     setIcon(ui->buttonSwitchUser, "user-switch.svg");
+    setIcon(ui->buttonSettings, "configure.svg");
     setIcon(ui->buttonUpdate, "refresh.svg");
     setIcon(ui->buttonOpenLink, "open-link.svg");
 
@@ -291,4 +294,10 @@ void MainWindow::openPage(const QString &pageUri)
         showError("Unknown page uri: " + pageUri);
         break;
     }
+}
+
+void MainWindow::on_buttonSettings_clicked()
+{
+    DialogSettings settings;
+    settings.exec();
 }
