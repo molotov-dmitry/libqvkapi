@@ -10,7 +10,7 @@
 #include "metadata.h"
 
 VkPageUser::VkPageUser(QWidget *parent) :
-    VkPageWidget(parent),
+    VkPageWidget("id", parent),
     ui(new Ui::VkPageUser)
 {
     ui->setupUi(this);
@@ -67,7 +67,7 @@ VkPageUser::~VkPageUser()
 
 void VkPageUser::setUserInfo(unsigned int userId)
 {
-    mPageId = QByteArray("id") + QByteArray::number(userId);
+    mPageId = QByteArray::number(userId);
     mPageName.clear();
 
     updatePage();
@@ -80,7 +80,7 @@ void VkPageUser::setUserInfo(const QString &userName)
 
     if (isNumber)
     {
-        mPageId = QByteArray("id") + userName.toLocal8Bit();
+        mPageId = userName.toLocal8Bit();
         mPageName.clear();
     }
     else
@@ -94,7 +94,7 @@ void VkPageUser::setUserInfo(const QString &userName)
 
 void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
 {
-    mPageId = QByteArray("id") + QByteArray::number(userInfo.basic.id);
+    mPageId = QByteArray::number(userInfo.basic.id);
 
     if (userInfo.basic.pageStatus == VkUser::USER_ACTIVE)
         setPageStatus(PAGE_LOADED);
@@ -105,7 +105,7 @@ void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
     else
         setError("Некорректные данные");
 
-    if (!userInfo.status.screenName.isEmpty() && userInfo.status.screenName != mPageId)
+    if (!userInfo.status.screenName.isEmpty() && userInfo.status.screenName != mPageType + mPageId)
         mPageName = userInfo.status.screenName.toLocal8Bit();
     else
         mPageName.clear();
@@ -309,7 +309,7 @@ QUrl VkPageUser::getPageUrl() const
     if (mPageId.isEmpty())
         pageId = mPageName;
     else
-        pageId = mPageId;
+        pageId = mPageType + mPageId;
 
     return QUrl(VkPageWidget::getPageUrl().toString() + pageId);
 }
