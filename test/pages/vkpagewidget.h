@@ -13,7 +13,7 @@ class VkPageWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit VkPageWidget(QWidget *parent = 0);
+    explicit VkPageWidget(QByteArray pageType, QWidget *parent = 0);
 
     void setToken(QByteArray token);
 
@@ -54,6 +54,8 @@ protected:
     PageStatus mPageStatus;
 
     QByteArray mToken;
+
+    QByteArray mPageType;
     QByteArray mPageId;
     QByteArray mPageName;
 

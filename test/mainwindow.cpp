@@ -134,7 +134,7 @@ void MainWindow::openAlbumsPage(unsigned int userId)
     mPages.append(page);
     mCurrentPage = page;
 
-    int newTabIndex = ui->tabWidget->addTab(page, QIcon::fromTheme("user-identity"), QString(userId) + " albums");
+    int newTabIndex = ui->tabWidget->addTab(page, QIcon::fromTheme("user-identity"), QString::number(userId) + " albums");
 
     if (newTabIndex >= 0)
     {
@@ -230,7 +230,7 @@ void MainWindow::updatePageInfo(const QString &pageId, const VkUserInfoFull &inf
     {
         VkPageWidget *page = mPages.at(i);
 
-        if (page->getPageId() == pageId)
+        if (page->isThisPage(pageId))
         {
             ui->tabWidget->setTabText(i, info.basic.firstName + " " + info.basic.lastName);
         }

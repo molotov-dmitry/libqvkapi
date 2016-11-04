@@ -10,7 +10,7 @@
 #include "qvkrequestalbums.h"
 
 VkPageAlbums::VkPageAlbums(QWidget *parent) :
-    VkPageWidget(parent),
+    VkPageWidget("albums", parent),
     ui(new Ui::VkPageAlbums)
 {
     ui->setupUi(this);
@@ -25,7 +25,7 @@ VkPageAlbums::~VkPageAlbums()
 void VkPageAlbums::setUserId(unsigned int userId)
 {
     mUserId = userId;
-    mPageId = QByteArray("albums") + QByteArray::number(mUserId);
+    mPageId = QByteArray::number(mUserId);
     mPageName.clear();
 
     updateUserInfo();
@@ -35,18 +35,18 @@ void VkPageAlbums::setUserId(unsigned int userId)
 void VkPageAlbums::setUserInfo(const VkUserInfoBasic &userInfo)
 {
     mUserId = userInfo.id;
-    mPageId = QByteArray("albums") + QByteArray::number(mUserId);
+    mPageId = QByteArray::number(mUserId);
     mPageName.clear();
 
-    emit pageLoaded(mPageId, userInfo);
-    emit VkPageWidget::pageLoaded(mPageId, userInfo.firstName + " " + userInfo.lastName + ": Альбомы");
+    emit pageLoaded(mPageType + mPageId, userInfo);
+    emit VkPageWidget::pageLoaded(mPageType + mPageId, userInfo.firstName + " " + userInfo.lastName + ": Альбомы");
 
     updatePage();
 }
 
 QUrl VkPageAlbums::getPageUrl() const
 {
-    return VkPageWidget::getPageUrl().toString() + mPageId;
+    return VkPageWidget::getPageUrl().toString() + mPageType + mPageId;
 }
 
 void VkPageAlbums::albumListReceived(QList<VkAlbumInfo> albumList)
@@ -87,8 +87,8 @@ void VkPageAlbums::userInfoReceived(QList<VkUserInfoBasic> userInfoList)
 {
     VkUserInfoBasic currUserInfo = userInfoList.first();
 
-    emit pageLoaded(mPageId, currUserInfo);
-    emit VkPageWidget::pageLoaded(mPageId, currUserInfo.firstName + " " + currUserInfo.lastName + ": Альбомы");
+    emit pageLoaded(mPageType + mPageId, currUserInfo);
+    emit VkPageWidget::pageLoaded(mPageType + mPageId, currUserInfo.firstName + " " + currUserInfo.lastName + ": Альбомы");
 }
 
 void VkPageAlbums::updateUserInfo()

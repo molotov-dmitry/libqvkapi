@@ -3,12 +3,13 @@
 #include <QIcon>
 #include <QHBoxLayout>
 
-VkPageWidget::VkPageWidget(QWidget *parent) :
+VkPageWidget::VkPageWidget(QByteArray pageType, QWidget *parent) :
     QWidget(parent),
     mPageContent(0),
     mLoadingAnimationCount(0),
     mLoadingAnimationIndex(0),
-    mPageStatus(PAGE_LOADING)
+    mPageStatus(PAGE_LOADING),
+    mPageType(pageType)
 {
     //// Loading widget ========================================================
 
@@ -123,27 +124,27 @@ void VkPageWidget::setToken(QByteArray token)
 bool VkPageWidget::isThisPage(const QString &pageName)
 {
     bool isNumber;      ///< argument is number, like "0"
-    bool isIdNumber;    ///< argument is page id, like "id0"
+    bool isIdNumber;    ///< argument is page id, like "id0" or "albums0"
 
     if (pageName.isEmpty())
         return false;
 
     pageName.toUInt(&isNumber);
 
-    pageName.mid(2).toUInt(&isIdNumber);
-    isIdNumber = isIdNumber && pageName.startsWith("id");
+    pageName.mid(mPageType.size()).toUInt(&isIdNumber);
+    isIdNumber = isIdNumber && pageName.startsWith(mPageType);
 
     if (isNumber)
-        return (mPageId == QString("id") + pageName);
-    else if (isIdNumber)
         return (mPageId == pageName);
+    else if (isIdNumber)
+        return (mPageType + mPageId == pageName);
     else
         return (mPageName == pageName);
 }
 
 QByteArray VkPageWidget::getPageId() const
 {
-    return mPageId;
+    return mPageType + mPageId;
 }
 
 void VkPageWidget::updatePage()
