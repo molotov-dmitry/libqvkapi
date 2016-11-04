@@ -83,9 +83,17 @@ void MainWindow::openUserPage(const QString &userId)
 {
     for (int i = 0; i < mPages.count(); ++i)
     {
+        bool isNumber;
+        QString userIdNum = userId;
+
+        userId.toUInt(&isNumber);
+
+        if (isNumber)
+            userIdNum = "id" + userId;
+
         VkPageWidget *page = mPages.at(i);
 
-        if (page->isThisPage(userId))
+        if (page->isThisPage(userIdNum))
         {
             ui->tabWidget->setCurrentIndex(i);
             return;
