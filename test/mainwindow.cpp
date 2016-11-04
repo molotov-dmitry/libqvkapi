@@ -197,7 +197,7 @@ void MainWindow::updatePageInfo(const QString &pageId, const VkUserInfoFull &inf
     {
         VkPageWidget *page = mPages.at(i);
 
-        if (page->getPageId() == pageId)
+        if (page->isThisPage(pageId))
         {
             ui->tabWidget->setTabText(i, info.basic.firstName + " " + info.basic.lastName);
         }
