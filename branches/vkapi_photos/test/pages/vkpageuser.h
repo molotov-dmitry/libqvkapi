@@ -32,6 +32,8 @@ private slots:
 
     void on_buttonAlbums_clicked();
 
+    void on_buttonPhotos_clicked();
+
 public slots:
 
     virtual void updatePage();

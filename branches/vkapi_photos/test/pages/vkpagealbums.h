@@ -3,6 +3,7 @@
 
 #include <QAbstractButton>
 #include <QTimer>
+#include <QMap>
 
 #include "vkpagewidget.h"
 
@@ -59,8 +60,12 @@ public:
 
 private slots:
 
+    void updateUserInfo();
+
     void albumListReceived(QList<VkAlbumInfo> albumList);
     void userInfoReceived(QList<VkUserInfoBasic> userInfoList);
+
+    void albumClick();
 
 private:
     Ui::VkPageAlbums *ui;
@@ -68,10 +73,9 @@ private:
     unsigned int mUserId;
 
     QList<VkAlbumThumb*> mAlbumThumbs;
+    QMap<QObject*, VkAlbumInfo> mAlbumIds;
 
 public slots:
-
-    void updateUserInfo();
 
     virtual void updatePage();
 

@@ -25,6 +25,7 @@ VkPageAlbums::~VkPageAlbums()
 void VkPageAlbums::setUserId(unsigned int userId)
 {
     mUserId = userId;
+
     mPageId = QByteArray::number(mUserId);
     mPageName.clear();
 
@@ -35,6 +36,7 @@ void VkPageAlbums::setUserId(unsigned int userId)
 void VkPageAlbums::setUserInfo(const VkUserInfoBasic &userInfo)
 {
     mUserId = userInfo.id;
+
     mPageId = QByteArray::number(mUserId);
     mPageName.clear();
 
@@ -70,9 +72,13 @@ void VkPageAlbums::albumListReceived(QList<VkAlbumInfo> albumList)
     {
         QCommandLinkButton *button = new QCommandLinkButton(ui->widgetStateLoaded);
 
+        connect(button, SIGNAL(clicked(bool)), this, SLOT(albumClick()));
+
         button->setText(album.title);
         button->setDescription(album.description);
         button->setIconSize(QSize(128, 128));
+
+        mAlbumIds.insert(button, album);
 
         VkAlbumThumb *thumb = new VkAlbumThumb(button, album.thumbUrl, this);
 
@@ -89,6 +95,18 @@ void VkPageAlbums::userInfoReceived(QList<VkUserInfoBasic> userInfoList)
 
     emit pageLoaded(mPageType + mPageId, currUserInfo);
     emit VkPageWidget::pageLoaded(mPageType + mPageId, currUserInfo.firstName + " " + currUserInfo.lastName + ": Альбомы");
+}
+
+void VkPageAlbums::albumClick()
+{
+    if (!mAlbumIds.contains(sender()))
+        return;
+
+    emit linkOpened("album"
+                    + QString::number(mAlbumIds.value(sender()).userId)
+                    + "_"
+                    + QString::number(mAlbumIds.value(sender()).id)
+                    );
 }
 
 void VkPageAlbums::updateUserInfo()
