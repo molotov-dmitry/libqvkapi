@@ -54,7 +54,7 @@ void QVkRequestAlbums::receiveAlbumList(QJsonDocument document)
 
     QJsonObject response = document.object()["response"].toObject();
 
-    //// Iterate trough user list ==============================================
+    //// Iterate trough album list =============================================
 
     QJsonArray items = response["items"].toArray();
 
@@ -63,7 +63,7 @@ void QVkRequestAlbums::receiveAlbumList(QJsonDocument document)
         QJsonObject object = value.toObject();
         VkAlbumInfo albumInfo;
 
-        //// Get id, owner id, and title ---------------------------------------
+        //// Get id and owner id -----------------------------------------------
 
         albumInfo.id = object["id"].toVariant().toULongLong();
         albumInfo.userId = object["owner_id"].toVariant().toULongLong();
@@ -97,7 +97,7 @@ void QVkRequestAlbums::receiveAlbumList(QJsonDocument document)
             albumInfo.updated = QDateTime::fromTime_t(timestamp);
         }
 
-        //// Add user info to list ---------------------------------------------
+        //// Add album info to list --------------------------------------------
 
         albumInfoList.append(albumInfo);
     }

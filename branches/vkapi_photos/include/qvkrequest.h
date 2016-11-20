@@ -29,7 +29,8 @@ public:
      * \param[in] parent Родительский объект
      */
     explicit QVkRequest(const QByteArray &token = QByteArray(),
-                        QObject *parent = 0);
+                        QObject *parent = 0,
+                        const QByteArray &apiVersion = QByteArray("5.50"));
 
     /*!
      * \brief Отправка запроса API Вконтакте
