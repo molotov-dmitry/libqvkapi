@@ -16,6 +16,7 @@
 #include "vkpagewidget.h"
 #include "vkpageuser.h"
 #include "vkpagealbums.h"
+#include "vkpagephotos.h"
 
 #include "imagecache.h"
 
@@ -138,6 +139,49 @@ void MainWindow::openAlbumsPage(unsigned int userId)
 
     connect(page, SIGNAL(pageLoaded(QString,QString)), this, SLOT(updatePageName(QString,QString)));
     connect(page, SIGNAL(linkOpened(QString)), this, SLOT(openPage(QString)));
+
+    mPages.append(page);
+    mCurrentPage = page;
+
+    int newTabIndex = ui->tabWidget->addTab(page, QIcon::fromTheme("user-identity"), QString::number(userId) + " albums");
+
+    if (newTabIndex >= 0)
+    {
+        setIcon(ui->tabWidget, newTabIndex, "user.svg");
+        ui->tabWidget->setCurrentIndex(newTabIndex);
+    }
+}
+
+void MainWindow::openPhotosPage(unsigned int userId, long albumId)
+{
+    for (int i = 0; i < mPages.count(); ++i)
+    {
+        VkPageWidget *page = mPages.at(i);
+
+        QString pageId;
+
+        if (albumId == 0)
+            pageId = "photos" + QString::number(userId);
+        else
+            pageId = "album" + QString::number(userId);
+
+        if (page->isThisPage(pageId))
+        {
+            ui->tabWidget->setCurrentIndex(i);
+            return;
+        }
+    }
+
+    VkPagePhotos *page = new VkPagePhotos(0);
+    page->setToken(mAccInfo.token());
+
+    connect(page, SIGNAL(pageLoaded(QString,QString)), this, SLOT(updatePageName(QString,QString)));
+    connect(page, SIGNAL(linkOpened(QString)), this, SLOT(openPage(QString)));
+
+    if (albumId == 0)
+        page->setUserId(userId);
+    else
+        page->setAlbumId(userId, albumId);
 
     mPages.append(page);
     mCurrentPage = page;
@@ -339,19 +383,39 @@ void MainWindow::openPage(const QString &pageUri)
     switch (Metadata::getPageType(pageUri))
     {
     case Metadata::PAGE_USER:
-
+    {
         openUserPage(pageUri);
         break;
+    }
 
     case Metadata::PAGE_ALBUM_LIST:
-
+    {
         openAlbumsPage(pageUri.mid(6).toUInt());
         break;
+    }
+
+    case Metadata::PAGE_USER_PHOTOS:
+    {
+        openPhotosPage(pageUri.mid(6).toUInt(), 0);
+        break;
+    }
+
+    case Metadata::PAGE_ALBUM:
+    {
+        QStringList pageIds = pageUri.mid(5).split('_');
+
+        unsigned long userId = pageIds.at(0).toULongLong();
+        long albumId = pageIds.at(1).toLongLong();
+
+        openPhotosPage(userId, albumId);
+        break;
+    }
 
     default:
-
+    {
         showError("Unknown page uri: " + pageUri);
         break;
+    }
     }
 }
 

@@ -31,7 +31,9 @@ public:
         PAGE_UNKNOWN,
 
         PAGE_USER,
-        PAGE_ALBUM_LIST
+        PAGE_ALBUM_LIST,
+        PAGE_USER_PHOTOS,
+        PAGE_ALBUM,
     };
 
     /*!

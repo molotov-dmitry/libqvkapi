@@ -38,6 +38,8 @@ private:
 
     void openAlbumsPage(unsigned int userId);
 
+    void openPhotosPage(unsigned int userId, long albumId);
+
 public slots:
 
     void switchSession();
