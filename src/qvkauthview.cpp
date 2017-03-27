@@ -164,6 +164,24 @@ void QVkAuthView::stageLoaded(bool success)
 
             if (!btnIsOk)
             {
+                btnSubmit = authFrame->findFirstElement("button[class=\"flat_button fl_r button_indent\"]");
+                btnIsOk = !btnSubmit.isNull();
+            }
+
+            if (!btnIsOk)
+            {
+                btnSubmit = authFrame->findFirstElement("button[textContent=Разрешить]");
+                btnIsOk = !btnSubmit.isNull();
+            }
+
+            if (!btnIsOk)
+            {
+                btnSubmit = authFrame->findFirstElement("button[textContent=Разрешить]");
+                btnIsOk = !btnSubmit.isNull();
+            }
+
+            if (!btnIsOk)
+            {
                 emit authFailed(QString::fromUtf8("Ошибка страницы авторизации"));
                 return;
             }
