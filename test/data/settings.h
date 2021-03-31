@@ -12,7 +12,7 @@ private:
 
     Settings() {}
     Settings(const Settings &) {}
-    Settings& operator=(Settings&) {}
+    Settings& operator=(Settings&) {return *this;}
 
     static bool migrateDb(QSqlDatabase &db,
                           int versionFrom,

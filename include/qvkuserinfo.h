@@ -139,7 +139,12 @@ struct VkUserInfoCounters
     /*!
      * \brief Конструктор для заполнения полей пустыми значениями
      */
-    VkUserInfoCounters() {memset(this, 0x00, sizeof(VkUserInfoCounters));}
+    VkUserInfoCounters() {clear();}
+
+    /*!
+     * \brief Очистка значений
+     */
+    void clear() {memset(this, 0x00, sizeof(VkUserInfoCounters));}
 
     unsigned int        albums;         ///< Количество альбомов
     unsigned int        videos;         ///< Количество видеозаписей

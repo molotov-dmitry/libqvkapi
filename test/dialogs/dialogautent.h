@@ -14,7 +14,7 @@ class DialogAutent : public QDialog
     Q_OBJECT
 
 public:
-    explicit DialogAutent(QWidget *parent = 0);
+    explicit DialogAutent(QWidget *parent = nullptr);
     ~DialogAutent();
 
     void setLogin(const QString &login);

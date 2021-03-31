@@ -50,13 +50,13 @@ class VkPageAlbums : public VkPageWidget
     Q_OBJECT
 
 public:
-    explicit VkPageAlbums(QWidget *parent = 0);
-    ~VkPageAlbums();
+    explicit VkPageAlbums(QWidget *parent = nullptr);
+    ~VkPageAlbums() override;
 
     void setUserId(unsigned int userId);
     void setUserInfo(const VkUserInfoBasic &userInfo);
 
-    virtual QUrl getPageUrl() const;
+    virtual QUrl getPageUrl() const override;
 
 private slots:
 

@@ -23,7 +23,7 @@ public:
      * \param[in] parent Родительский объект
      */
     explicit QVkRequestUsers(const QByteArray &token = QByteArray(),
-                             QObject *parent = 0);
+                             QObject *parent = nullptr);
 
     /*!
      * \brief Запрос базовой информации о пользователе

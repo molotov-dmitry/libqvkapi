@@ -22,7 +22,7 @@ public:
      * \param[in] token Идентификатор сессии
      * \param[in] parent Родительский объект
      */
-    explicit QVkRequestPhotos(const QByteArray &token, QObject *parent = 0);
+    explicit QVkRequestPhotos(const QByteArray &token, QObject *parent = nullptr);
 
     /*!
      * \brief Запрос списка всех фотографий пользователя

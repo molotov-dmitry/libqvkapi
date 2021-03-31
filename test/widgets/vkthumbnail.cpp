@@ -6,7 +6,7 @@
 
 #include <QPainter>
 
-VkThumbnail::VkThumbnail(void *item, unsigned int imageSize, QObject *parent) :
+VkThumbnail::VkThumbnail(void *item, int imageSize, QObject *parent) :
     QObject(parent),
     mItem(item),
     mImageSize(imageSize)
@@ -83,19 +83,19 @@ void VkThumbnail::load(const QString &thumbUrl)
 
 void VkThumbnail::unsetItem(QObject *object)
 {
-    Q_UNUSED(object);
+    (void)object;
 
     unsetItem();
 }
 
 void VkThumbnail::unsetItem()
 {
-    mItem = 0;
+    mItem = nullptr;
 }
 
 void VkThumbnail::setIcon(const QIcon &icon)
 {
-
+    (void)icon;
 }
 
 void VkThumbnail::updateLoadingAnimation()

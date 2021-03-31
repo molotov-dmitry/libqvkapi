@@ -14,7 +14,7 @@ class DialogAuthorize : public QDialog
     Q_OBJECT
 
 public:
-    explicit DialogAuthorize(QWidget *parent = 0);
+    explicit DialogAuthorize(QWidget *parent = nullptr);
     ~DialogAuthorize();
 
     AccountInfo currentAccountInfo() const;

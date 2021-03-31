@@ -101,7 +101,7 @@ void MainWindow::openUserPage(const QString &userId)
         }
     }
 
-    VkPageUser *page = new VkPageUser(0);
+    VkPageUser *page = new VkPageUser(nullptr);
     page->setToken(mAccInfo.token());
     page->setUserInfo(userId);
 
@@ -120,7 +120,7 @@ void MainWindow::openUserPage(const QString &userId)
     }
 }
 
-void MainWindow::openAlbumsPage(unsigned int userId)
+void MainWindow::openAlbumsPage(unsigned long userId)
 {
     for (int i = 0; i < mPages.count(); ++i)
     {
@@ -133,7 +133,7 @@ void MainWindow::openAlbumsPage(unsigned int userId)
         }
     }
 
-    VkPageAlbums *page = new VkPageAlbums(0);
+    VkPageAlbums *page = new VkPageAlbums(nullptr);
     page->setToken(mAccInfo.token());
     page->setUserId(userId);
 
@@ -152,7 +152,7 @@ void MainWindow::openAlbumsPage(unsigned int userId)
     }
 }
 
-void MainWindow::openPhotosPage(unsigned int userId, long albumId)
+void MainWindow::openPhotosPage(unsigned long userId, long albumId)
 {
     for (int i = 0; i < mPages.count(); ++i)
     {
@@ -172,7 +172,7 @@ void MainWindow::openPhotosPage(unsigned int userId, long albumId)
         }
     }
 
-    VkPagePhotos *page = new VkPagePhotos(0);
+    VkPagePhotos *page = new VkPagePhotos(nullptr);
     page->setToken(mAccInfo.token());
 
     connect(page, SIGNAL(pageLoaded(QString,QString)), this, SLOT(updatePageName(QString,QString)));
@@ -206,8 +206,8 @@ void MainWindow::logout()
     QMessageBox::StandardButton result;
 
     result = QMessageBox::question(this,
-                                   trUtf8("Завершение сессии"),
-                                   trUtf8("Вы действительно хотите завершить сессию?"));
+                                   QString::fromUtf8("Завершение сессии"),
+                                   QString::fromUtf8("Вы действительно хотите завершить сессию?"));
 
     if (result == QMessageBox::Yes)
     {
@@ -231,7 +231,7 @@ void MainWindow::updateUserInfo(QList<VkUserInfoFull> userInfoList)
 
     //// Create user info page =================================================
 
-    VkPageUser *page = new VkPageUser(0);
+    VkPageUser *page = new VkPageUser(nullptr);
 
     page->setToken(mAccInfo.token());
     page->setUserInfo(currUserInfo);
@@ -325,14 +325,14 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
 
     if (mPages.isEmpty())
     {
-        mCurrentPage = 0;
+        mCurrentPage = nullptr;
     }
 }
 
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
     if (index < 0 || index >= mPages.count())
-        mCurrentPage = 0;
+        mCurrentPage = nullptr;
     else
         mCurrentPage = mPages.at(index);
 }
@@ -411,6 +411,7 @@ void MainWindow::openPage(const QString &pageUri)
         break;
     }
 
+    case Metadata::PAGE_UNKNOWN:
     default:
     {
         showError("Unknown page uri: " + pageUri);

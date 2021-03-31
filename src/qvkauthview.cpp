@@ -11,11 +11,11 @@ const int AUTH_STAGE_COUNT = 3;
 
 QVkAuthView::QVkAuthView(QObject *parent) : QObject(parent)
 {
-    mAuthView = new QWebView(0);
+    mAuthView = new QWebView(nullptr);
 
     mAuthView->settings()->setAttribute(QWebSettings::AutoLoadImages, false);
 
-    //    mAuthView->show();
+//    mAuthView->show();
 }
 
 QVkAuthView::~QVkAuthView()
@@ -28,7 +28,7 @@ void QVkAuthView::exec(const QByteArray &mAppId, const QString &login, const QSt
 {   
     //// Reconnect signals -----------------------------------------------------
 
-    disconnect(mAuthView, 0, this, 0);
+    disconnect(mAuthView, nullptr, this, nullptr);
     mAuthView->stop();
 
     connect(mAuthView, SIGNAL(loadProgress(int)), this, SLOT(setProgress(int)));

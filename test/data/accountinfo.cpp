@@ -9,7 +9,7 @@
 
 #include "imagecache.h"
 
-AccountInfo::AccountInfo(int id) : mId(0), mValid(false)
+AccountInfo::AccountInfo(int id) : mValid(false), mId(0)
 {
     QSqlQuery query;
     query.prepare("SELECT login, first_name, last_name, token, token_expire, image "

@@ -22,7 +22,7 @@ public:
      * \brief Конструктор класса
      * \param[in] parent Родительский объект
      */
-    explicit QVkAuth(QObject *parent = 0);
+    explicit QVkAuth(QObject *parent = nullptr);
 
     /*!
      * \brief Установка ID приложения

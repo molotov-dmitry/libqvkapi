@@ -18,7 +18,7 @@ public:
      * \brief Конструктор класса
      * \param[in] parent Родительский объект
      */
-    explicit QVkAuthView(QObject *parent = 0);
+    explicit QVkAuthView(QObject *parent = nullptr);
 
     ~QVkAuthView();
 

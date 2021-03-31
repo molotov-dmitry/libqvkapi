@@ -9,7 +9,7 @@ class VkThumbnail : public QObject
 {
     Q_OBJECT
 public:
-    explicit VkThumbnail(void *item, unsigned int imageSize, QObject *parent = 0);
+    explicit VkThumbnail(void *item, int imageSize, QObject *parent = nullptr);
 
     void load(const QString &thumbUrl);
 
@@ -23,14 +23,14 @@ protected:
 
 private:
 
-    unsigned int mImageSize;
+    int mImageSize;
 
     QTimer mLoadingAnimationTimer;
 
     QList<QPixmap> mLoadingAnimationImageList;
-    unsigned int mLoadingAnimationCount;
+    int mLoadingAnimationCount;
 
-    unsigned int mLoadingAnimationIndex;
+    int mLoadingAnimationIndex;
 
     QIcon mErrorIcon;
 

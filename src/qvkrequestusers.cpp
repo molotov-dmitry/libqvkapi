@@ -364,7 +364,7 @@ void QVkRequestUsers::receiveFullUserInfo(QJsonDocument document)
         }
         else
         {
-            memset(&userInfo.counters, 0x00, sizeof(userInfo.counters));
+            userInfo.counters.clear();
         }
 
         //// Фотографии профиля ================================================

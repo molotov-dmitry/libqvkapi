@@ -3,6 +3,7 @@
 
 #include <QPalette>
 #include <QDateTime>
+#include <QLocale>
 
 #include <qvkrequestusers.h>
 
@@ -190,13 +191,17 @@ void VkPageUser::setUserInfo(const VkUserInfoFull &userInfo)
 
         if (userInfo.status.birthYear != 0)
         {
-            QDate bDate(userInfo.status.birthYear, userInfo.status.birthMonth, userInfo.status.birthDay);
+            QDate bDate((int)userInfo.status.birthYear,
+                        (int)userInfo.status.birthMonth,
+                        (int)userInfo.status.birthDay);
+
             ui->valueBirthDate->setText(bDate.toString("d MMMM yyyy") + " г.");
         }
         else
         {
+            QLocale locale;
             ui->valueBirthDate->setText(QString::number(userInfo.status.birthDay) + " " +
-                                        QDate::longMonthName(userInfo.status.birthMonth));
+                                        locale.monthName(userInfo.status.birthMonth));
         }
     }
 

@@ -12,7 +12,7 @@ class ImageCache : public QObject
 {
     Q_OBJECT
 public:
-    explicit ImageCache(QObject *parent = 0);
+    explicit ImageCache(QObject *parent = nullptr);
 
     void loadImage(const QString &imageUrl);
 

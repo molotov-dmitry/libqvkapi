@@ -17,11 +17,11 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(const AccountInfo &accInfo, QWidget *parent = 0);
+    explicit MainWindow(const AccountInfo &accInfo, QWidget *parent = nullptr);
 
     bool actuallyClose() const;
 
-    ~MainWindow();
+    ~MainWindow() override;
 
 private:
     Ui::MainWindow *ui;
@@ -36,9 +36,9 @@ private:
     void openUserPage(unsigned int pageId);
     void openUserPage(const QString &pageId);
 
-    void openAlbumsPage(unsigned int userId);
+    void openAlbumsPage(unsigned long userId);
 
-    void openPhotosPage(unsigned int userId, long albumId);
+    void openPhotosPage(unsigned long userId, long albumId);
 
 public slots:
 
