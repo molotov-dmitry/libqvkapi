@@ -342,3 +342,13 @@ void VkPageUser::updatePage()
 
     requestUserInfo->requestFullUserInfo(userIds);
 }
+
+void VkPageUser::on_buttonAlbums_clicked()
+{
+    emit linkOpened("albums" + mPageId);
+}
+
+void VkPageUser::on_buttonPhotos_clicked()
+{
+    emit linkOpened("photos" + mPageId);
+}

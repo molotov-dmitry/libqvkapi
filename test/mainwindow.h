@@ -36,6 +36,10 @@ private:
     void openUserPage(unsigned int pageId);
     void openUserPage(const QString &pageId);
 
+    void openAlbumsPage(unsigned int userId);
+
+    void openPhotosPage(unsigned int userId, long albumId);
+
 public slots:
 
     void switchSession();
@@ -48,6 +52,7 @@ private slots:
     void updateUserIcon(const QImage &userProfileImage);
 
     void updatePageInfo(const QString &pageId, const VkUserInfoFull &info);
+    void updatePageName(const QString &pageId, const QString &pageName);
 
     void showError(QString errorText);
     void on_buttonUpdate_clicked();

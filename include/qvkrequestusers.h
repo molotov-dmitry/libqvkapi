@@ -10,7 +10,7 @@
 #include "qvkrequest.h"
 
 /*!
- * \brief The QVkRequestUsers class
+ * \brief Класс для выполнения методов API ВКонтакте для работы с данными пользователей
  */
 class QVkRequestUsers : public QVkRequest
 {

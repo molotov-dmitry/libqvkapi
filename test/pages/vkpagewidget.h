@@ -73,7 +73,7 @@ private slots:
 
 signals:
 
-    void pageLoaded(const QString &pageName);
+    void pageLoaded(const QString &pageId, const QString &pageName);
     void linkOpened(const QString &linkUrl);
 
 };

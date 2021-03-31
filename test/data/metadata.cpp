@@ -1,6 +1,7 @@
 #include "metadata.h"
 
 #include <QRegExp>
+#include <QStringList>
 
 QString Metadata::getSuffix(qint64 value, TimeUnit timeUnit)
 {
@@ -170,14 +171,50 @@ Metadata::PageType Metadata::getPageType(const QString &pageUri)
 {
     QString uri = pageUri;
 
+    bool ok;
+
     if (pageUri.startsWith("id"))
     {
-        bool ok;
-
         uri.mid(2).toUInt(&ok);
 
         if (ok)
             return PAGE_USER;
+    }
+
+    if (uri.startsWith("albums"))
+    {
+        uri.mid(6).toUInt(&ok);
+
+        if (ok)
+            return PAGE_ALBUM_LIST;
+    }
+
+    if (uri.startsWith("photos"))
+    {
+        uri.mid(6).toUInt(&ok);
+
+        if (ok)
+            return PAGE_USER_PHOTOS;
+    }
+
+    if (uri.startsWith("album"))
+    {
+        QString pageId = uri.mid(5);
+
+        QStringList pageIds = pageId.split('_');
+
+        if (pageIds.count() == 2)
+        {
+            bool ok1, ok2;
+
+            pageIds.at(0).toUInt(&ok1);
+            pageIds.at(1).toLong(&ok2);
+
+            ok = ok1 && ok2;
+
+            if (ok)
+                return PAGE_ALBUM;
+        }
     }
 
     return PAGE_UNKNOWN;

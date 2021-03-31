@@ -17,8 +17,9 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     ../src/qvkauth.cpp \
     ../src/qvkauthview.cpp \
-    ../src/qvkrequestusers.cpp \
     ../src/qvkrequest.cpp \
+    ../src/qvkrequestusers.cpp \
+    ../src/qvkrequestalbums.cpp \
     dialogs/dialogautent.cpp \
     dialogs/dialogauthorize.cpp \
     dialogs/dialogsettings.cpp \
@@ -28,15 +29,21 @@ SOURCES += main.cpp\
     data/imagecache.cpp \
     data/settings.cpp \
     widgets/vkimagewidget.cpp \
-    data/metadata.cpp
+    data/metadata.cpp \
+    pages/vkpagealbums.cpp \
+    ../src/qvkrequestphotos.cpp \
+    pages/vkpagephotos.cpp \
+    widgets/vkthumbnail.cpp
 
 HEADERS  += mainwindow.h \
     ../include/qvkapi_global.h \
     ../include/qvkauth.h \
     ../include/qvkauthview.h \
-    ../include/qvkrequestusers.h \
-    ../include/qvkuserinfo.h \
     ../include/qvkrequest.h \
+    ../include/qvkrequestusers.h \
+    ../include/qvkrequestalbums.h \
+    ../include/qvkuserinfo.h \
+    ../include/qvkalbuminfo.h \
     dialogs/dialogautent.h \
     dialogs/dialogauthorize.h \
     dialogs/dialogsettings.h \
@@ -47,13 +54,20 @@ HEADERS  += mainwindow.h \
     data/settings.h \
     data/resicons.h \
     widgets/vkimagewidget.h \
-    data/metadata.h
+    data/metadata.h \
+    pages/vkpagealbums.h \
+    ../include/qvkinfophoto.h \
+    ../include/qvkrequestphotos.h \
+    pages/vkpagephotos.h \
+    widgets/vkthumbnail.h
 
 FORMS    += mainwindow.ui \
     dialogs/dialogautent.ui \
     dialogs/dialogauthorize.ui \
     dialogs/dialogsettings.ui \
-    pages/vkpageuser.ui
+    pages/vkpageuser.ui \
+    pages/vkpagealbums.ui \
+    pages/vkpagephotos.ui
 
 DEFINES += QVKAPI_TEST
 

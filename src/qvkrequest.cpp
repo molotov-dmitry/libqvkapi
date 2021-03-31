@@ -9,9 +9,10 @@
 const QString VK_API_URL = QString("https://api.vk.com");
 
 QVkRequest::QVkRequest(const QByteArray &token,
-                       QObject *parent) :
+                       QObject *parent,
+                       const QByteArray &apiVersion) :
     QObject(parent),
-    mApiVersion("5.50"),
+    mApiVersion(apiVersion),
     mToken(token)
 {
     mManager = new QNetworkAccessManager(this);

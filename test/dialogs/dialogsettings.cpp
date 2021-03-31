@@ -9,6 +9,7 @@
 
 #include "accountinfo.h"
 #include "settings.h"
+#include "imagecache.h"
 
 #include "resicons.h"
 
@@ -117,4 +118,9 @@ void DialogSettings::on_listAccounts_currentRowChanged(int currentRow)
         else
             ui->buttonAccountRemove->setEnabled(true);
     }
+}
+
+void DialogSettings::on_buttonCacheImageClear_clicked()
+{
+    ImageCache::clearCache();
 }

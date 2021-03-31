@@ -39,9 +39,9 @@ void ImageCache::loadImage(const QString &imageUrl)
 QString ImageCache::imageCacheDir()
 {
     if (QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation).isEmpty())
-        return QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+        return QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/images";
     else
-        return QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation) + "/vk";
+        return QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation) + "/vk/images";
 }
 
 QString ImageCache::imageCachePath(const QString &imageUrl)
@@ -60,6 +60,19 @@ bool ImageCache::imageCached(const QString &imageUrl)
 QImage ImageCache::loadImageFromCache(const QString &imageUrl)
 {
     return QImage(ImageCache::imageCachePath(imageUrl));
+}
+
+void ImageCache::clearCache()
+{
+    QString path = imageCacheDir();
+    QDir dir(path);
+//    dir.setNameFilters(QStringList() << "*.*");
+    dir.setFilter(QDir::Files);
+
+    foreach(QString dirFile, dir.entryList())
+    {
+        dir.remove(dirFile);
+    }
 }
 
 void ImageCache::downloadFinished(const QString &imageUrl)
