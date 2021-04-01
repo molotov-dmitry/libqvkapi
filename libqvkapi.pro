@@ -6,10 +6,13 @@
 
 QT       += network webkitwidgets
 
-TARGET = QVkApi
-TEMPLATE = lib
+TARGET      = libqvkapi
+TEMPLATE    = lib
 
-unix: QMAKE_POST_LINK += bash $$shell_path($$_PRO_FILE_PWD_)/make_lib.sh
+OBJECTS_DIR = build/obj
+RCC_DIR     = build/rcc
+MOC_DIR     = build/moc
+UI_DIR      = build/ui
 
 INCLUDEPATH += include
 
@@ -36,6 +39,6 @@ HEADERS +=\
     include/qvkrequestphotos.h
 
 unix {
-    target.path = /usr/lib
+    target.path = /usr/local/lib
     INSTALLS += target
 }
