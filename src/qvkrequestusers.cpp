@@ -13,7 +13,7 @@
 //// ===========================================================================
 
 QVkRequestUsers::QVkRequestUsers(const QByteArray &token,
-                                 QObject *parent) : QVkRequest(token, parent)
+                                 QObject *parent) : QVkRequest(token, parent, "5.89")
 {
 
 }
