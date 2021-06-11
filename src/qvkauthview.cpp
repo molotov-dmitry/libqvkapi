@@ -201,6 +201,10 @@ void QVkAuthView::stageLoaded(bool success)
         QString urlString = mAuthView->url().toString().replace("#", "?");
 
         QUrlQuery responseUrl = QUrlQuery(QUrl(urlString));
+        if (urlString.startsWith("https://oauth.vk.com/auth_redirect?"))
+        {
+            return;
+        }
 
         QString tokenResponce = responseUrl.queryItemValue("access_token");
         QString expiresInResponce = responseUrl.queryItemValue("expires_in");
