@@ -9,19 +9,33 @@
 
 const int AUTH_STAGE_COUNT = 3;
 
+#ifdef DEBUG_LOGIN
+#define authView mAuthView->page()
+#else
+#define authView mAuthView
+#endif
+
 QVkAuthView::QVkAuthView(QObject *parent) : QObject(parent)
 {
+#ifdef DEBUG_LOGIN
     mAuthView = new QWebView(nullptr);
+#else
+    mAuthView = new QWebPage(nullptr);
+#endif
 
     mAuthView->settings()->setAttribute(QWebSettings::AutoLoadImages, false);
 
-//    mAuthView->show();
+#ifdef DEBUG_LOGIN
+    mAuthView->show();
+#endif
 }
 
 QVkAuthView::~QVkAuthView()
 {
     if (mAuthView)
+    {
         delete mAuthView;
+    }
 }
 
 void QVkAuthView::exec(const QByteArray &mAppId, const QString &login, const QString &password)
@@ -29,7 +43,7 @@ void QVkAuthView::exec(const QByteArray &mAppId, const QString &login, const QSt
     //// Reconnect signals -----------------------------------------------------
 
     disconnect(mAuthView, nullptr, this, nullptr);
-    mAuthView->stop();
+    authView->triggerAction(QWebPage::Stop, true);
 
     connect(mAuthView, SIGNAL(loadProgress(int)), this, SLOT(setProgress(int)));
     connect(mAuthView, SIGNAL(loadFinished(bool)), this, SLOT(stageLoaded(bool)));
@@ -74,7 +88,11 @@ void QVkAuthView::exec(const QByteArray &mAppId, const QString &login, const QSt
 
     //// Start loading ---------------------------------------------------------
 
+#ifdef DEBUG_LOGIN
     mAuthView->load(url);
+#else
+    mAuthView->mainFrame()->load(url);
+#endif
 }
 
 void QVkAuthView::setProgress(int progress)
@@ -107,7 +125,7 @@ void QVkAuthView::stageLoaded(bool success)
 
     case AUTH_INPUT_LOGIN_PASS:
     {
-        QWebFrame *authFrame = mAuthView->page()->currentFrame();
+        QWebFrame *authFrame = authView->currentFrame();
 
         if (authFrame)
         {
@@ -143,7 +161,7 @@ void QVkAuthView::stageLoaded(bool success)
 
     case AUTH_INSTALL_ALLOW:
     {
-        QWebFrame *authFrame = mAuthView->page()->currentFrame();
+        QWebFrame *authFrame = authView->currentFrame();
 
         if (authFrame)
         {
@@ -198,7 +216,7 @@ void QVkAuthView::stageLoaded(bool success)
 
     case AUTH_RESPONSE:
     {
-        QString urlString = mAuthView->url().toString().replace("#", "?");
+        QString urlString = authView->currentFrame()->url().toString().replace("#", "?");
 
         QUrlQuery responseUrl = QUrlQuery(QUrl(urlString));
         if (urlString.startsWith("https://oauth.vk.com/auth_redirect?"))

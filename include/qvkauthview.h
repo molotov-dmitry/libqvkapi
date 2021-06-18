@@ -4,7 +4,11 @@
 #include <QObject>
 #include <QDateTime>
 
+#ifdef DEBUG_LOGIN
 #include <QWebView>
+#else
+#include <QWebPage>
+#endif
 
 /*!
  * \brief Класс для выполнения аутентификации ВКонтакте
@@ -43,7 +47,11 @@ private:
 
     AuthStage   mAuthStage;
 
+#ifdef DEBUG_LOGIN
     QWebView    *mAuthView;
+#else
+    QWebPage    *mAuthView;
+#endif
 
     QString     mLogin;
     QString     mPassword;
