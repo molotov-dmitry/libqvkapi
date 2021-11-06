@@ -79,6 +79,46 @@ void QVkRequestFave::requestFaveGroupList(unsigned int count, unsigned int offse
     sendRequest("fave.getPages", paramList);
 }
 
+void QVkRequestFave::requestFaveGroupRemove(long groupId)
+{
+    disconnect(this, nullptr, this, nullptr);
+
+    //// Список параметров =====================================================
+
+    QParam paramList;
+
+    //// Идентификатор сообщества ----------------------------------------------
+
+    paramList.insert("group_id", QString::number(groupId));
+
+    //// =======================================================================
+
+    connect(this, &QVkRequest::replySuccess,
+            this, &QVkRequestFave::receiveFaveGroupRemoved);
+
+    sendRequest("fave.removePage", paramList);
+}
+
+void QVkRequestFave::requestFaveUserRemove(unsigned int userId)
+{
+    disconnect(this, nullptr, this, nullptr);
+
+    //// Список параметров =====================================================
+
+    QParam paramList;
+
+    //// Идентификатор сообщества ----------------------------------------------
+
+    paramList.insert("user_id", QString::number(userId));
+
+    //// =======================================================================
+
+    connect(this, &QVkRequest::replySuccess,
+            this, &QVkRequestFave::receiveFaveUserRemoved);
+
+    sendRequest("fave.removePage", paramList);
+}
+
 void QVkRequestFave::receiveFaveUserList(QJsonDocument document)
 {
     QList<VkUserInfoFull> userInfoList;
@@ -406,4 +446,18 @@ void QVkRequestFave::receiveFaveGroupList(QJsonDocument document)
     //// =======================================================================
 
     emit faveGroupListReceived(groupInfoList, tags);
+}
+
+void QVkRequestFave::receiveFaveUserRemoved(QJsonDocument document)
+{
+    (void)document;
+
+    emit faveUserRemoved();
+}
+
+void QVkRequestFave::receiveFaveGroupRemoved(QJsonDocument document)
+{
+    (void)document;
+
+    emit faveGroupRemoved();
 }

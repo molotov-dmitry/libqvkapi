@@ -38,6 +38,18 @@ public:
      */
     void requestFaveGroupList(unsigned int count = 0, unsigned int offset = 0);
 
+    /*!
+     * \brief Уделение из закладок сообщества
+     * \param[in] groupId Идентификатор сообщества, которое следует удалить из закладок
+     */
+    void requestFaveGroupRemove(long groupId);
+
+    /*!
+     * \brief Уделение из закладок страницы пользователя
+     * \param[in] userId Идентификатор пользователя, которого следует удалить из закладок
+     */
+    void requestFaveUserRemove(unsigned int userId);
+
 private slots:
 
     /*!
@@ -51,6 +63,18 @@ private slots:
      * \param[in] document JSON-схема с ответом сервера
      */
     void receiveFaveGroupList(QJsonDocument document);
+
+    /*!
+     * \brief Получение ответа на запрос API ВКонтакте
+     * \param[in] document JSON-схема с ответом сервера
+     */
+    void receiveFaveUserRemoved(QJsonDocument document);
+
+    /*!
+     * \brief Получение ответа на запрос API ВКонтакте
+     * \param[in] document JSON-схема с ответом сервера
+     */
+    void receiveFaveGroupRemoved(QJsonDocument document);
 
 signals:
 
@@ -69,6 +93,16 @@ signals:
      */
     void faveGroupListReceived(QList<VkGroupInfo> faveGroupInfoList,
                                QMap<long int, QVkTagList> faveGroupTagList);
+
+    /*!
+     * \brief Пользователь удалён из закладок
+     */
+    void faveUserRemoved();
+
+    /*!
+     * \brief Сообщество удалено из закладок
+     */
+    void faveGroupRemoved();
 };
 
 #endif // QVKREQUESTFAVE_H
