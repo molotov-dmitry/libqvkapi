@@ -79,6 +79,35 @@ void QVkRequestFave::requestFaveGroupList(unsigned int count, unsigned int offse
     sendRequest("fave.getPages", paramList);
 }
 
+void QVkRequestFave::requestFavePostList(unsigned int count, unsigned int offset)
+{
+    disconnect(this, nullptr, this, nullptr);
+
+    //// Список параметров =====================================================
+
+    QParam paramList;
+
+    //// Идентификатор пользователя --------------------------------------------
+
+    if (count > 0)
+    {
+        paramList.insert("count", QString::number(count));
+    }
+
+    paramList.insert("offset", QString::number(offset));
+
+    //// Тип -------------------------------------------------------------------
+
+    paramList.insert("item_type", "post");
+
+    //// =======================================================================
+
+    connect(this, &QVkRequest::replySuccess,
+            this, &QVkRequestFave::receiveFavePostList);
+
+    sendRequest("fave.get", paramList);
+}
+
 void QVkRequestFave::requestFaveGroupRemove(long groupId)
 {
     disconnect(this, nullptr, this, nullptr);
@@ -117,6 +146,27 @@ void QVkRequestFave::requestFaveUserRemove(unsigned int userId)
             this, &QVkRequestFave::receiveFaveUserRemoved);
 
     sendRequest("fave.removePage", paramList);
+}
+
+void QVkRequestFave::requestFavePostRemove(long ownerId, unsigned long postId)
+{
+    disconnect(this, nullptr, this, nullptr);
+
+    //// Список параметров =====================================================
+
+    QParam paramList;
+
+    //// Идентификатор сообщества ----------------------------------------------
+
+    paramList.insert("owner_id", QString::number(ownerId));
+    paramList.insert("id", QString::number(postId));
+
+    //// =======================================================================
+
+    connect(this, &QVkRequest::replySuccess,
+            this, &QVkRequestFave::receiveFavePostRemoved);
+
+    sendRequest("fave.removePost", paramList);
 }
 
 void QVkRequestFave::receiveFaveUserList(QJsonDocument document)
@@ -448,6 +498,104 @@ void QVkRequestFave::receiveFaveGroupList(QJsonDocument document)
     emit faveGroupListReceived(groupInfoList, tags);
 }
 
+void QVkRequestFave::receiveFavePostList(QJsonDocument document)
+{
+    QList<VkPostInfo> postInfoList;
+    QMap<unsigned long int, QVkTagList> tags;
+
+    QJsonObject response = document.object()["response"].toObject();
+
+    //// Iterate trough list ===================================================
+
+    QJsonArray items = response["items"].toArray();
+
+    foreach (const QJsonValue &value, items)
+    {
+        QJsonObject faveObject   = value.toObject();
+        QJsonObject object       = faveObject["post"].toObject();
+        QJsonArray  tagsArray    = faveObject["tags"].toArray();
+
+        VkPostInfo  postInfo;
+
+        postInfo.id = object["id"].toVariant().toULongLong();
+        postInfo.fromId = object["from_id"].toVariant().toLongLong();
+        postInfo.ownerId = object["owner_id"].toVariant().toLongLong();
+
+        postInfo.text = object["text"].toString();
+
+        if (object.contains("date"))
+        {
+            uint timestamp = object["date"].toVariant().toUInt();
+            postInfo.date = QDateTime::fromTime_t(timestamp);
+        }
+
+        //// Attachments =======================================================
+
+        QJsonArray attachItems = object["attachments"].toArray();
+
+        foreach (const QJsonValue &attachValue, attachItems)
+        {
+            QJsonObject attachmentObject = attachValue.toObject();
+
+            //// Photos --------------------------------------------------------
+
+            if (attachmentObject["type"].toString() == "photo")
+            {
+                VkPostPhotoInfo photoInfo;
+
+                QJsonObject photoObject = attachmentObject["photo"].toObject();
+
+                photoInfo.id      = photoObject["id"].toVariant().toULongLong();
+                photoInfo.albumId = photoObject["album_id"].toVariant().toLongLong();
+                photoInfo.userId  = photoObject["owner_id"].toVariant().toLongLong();
+
+                QJsonArray sizeItems = photoObject["sizes"].toArray();
+
+                foreach (const QJsonValue &sizeValue, sizeItems)
+                {
+                    QJsonObject sizeObject = sizeValue.toObject();
+
+                    VkPostPhotoSizeInfo photoSizeInfo;
+
+                    photoSizeInfo.height = sizeObject["height"].toVariant().toUInt();
+                    photoSizeInfo.width  = sizeObject["width"].toVariant().toUInt();
+                    photoSizeInfo.url    = sizeObject["url"].toString();
+
+                    photoInfo.sizes.append(photoSizeInfo);
+                }
+
+                postInfo.photos.append(photoInfo);
+            }
+        }
+
+        //// ===================================================================
+
+        postInfoList.append(postInfo);
+
+        //// Tag list ==========================================================
+
+        QVkTagList groupTags;
+
+        foreach (const QJsonValue &tag, tagsArray)
+        {
+            QVkTagInfo tagInfo;
+            tagInfo.first = tag.toObject()["id"].toVariant().toUInt();
+            tagInfo.second = tag.toObject()["name"].toString();
+
+            groupTags.append(tagInfo);
+        }
+
+        if (not groupTags.isEmpty())
+        {
+            tags.insert(postInfo.id, groupTags);
+        }
+    }
+
+    //// =======================================================================
+
+    emit favePostListReceived(postInfoList, tags);
+}
+
 void QVkRequestFave::receiveFaveUserRemoved(QJsonDocument document)
 {
     (void)document;
@@ -460,4 +608,11 @@ void QVkRequestFave::receiveFaveGroupRemoved(QJsonDocument document)
     (void)document;
 
     emit faveGroupRemoved();
+}
+
+void QVkRequestFave::receiveFavePostRemoved(QJsonDocument document)
+{
+    (void)document;
+
+    emit favePostRemoved();
 }
