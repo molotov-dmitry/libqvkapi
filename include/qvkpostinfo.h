@@ -30,6 +30,27 @@ struct VkPostPhotoInfo
 };
 
 /*!
+ * \brief Информация о видеозиписи
+ */
+struct VkPostVideoInfo
+{
+    unsigned long       id;             ///< Идентификатор видеозаписи
+    long                ownerId;        ///< Идентификатор владельца видеозаписи
+
+    QString             playerUrl;      ///< URL страницы с плеером, который можно использовать для воспроизведения ролика в браузере
+
+    unsigned int        width;          ///< Ширина видео
+    unsigned int        height;         ///< Высота видео
+
+    QString             title;          ///< Название видеозаписи
+    QString             description;    ///< Текст описания видеозаписи
+    long                duration;       ///< Длительность ролика в секундах
+
+    QDateTime           created;        ///< Дата создания видеозаписи
+    QDateTime           uploaded;       ///< Дата добавления видеозаписи пользователем или группой
+};
+
+/*!
  * \brief Информация о записи
  */
 struct VkPostInfo
@@ -44,6 +65,7 @@ struct VkPostInfo
     QDateTime           date;           ///< Время публикации записи
 
     QList<VkPostPhotoInfo> photos;      ///< Приложенные фотографии
+    QList<VkPostVideoInfo> videos;      ///< Приложенные видеозаписи
 
 };
 

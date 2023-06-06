@@ -539,7 +539,9 @@ void QVkRequestFave::receiveFavePostList(QJsonDocument document)
 
             //// Photos --------------------------------------------------------
 
-            if (attachmentObject["type"].toString() == "photo")
+            QString attachmentType = attachmentObject["type"].toString();
+
+            if (attachmentType == "photo")
             {
                 VkPostPhotoInfo photoInfo;
 
@@ -565,6 +567,38 @@ void QVkRequestFave::receiveFavePostList(QJsonDocument document)
                 }
 
                 postInfo.photos.append(photoInfo);
+            }
+            else if (attachmentType == "video")
+            {
+                VkPostVideoInfo videoInfo;
+
+                QJsonObject videoObject = attachmentObject["video"].toObject();
+
+                videoInfo.id      = videoObject["id"].toVariant().toULongLong();
+                videoInfo.ownerId = videoObject["owner_id"].toVariant().toLongLong();
+
+                videoInfo.playerUrl = videoObject["player"].toString();
+
+                videoInfo.width = object["width"].toVariant().toUInt();
+                videoInfo.height = object["height"].toVariant().toUInt();
+
+                videoInfo.title = videoObject["title"].toString();
+                videoInfo.description = videoObject["description"].toString();
+                videoInfo.duration = videoObject["duration"].toVariant().toLongLong();
+
+                if (object.contains("date"))
+                {
+                    uint timestamp = object["date"].toVariant().toUInt();
+                    videoInfo.created = QDateTime::fromTime_t(timestamp);
+                }
+
+                if (object.contains("adding_date"))
+                {
+                    uint timestamp = object["adding_date"].toVariant().toUInt();
+                    videoInfo.uploaded = QDateTime::fromTime_t(timestamp);
+                }
+
+                postInfo.videos.append(videoInfo);
             }
         }
 
